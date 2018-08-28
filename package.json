@@ -1,12 +1,12 @@
 {
   "name": "eventum-ui-components",
   "description": "Eventum React based UI components",
-  "main": "./lib/index.js",
-  "version": "1.0.5",
+  "main": "./dist/index.js",
+  "version": "1.0.9",
   "scripts": {
     "build-babel": "babel src/ -d lib/",
     "build": "webpack --config webpack.config.js",
-    "prepublishOnly": "npm run build-babel",
+    "prepublishOnly": "npm run build",
     "lint": "eslint src",
     "flow": "flow"
   },
