@@ -2,9 +2,13 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/index.js'),
+  entry: {
+    index: path.resolve(__dirname, 'src/index.js'),
+    Grid: path.resolve(__dirname, 'src/Grid.js'),
+    Header: path.resolve(__dirname, 'src/Header.js')
+},
   output: {
-    filename: 'index.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     library: '',
     libraryTarget: 'commonjs'

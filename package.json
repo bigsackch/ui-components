@@ -2,7 +2,7 @@
   "name": "eventum-ui-components",
   "description": "Eventum React based UI components",
   "main": "./lib/index.js",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "scripts": {
     "build-babel": "babel src/ -d lib/",
     "build": "webpack --config webpack.config.js",
