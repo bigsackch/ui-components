@@ -1,15 +1,16 @@
 {
   "name": "eventum-ui-components",
   "description": "Eventum React based UI components",
-  "main": "./dist/index.js",
-  "version": "1.0.0",
+  "main": "./lib/index.js",
+  "version": "1.0.3",
   "scripts": {
     "build-babel": "babel src/ -d lib/",
     "build": "webpack --config webpack.config.js",
+    "prepublishOnly": "npm run build-babel",
     "lint": "eslint src",
     "flow": "flow"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
@@ -36,5 +37,5 @@
     "webpack-node-externals": "^1.7.2"
   },
   "license": "UNLICENSED",
-  "private": true
+  "private": false
 }
