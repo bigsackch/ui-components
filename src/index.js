@@ -1,2 +1,4 @@
-export * from './Grid';
-export * from './Header';
+import Grid from './Grid';
+import Header from './Header';
+
+export { Grid, Header };

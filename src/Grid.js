@@ -94,8 +94,8 @@ type GridProps = {
 }
 
 export function Grid({
-                       children, id, type, wrap,
-                     }: GridProps) {
+  children, id, type, wrap,
+}: GridProps) {
   return (
     <div className={type} id={id}>
       {children}
