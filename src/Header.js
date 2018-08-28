@@ -4,7 +4,7 @@ import * as React from 'react';
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
 import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
 
-export default function Header({ children }: { children: React.Node }) {
+export function Header({ children }: { children: React.Node }) {
   return (
     <div className="main">
       <div className="aligned">

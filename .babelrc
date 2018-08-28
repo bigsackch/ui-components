@@ -1,10 +1,9 @@
 {
   "presets": [
-    "env",
-    "react"
+    "next/babel"
   ],
   "plugins": [
     "transform-es2015-arrow-functions",
-    "styled-jsx/babel"
+    "transform-flow-strip-types"
   ]
 }

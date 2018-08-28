@@ -1,4 +1,3 @@
-import Grid from './Grid';
-import Header from './Header';
-
-export { Grid, Header };
+// @flow
+export * from './Grid';
+export * from './Header';
