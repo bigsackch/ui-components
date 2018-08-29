@@ -19,7 +19,9 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^7.0.0-beta.3",
     "babel-eslint": "^8.2.6",
+    "babel-loader": "^8.0.0",
     "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "eslint": "^5.4.0",
@@ -28,8 +30,11 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "externs-generator": "^0.3.3",
     "flow-bin": "^0.79.1",
-    "next": "^6.0.0"
+    "next": "^6.0.0",
+    "url-loader": "^1.1.1",
+    "webpack": "3.0.0"
   },
   "license": "UNLICENSED",
   "private": false
