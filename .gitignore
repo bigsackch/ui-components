@@ -4,3 +4,4 @@ node_modules
 target
 src-cljs/eventum-ui-components
 pom.xml
+pom.xml.asc
