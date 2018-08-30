@@ -1,10 +1,14 @@
 // @flow
 import * as React from 'react';
 
+import { Avatar } from './Avatar';
+
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
 import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
 
-export function Header({ children }: { children: React.Node }) {
+export function Header({ avatarSrc, avatarAlt, children }: {
+  avatarSrc?: string, avatarAlt?: string, children?: React.Node,
+}) {
   return (
     <div className="main">
       <div className="aligned">
@@ -22,13 +26,23 @@ export function Header({ children }: { children: React.Node }) {
             src={eventumLogo}
           />
         </a>
-        {children}
+        <div className="aligned items">
+          {children}
+          {avatarSrc ? <Avatar altPart={avatarAlt} className="mhm" src={avatarSrc} width={30} /> : null}
+        </div>
       </div>
       {/* language=CSS */}
       <style jsx>
         {`
           .aligned {
+            display: flex;
+            align-items: center;
             min-height: 100%;
+          }
+          .items {
+            font-size: 1.7rem;
+            margin-left: auto;
+            justify-content: flex-end;
           }
           .main {
             height: 70px;
