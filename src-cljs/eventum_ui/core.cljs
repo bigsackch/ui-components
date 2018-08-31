@@ -14,4 +14,6 @@
 
 (def Header (r/adapt-react-class (gobj/get js/EventumUI "Header")))
 
+(def LinkButton (r/adapt-react-class (gobj/get js/EventumUI "LinkButton")))
+
 (def MainContent (r/adapt-react-class (gobj/get js/EventumUI "MainContent")))
