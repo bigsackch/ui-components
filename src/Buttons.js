@@ -9,6 +9,35 @@ type Props = {
   style?: Object,
 };
 
+export function ButtonBordered({ children, onClick, style }: Props) {
+  return (
+    <button
+      onClick={event => onClick(event)}
+      style={style}
+      type="button"
+    >
+      {children}
+      {/* language=CSS */}
+      <style jsx>
+        {`
+          button {
+            background-color: transparent;
+            border-radius: 4px;
+            border: 1px solid ${COLORS.LINK};
+            color: ${COLORS.LINK};
+            cursor: pointer;
+            font-size: ${FONT_SIZES.M};
+            font-weight: 400;
+            padding: 9px 22px;
+            position: relative;
+            white-space: nowrap;
+          }
+        `}
+      </style>
+    </button>
+  );
+}
+
 export function LinkButton({ children, onClick, style }: Props) {
   return (
     <button
