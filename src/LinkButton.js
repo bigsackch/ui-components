@@ -31,6 +31,9 @@ export function LinkButton({ children, onClick, style }: Props) {
             outline: 0;
             text-decoration: none;
           }
+          button:hover {
+            text-decoration: underline;
+          }
         `}
       </style>
     </button>
