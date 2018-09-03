@@ -7,6 +7,8 @@
 
 (def Backdrop (r/adapt-react-class (gobj/get js/EventumUI "Backdrop")))
 
+(def CopyrightFooter (r/adapt-react-class (gobj/get js/EventumUI "CopyrightFooter")))
+
 (def Grid (r/adapt-react-class (gobj/get js/EventumUI "Grid")))
 (def Col (r/adapt-react-class (gobj/get js/EventumUI "Col")))
 (def ColRight (r/adapt-react-class (gobj/get js/EventumUI "ColRight")))
