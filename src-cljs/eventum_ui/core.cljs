@@ -9,6 +9,9 @@
 
 (def CopyrightFooter (r/adapt-react-class (gobj/get js/EventumUI "CopyrightFooter")))
 
+(def TextInput (r/adapt-react-class (gobj/get js/EventumUI "TextInput")))
+(def Textarea (r/adapt-react-class (gobj/get js/EventumUI "Textarea")))
+
 (def Grid (r/adapt-react-class (gobj/get js/EventumUI "Grid")))
 (def Col (r/adapt-react-class (gobj/get js/EventumUI "Col")))
 (def ColRight (r/adapt-react-class (gobj/get js/EventumUI "ColRight")))
