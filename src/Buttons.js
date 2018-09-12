@@ -128,6 +128,9 @@ export function Button({
   btnStyle,
   block,
 }: ButtonProps) {
+  const sizeCss = sizeStyle(btnSize);
+  const styleCss = styleStyle(btnStyle);
+
   return (
     <button
       onClick={event => onClick(event)}
@@ -135,8 +138,8 @@ export function Button({
       type="button"
     >
       {children}
-      <style jsx>{sizeStyle(btnSize)}</style>
-      <style jsx>{styleStyle(btnStyle)}</style>
+      <style jsx>{sizeCss}</style>
+      <style jsx>{styleCss}</style>
       { /* language=CSS */ }
       <style jsx>
         {`
