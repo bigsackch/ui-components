@@ -22,8 +22,10 @@ type btnStyleType = $Keys<typeof STYLES>;
 { /* language=CSS */ }
 const sizeLarge = css`
   button {
+    -webkit-font-smoothing: antialiased;
     font-size: 2.2rem;
-    font-weight: 300;
+    font-weight: 400;
+    letter-spacing: .05rem;
     padding: 12px 24px;
   }
 `;
@@ -31,8 +33,10 @@ const sizeLarge = css`
 { /* language=CSS */ }
 const sizeMedium = css`
   button {
+    -webkit-font-smoothing: antialiased;
     font-size: ${FONT_SIZES.M};
     font-weight: 400;
+    letter-spacing: .02rem;
     padding: 9px 22px;
   }
 `;
@@ -71,11 +75,11 @@ const styleEmphasis = css`
 { /* language=CSS */ }
 const styleLink = css`
   button {
-    -webkit-font-smoothing: auto;
     background-color: transparent;
     border: 0;
     color: ${COLORS.LINK};
     outline: 0;
+    padding: 0;
     text-decoration: none;
   }
   button:hover {
