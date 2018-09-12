@@ -152,7 +152,7 @@ export function Button({
       <style jsx>
         {`
           button {
-            width: ${block ? '100%' : '100%'};
+            width: ${block ? '100%' : 'auto'};
           }
         `}
       </style>
