@@ -79,7 +79,7 @@ const styleLink = css`
     border: 0;
     color: ${COLORS.LINK};
     outline: 0;
-    padding: 0;
+    padding: 0 !important;
     text-decoration: none;
   }
   button:hover {
