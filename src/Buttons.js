@@ -5,15 +5,15 @@ import css from 'styled-jsx/css';
 import { COLORS, FONT_SIZES } from './constants';
 
 const SIZES = {
-  L: 'l',
-  M: 'm',
+  l: 'l',
+  m: 'm',
 };
 
 const STYLES = {
-  BORDER: 'border',
-  EMPHASIS: 'emphasis',
-  LINK: 'link',
-  PRIMARY: 'primary',
+  border: 'border',
+  emphasis: 'emphasis',
+  link: 'link',
+  primary: 'primary',
 };
 
 type btnSizeType = $Keys<typeof SIZES>;
@@ -39,10 +39,10 @@ const sizeMedium = css`
 
 const sizeStyle = (size): btnSizeType => {
   switch (size) {
-    case SIZES.L:
+    case SIZES.l:
       return sizeLarge;
 
-    case SIZES.M:
+    case SIZES.m:
       return sizeMedium;
 
     default:
@@ -94,16 +94,16 @@ const stylePrimary = css`
 
 const styleStyle = (style): btnStyleType => {
   switch (style) {
-    case STYLES.BORDER:
+    case STYLES.border:
       return styleBorder;
 
-    case STYLES.EMPHASIS:
+    case STYLES.emphasis:
       return styleEmphasis;
 
-    case STYLES.LINK:
+    case STYLES.link:
       return styleLink;
 
-    case STYLES.PRIMARY:
+    case STYLES.primary:
       return stylePrimary;
 
     default:
