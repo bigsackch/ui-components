@@ -1,4 +1,4 @@
-(defproject eventum-ui-components "1.7.0"
+(defproject eventum-ui-components "2.0.1"
   :source-paths ["src-cljs"]
   :dependencies [[reagent "0.8.1" :scope "provided"]]
   :plugins [[s3-wagon-private "1.3.2"]]
