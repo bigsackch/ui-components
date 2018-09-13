@@ -8,7 +8,7 @@ type LabelProps = {
   label?: string,
 }
 
-function Label({ description, htmlFor, label }: LabelProps) {
+export function Label({ description, htmlFor, label }: LabelProps) {
   return (
     <div className="mam">
       {label ? (
