@@ -74,15 +74,15 @@ const defaultInputStyle = css`
     color: #9f3a38;
   }`;
 
-export function FormComponents({
-                        errorMessage,
-                        hasError,
-                        id,
-                        onChange,
-                        type,
-                        value,
-                        ...otherProps
-                      }: InputProps) {
+function FormInput({
+  errorMessage,
+  hasError,
+  id,
+  onChange,
+  type,
+  value,
+  ...otherProps
+}: InputProps) {
   return (
     <div className="mam">
       <input
@@ -112,6 +112,7 @@ type TextInputProps = {
   id: string,
   label?: string,
   onChange: string => void,
+  otherProps?: Object,
   value: string,
 }
 
@@ -123,17 +124,19 @@ export function TextInput({
   label,
   onChange,
   value,
+  ...otherProps
 }: TextInputProps) {
   return (
     <div>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
-      <FormComponents
+      <FormInput
         errorMessage={errorMessage}
         hasError={hasError}
         id={id}
         onChange={onChange}
         type="text"
         value={value}
+        {...otherProps}
       />
     </div>
   );
@@ -148,6 +151,7 @@ export function Textarea({
   onChange,
   rows,
   value,
+  ...otherProps
 }: { ...TextInputProps, rows?: number }) {
   return (
     <div>
@@ -159,6 +163,7 @@ export function Textarea({
           onChange={event => onChange(event.target.value)}
           rows={rows || 4}
           value={value}
+          {...otherProps}
         />
         {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
       </div>
