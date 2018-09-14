@@ -27,3 +27,5 @@
 (def Modal (r/adapt-react-class (gobj/get js/EventumUI "Modal")))
 
 (def ModalCloseButton (r/adapt-react-class (gobj/get js/EventumUI "ModalCloseButton")))
+
+(def Checkbox (r/adapt-react-class (gobj/get js/EventumUI "Checkbox")))

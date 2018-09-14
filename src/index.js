@@ -2,6 +2,7 @@
 export * from './Avatar';
 export * from './Backdrop';
 export * from './Buttons';
+export * from './Checkbox';
 export * from './CopyrightFooter';
 export * from './FormComponents';
 export * from './Grid';
