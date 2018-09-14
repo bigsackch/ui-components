@@ -24,6 +24,6 @@
 
 (def MainContent (r/adapt-react-class (gobj/get js/EventumUI "MainContent")))
 
-(def ModalCloseButton (r/adapt-react-class (gobj/get js/EventumUI "CloseButton")))
+(def Modal (r/adapt-react-class (gobj/get js/EventumUI "Modal")))
 
-(def Modal (r/adapt-react-class (gobj/get js/EventumUI "CloseButton")))
+(def ModalCloseButton (r/adapt-react-class (gobj/get js/EventumUI "ModalCloseButton")))
