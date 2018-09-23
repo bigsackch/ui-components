@@ -3,7 +3,7 @@
     "next/babel"
   ],
   "plugins": [
-    "transform-es2015-arrow-functions",
-    "transform-flow-strip-types"
+    "@babel/plugin-transform-arrow-functions",
+    "@babel/plugin-transform-flow-strip-types"
   ]
 }
