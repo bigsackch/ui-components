@@ -10,7 +10,7 @@ type LabelProps = {
 
 export function Label({ description, htmlFor, label }: LabelProps) {
   return (
-    <div className="mam">
+    <div className="mod">
       {label ? (
         <label htmlFor={htmlFor}>
           {label}
@@ -56,7 +56,8 @@ type InputProps = {
 
 { /* language=CSS */ }
 const defaultInputStyle = css`
-  input, 
+  input,
+  select,
   textarea {
     background-color: #fff;
     border-radius: 2px;
@@ -68,15 +69,87 @@ const defaultInputStyle = css`
     width: 100%;
   }
   input.error,
+  select.error,
   textarea.error {
     background-color: rgb(255, 246, 246);
     border-color: #e0b4b4;
     color: #9f3a38;
   }`;
 
+type SelectProps = {
+  children: React.Node,
+  description?: string,
+  errorMessage?: string,
+  hasError?: boolean,
+  id: string,
+  label?: string,
+  onChange: string => void,
+  otherProps?: Object,
+  value: string,
+}
+
+export function Select({
+  children,
+  description,
+  errorMessage,
+  hasError,
+  id,
+  label,
+  onChange,
+  value,
+  ...otherProps
+}: SelectProps) {
+  return (
+    <div>
+      {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
+      <div className="mod">
+        <div className="select">
+          <select
+            id={id}
+            onChange={onChange}
+            value={value || 'default'}
+            {...otherProps}
+          >
+            {children}
+          </select>
+        </div>
+        {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+      </div>
+      { /* language=CSS */ }
+      <style jsx>{defaultInputStyle}</style>
+      <style jsx>
+        {`
+        .select {
+          position: relative;
+          width: 100%;
+        }
+        .select:before {
+          -webkit-font-smoothing: none;
+          bottom: 1px;
+          color: #767676;
+          content: '\\25bc';
+          line-height: 1;
+          padding-top: 0.7em;
+          pointer-events: none;
+          position: absolute;
+          right: 0;
+          text-align: center;
+          top: 0;
+          transform: scale(0.84, 0.42);
+          width: 2em;
+        }
+        select {
+          -webkit-appearance: none;
+          height: 50px;
+          padding: 13px 30px 13px 10px;
+        }
+      `}
+      </style>
+    </div>
+  );
+}
 
 export class FormInput extends React.Component {
-
   constructor(props, context) {
     super(props, context);
   }
@@ -95,7 +168,7 @@ export class FormInput extends React.Component {
     let InputComponent = inputComponent;
 
     return (
-      <div className="mam">
+      <div className="mod">
         <InputComponent
           className={hasError ? 'error' : null}
           id={id}
@@ -133,15 +206,15 @@ type TextInputProps = {
 }
 
 export function TextInput({
-                            description,
-                            errorMessage,
-                            hasError,
-                            id,
-                            label,
-                            onChange,
-                            value,
-                            ...otherProps
-                          }: TextInputProps) {
+  description,
+  errorMessage,
+  hasError,
+  id,
+  label,
+  onChange,
+  value,
+  ...otherProps
+}: TextInputProps) {
   return (
     <div>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
@@ -183,7 +256,7 @@ export class Textarea extends React.Component {
     return (
       <div>
         {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
-        <div className="mam">
+        <div className="mod">
           <InputComponent
             className={hasError ? 'error' : null}
             id={id}
@@ -197,10 +270,10 @@ export class Textarea extends React.Component {
         { /* language=CSS */ }
         <style jsx>{defaultInputStyle}</style>
         <style jsx>{`
-        textarea {
-          line-height: inherit;
-          resize: vertical;
-        }
+          textarea {
+            line-height: inherit;
+            resize: vertical;
+          }
       `}</style>
       </div>
 

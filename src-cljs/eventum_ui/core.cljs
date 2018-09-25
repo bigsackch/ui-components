@@ -43,9 +43,10 @@
                   rtpl/convert-prop-value)]
     (apply r/create-element (gobj/get js/EventumUI "TextInput") props (map r/as-element children))))
 
-
 (defn Textarea [props & children]
   (let [props (-> props
                   (assoc :inputComponent textarea-component)
                   rtpl/convert-prop-value)]
     (apply r/create-element (gobj/get js/EventumUI "Textarea") props (map r/as-element children))))
+
+(def Select (r/adapt-react-class (gobj/get js/EventumUI "Select")))
