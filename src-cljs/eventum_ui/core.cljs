@@ -1,7 +1,8 @@
 (ns eventum-ui.core
   (:require [eventum-ui-components]
             [goog.object :as gobj]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [reagent.impl.template :as rtpl]))
 
 (def Avatar (r/adapt-react-class (gobj/get js/EventumUI "Avatar")))
 
@@ -10,8 +11,6 @@
 (def CopyrightFooter (r/adapt-react-class (gobj/get js/EventumUI "CopyrightFooter")))
 
 (def Label (r/adapt-react-class (gobj/get js/EventumUI "Label")))
-(def TextInput (r/adapt-react-class (gobj/get js/EventumUI "TextInput")))
-(def Textarea (r/adapt-react-class (gobj/get js/EventumUI "Textarea")))
 
 (def Grid (r/adapt-react-class (gobj/get js/EventumUI "Grid")))
 (def Col (r/adapt-react-class (gobj/get js/EventumUI "Col")))
@@ -29,3 +28,24 @@
 (def ModalCloseButton (r/adapt-react-class (gobj/get js/EventumUI "ModalCloseButton")))
 
 (def Checkbox (r/adapt-react-class (gobj/get js/EventumUI "Checkbox")))
+
+(def input-component (r/reactify-component
+                       (fn [props]
+                         [:input props])))
+
+(def textarea-component (r/reactify-component
+                          (fn [props]
+                            [:textarea props])))
+
+(defn TextInput [props & children]
+  (let [props (-> props
+                  (assoc :inputComponent input-component)
+                  rtpl/convert-prop-value)]
+    (apply r/create-element (gobj/get js/EventumUI "TextInput") props (map r/as-element children))))
+
+
+(defn Textarea [props & children]
+  (let [props (-> props
+                  (assoc :inputComponent textarea-component)
+                  rtpl/convert-prop-value)]
+    (apply r/create-element (gobj/get js/EventumUI "Textarea") props (map r/as-element children))))

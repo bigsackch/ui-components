@@ -74,36 +74,52 @@ const defaultInputStyle = css`
     color: #9f3a38;
   }`;
 
-function FormInput({
-  errorMessage,
-  hasError,
-  id,
-  onChange,
-  type,
-  value,
-  ...otherProps
-}: InputProps) {
-  return (
-    <div className="mam">
-      <input
-        className={hasError ? 'error' : null}
-        id={id}
-        onChange={event => onChange(event.target.value)}
-        type={type}
-        value={value}
-        {...otherProps}
-      />
-      {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
-      { /* language=CSS */ }
-      <style jsx>{defaultInputStyle}</style>
-      <style jsx>{`
+
+export class FormInput extends React.Component {
+
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  render() {
+    const {
+      errorMessage,
+      hasError,
+      id,
+      onChange,
+      type,
+      value,
+      inputComponent,
+      ...otherProps
+    } = this.props;
+    let InputComponent = inputComponent;
+
+    return (
+      <div className="mam">
+        <InputComponent
+          className={hasError ? 'error' : null}
+          id={id}
+          onChange={event => onChange(event.target.value)}
+          type={type}
+          value={value}
+          {...otherProps}
+        />
+        {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+        { /* language=CSS */ }
+        <style jsx>{defaultInputStyle}</style>
+        <style jsx>{`
         input {
           height: 50px;
         }
       `}</style>
-    </div>
-  );
+      </div>
+    );
+  }
 }
+
+FormInput.defaultProps = {
+  inputComponent: 'input',
+};
 
 type TextInputProps = {
   description?: string,
@@ -117,15 +133,15 @@ type TextInputProps = {
 }
 
 export function TextInput({
-  description,
-  errorMessage,
-  hasError,
-  id,
-  label,
-  onChange,
-  value,
-  ...otherProps
-}: TextInputProps) {
+                            description,
+                            errorMessage,
+                            hasError,
+                            id,
+                            label,
+                            onChange,
+                            value,
+                            ...otherProps
+                          }: TextInputProps) {
   return (
     <div>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
@@ -142,39 +158,56 @@ export function TextInput({
   );
 }
 
-export function Textarea({
-  description,
-  errorMessage,
-  hasError,
-  id,
-  label,
-  onChange,
-  rows,
-  value,
-  ...otherProps
-}: { ...TextInputProps, rows?: number }) {
-  return (
-    <div>
-      {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
-      <div className="mam">
-        <textarea
-          className={hasError ? 'error' : null}
-          id={id}
-          onChange={event => onChange(event.target.value)}
-          rows={rows || 4}
-          value={value}
-          {...otherProps}
-        />
-        {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
-      </div>
-      { /* language=CSS */ }
-      <style jsx>{defaultInputStyle}</style>
-      <style jsx>{`
+
+export class Textarea extends React.Component {
+
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  render() {
+    const {
+      description,
+      errorMessage,
+      hasError,
+      id,
+      label,
+      onChange,
+      rows,
+      value,
+      inputComponent,
+      ...otherProps
+    } = this.props;
+    let InputComponent = inputComponent;
+
+    return (
+      <div>
+        {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
+        <div className="mam">
+          <InputComponent
+            className={hasError ? 'error' : null}
+            id={id}
+            onChange={event => onChange(event.target.value)}
+            rows={rows || 4}
+            value={value}
+            {...otherProps}
+          />
+          {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+        </div>
+        { /* language=CSS */ }
+        <style jsx>{defaultInputStyle}</style>
+        <style jsx>{`
         textarea {
           line-height: inherit;
           resize: vertical;
         }
       `}</style>
-    </div>
-  );
+      </div>
+
+    );
+  }
 }
+
+Textarea.defaultProps = {
+  inputComponent: 'textarea',
+};
