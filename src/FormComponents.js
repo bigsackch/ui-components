@@ -106,7 +106,7 @@ export function Select({
         <div className="select">
           <select
             id={id}
-            onChange={onChange}
+            onChange={event => onChange(event.target.value)}
             value={value || 'default'}
             {...otherProps}
           >
