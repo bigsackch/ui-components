@@ -118,3 +118,5 @@ export function RadioGroup({ heading, description, children }: RadioGroupProps) 
     </div>
   );
 }
+
+export { RadioGroup as CheckboxGroup };

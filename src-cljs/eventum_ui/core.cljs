@@ -29,6 +29,7 @@
 
 (def Checkbox (r/adapt-react-class (gobj/get js/EventumUI "Checkbox")))
 (def Radio (r/adapt-react-class (gobj/get js/EventumUI "Radio")))
+(def CheckboxGroup (r/adapt-react-class (gobj/get js/EventumUI "CheckboxGroup")))
 (def RadioGroup (r/adapt-react-class (gobj/get js/EventumUI "RadioGroup")))
 
 (def input-component (r/reactify-component
