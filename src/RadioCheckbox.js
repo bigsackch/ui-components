@@ -107,7 +107,8 @@ export function RadioGroup({ heading, description, children }: RadioGroupProps) 
           border: 0;
         }
         legend {
-          color: ${COLORS.SUBTLE}
+          color: ${COLORS.SUBTLE};
+          margin-bottom: ${SPACING.S};
         }
         .flex-wrapper {
         display: flex;
