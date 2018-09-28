@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-import { COLORS, FONT_SIZES } from './constants';
+import { COLORS, FONT_SIZES, SPACING } from './constants';
 
 type InputProps = {
   checked: boolean,
@@ -103,7 +103,8 @@ export function RadioGroup({ heading, description, children }: RadioGroupProps) 
         margin-bottom: 0;
         }
         fieldset {
-          border: 0,
+          margin: 0 ${SPACING.M} ${SPACING.M};
+          border: 0;
         }
         legend {
           color: ${COLORS.SUBTLE}

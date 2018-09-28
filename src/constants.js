@@ -10,3 +10,10 @@ export const FONT_SIZES = {
   M: '1.9rem',
   L: '2.2rem',
 };
+
+export const SPACING = {
+  S: '10px',
+  M: '20px',
+  L: '40px',
+};
+
