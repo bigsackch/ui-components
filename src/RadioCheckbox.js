@@ -49,7 +49,7 @@ type CheckboxProps = {
   onChange: (boolean) => void,
 }
 
-export function RadioCheckbox({ checked, label, name, onChange }: CheckboxProps) {
+export function Checkbox({ checked, label, name, onChange }: CheckboxProps) {
   return (
     <Input
       checked={checked}
