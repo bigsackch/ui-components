@@ -28,6 +28,8 @@
 (def ModalCloseButton (r/adapt-react-class (gobj/get js/EventumUI "ModalCloseButton")))
 
 (def Checkbox (r/adapt-react-class (gobj/get js/EventumUI "Checkbox")))
+(def Radio (r/adapt-react-class (gobj/get js/EventumUI "Radio")))
+(def RadioGroup (r/adapt-react-class (gobj/get js/EventumUI "RadioGroup")))
 
 (def input-component (r/reactify-component
                        (fn [props]
