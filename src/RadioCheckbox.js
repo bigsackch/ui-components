@@ -11,7 +11,7 @@ type InputProps = {
   type: 'radio'|'checkbox',
 }
 
-function Input({ checked, label, name, onChange, type }: Props) {
+function Input({ checked, label, name, onChange, type }: InputProps) {
   return (
     <div className="main">
       <label>
