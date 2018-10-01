@@ -95,6 +95,7 @@ export function Select({
       <div className="mod">
         <div className="select">
           <select
+            className={hasError ? 'error' : null}
             id={id}
             onChange={event => onChange(event.target.value)}
             value={value || 'default'}
