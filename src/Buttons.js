@@ -118,7 +118,7 @@ const styleStyle = (style): btnStyleType => {
 type ButtonProps = {
   block?: boolean,
   btnStyle: btnStyleType,
-  btnSize: btnSizeType,
+  btnSize?: btnSizeType,
   children: React.Node,
   onClick: (event: SyntheticEvent<HTMLButtonElement>) => void,
   style?: Object,
@@ -166,3 +166,7 @@ export function Button({
     </button>
   );
 }
+
+Button.defaultProps = {
+  btnSize: 'm',
+};
