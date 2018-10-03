@@ -7,6 +7,7 @@ import { COLORS, FONT_SIZES } from './constants';
 const SIZES = {
   l: 'l',
   m: 'm',
+  s: 's',
 };
 
 const STYLES = {
@@ -41,6 +42,18 @@ const sizeMedium = css`
   }
 `;
 
+
+{ /* language=CSS */ }
+const sizeSmall = css`
+  button {
+    -webkit-font-smoothing: antialiased;
+    font-size: ${FONT_SIZES.S};
+    font-weight: 400;
+    letter-spacing: .02rem;
+    padding: 9px 22px;
+  }
+`;
+
 const sizeStyle = (size): btnSizeType => {
   switch (size) {
     case SIZES.l:
@@ -48,6 +61,9 @@ const sizeStyle = (size): btnSizeType => {
 
     case SIZES.m:
       return sizeMedium;
+
+    case SIZES.s:
+      return sizeSmall;
 
     default:
       return sizeMedium;
