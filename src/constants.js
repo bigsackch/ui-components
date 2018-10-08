@@ -2,6 +2,7 @@
 
 export const COLORS = {
   LINK: '#019288',
+  DISABLED: '#807979',
   SUBTLE: '#929292',
 };
 

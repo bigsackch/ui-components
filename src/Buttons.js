@@ -77,6 +77,10 @@ const styleBorder = css`
     border: 1px solid ${COLORS.LINK};
     color: ${COLORS.LINK};
   }
+  button.disabled {
+    border-color: #c4c0c0;
+    color: ${COLORS.DISABLED};
+  }
 `;
 
 { /* language=CSS */ }
@@ -85,6 +89,11 @@ const styleEmphasis = css`
     background-color: #d0043c;
     border: 1px solid #d0043c;
     color: #fff;
+  }
+  button.disabled {
+    background-color: #c4c0c0;
+    border-color: #c4c0c0;
+    color: ${COLORS.DISABLED};
   }
 `;
 
@@ -101,6 +110,12 @@ const styleLink = css`
   button:hover {
     text-decoration: underline;
   }
+  button.disabled,
+  button.disabled:hover {
+  color: ${COLORS.DISABLED} !important;
+  text-decoration: none;
+  }
+  
 `;
 
 { /* language=CSS */ }
@@ -109,6 +124,11 @@ const stylePrimary = css`
     background-color: #009f94;
     border: 1px solid #009f94;
     color: #fff;
+  }
+  button.disabled {
+    background-color: #c4c0c0;
+    border-color: #c4c0c0;
+    color: ${COLORS.DISABLED};
   }
 `;
 
@@ -136,23 +156,27 @@ type ButtonProps = {
   btnStyle: btnStyleType,
   btnSize?: btnSizeType,
   children: React.Node,
+  disabled?: boolean,
   onClick: (event: SyntheticEvent<HTMLButtonElement>) => void,
   style?: Object,
 }
 
 export function Button({
-  children,
-  onClick,
-  style,
+  block,
   btnSize,
   btnStyle,
-  block,
+  children,
+  disabled,
+  onClick,
+  style,
 }: ButtonProps) {
   const sizeCss = sizeStyle(btnSize);
   const styleCss = styleStyle(btnStyle);
 
   return (
     <button
+      disabled={disabled}
+      className={disabled ? "disabled" : null}
       onClick={event => onClick(event)}
       style={style}
       type="button"
