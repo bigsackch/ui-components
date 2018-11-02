@@ -9,9 +9,10 @@ type InputProps = {
   name: string,
   onChange: (boolean) => void,
   type: 'radio'|'checkbox',
+  otherProps?: Object,
 }
 
-function Input({ checked, label, name, onChange, type }: InputProps) {
+function Input({ checked, label, name, onChange, type, ...otherProps }: InputProps) {
   return (
     <div className="main">
       <label>
@@ -20,6 +21,7 @@ function Input({ checked, label, name, onChange, type }: InputProps) {
           name={name}
           onChange={event => onChange(event.target.checked)}
           type={type}
+          {...otherProps}
         />
         {label}
       </label>
@@ -47,9 +49,10 @@ type CheckboxProps = {
   label: string,
   name: string,
   onChange: (boolean) => void,
+  otherProps?: Object,
 }
 
-export function Checkbox({ checked, label, name, onChange }: CheckboxProps) {
+export function Checkbox({ checked, label, name, onChange, ...otherProps }: CheckboxProps) {
   return (
     <Input
       checked={checked}
@@ -57,6 +60,7 @@ export function Checkbox({ checked, label, name, onChange }: CheckboxProps) {
       name={name}
       onChange={onChange}
       type="checkbox"
+      {...otherProps}
     />
   );
 }
@@ -66,9 +70,10 @@ type RadioProps = {
   label: string,
   name: string,
   onChange: (boolean) => void,
+  otherProps?: Object,
 }
 
-export function Radio({ checked, label, name, onChange }: RadioProps) {
+export function Radio({ checked, label, name, onChange, ...otherProps }: RadioProps) {
   return (
     <Input
       checked={checked}
@@ -76,6 +81,7 @@ export function Radio({ checked, label, name, onChange }: RadioProps) {
       name={name}
       onChange={onChange}
       type="radio"
+      {...otherProps}
     />
   );
 }
