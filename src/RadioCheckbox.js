@@ -39,6 +39,11 @@ function Input({ checked, label, name, onChange, type, ...otherProps }: InputPro
         label {
           cursor: pointer;
         }
+        input:disabled,
+        label:disabled {
+          color: ${COLORS.DISABLED};
+          cursor: default;
+        }
       `}</style>
     </div>
   );
