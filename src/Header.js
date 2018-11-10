@@ -2,9 +2,65 @@
 import * as React from 'react';
 
 import { Avatar } from './Avatar';
+import { COLORS, SPACING } from './constants';
 
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
 import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
+
+export function HeaderLink({ children, href, position }: {
+  children: React.Node, href: string, position?: 'left'|'right',
+}) {
+  return (
+    <div>
+      <a href={href}>{children}</a>
+      { /* language=CSS */ }
+      <style jsx>{`
+        a {
+          color: ${COLORS.DEFAULT} !important;
+          font-weight: 400 !important;
+          -webkit-font-smoothing: auto !important;
+        }
+        div {
+          padding: 0 ${SPACING.M}
+        }
+      `}</style>
+    </div>
+  );
+}
+HeaderLink.defaulProps = {
+  position: 'right',
+};
+
+const i18n = {
+  nb: {
+    inbox: 'Innboks',
+    venues: 'Utleiesteder',
+    account: 'Bedriftskonto',
+    profile: 'Brukerprofil',
+  },
+  en: {
+    inbox: 'Inbox',
+    venues: 'Venues',
+    account: 'Company account',
+    profile: 'User profile',
+  },
+};
+
+export function HostAdminHeaderMenu({ locale }: { locale: 'nb'|'en' }) {
+  const text = i18n[locale];
+
+  return (
+    <React.Fragment>
+      <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
+      <HeaderLink href="/venue-admin/">{text.venues}</HeaderLink>
+      <HeaderLink href="/profile">{text.account}</HeaderLink>
+      <HeaderLink href="/user-profile">{text.profile}</HeaderLink>
+    </React.Fragment>
+  );
+}
+HostAdminHeaderMenu.defaultValue = {
+  locale: 'nb',
+};
 
 export function Header({ avatarSrc, avatarAlt, children }: {
   avatarSrc?: string, avatarAlt?: string, children?: React.Node,

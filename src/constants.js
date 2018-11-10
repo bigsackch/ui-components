@@ -1,8 +1,9 @@
 // @flow
 
 export const COLORS = {
-  LINK: '#019288',
+  DEFAULT: '#4b4b4b',
   DISABLED: '#807979',
+  LINK: '#019288',
   SUBTLE: '#929292',
 };
 
