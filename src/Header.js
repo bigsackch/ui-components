@@ -35,14 +35,14 @@ const i18n = {
   nb: {
     inbox: 'Innboks',
     venues: 'Utleiesteder',
-    account: 'Bedriftskonto',
-    profile: 'Brukerprofil',
+    account: 'Konto',
+    profile: 'Din profil',
   },
   en: {
     inbox: 'Inbox',
     venues: 'Venues',
-    account: 'Company account',
-    profile: 'User profile',
+    account: 'Account',
+    profile: 'Your profile',
   },
 };
 
@@ -52,9 +52,9 @@ export function HostAdminHeaderMenu({ locale }: { locale: 'nb'|'en' }) {
   return (
     <React.Fragment>
       <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
-      <HeaderLink href="/venue-admin/">{text.venues}</HeaderLink>
-      <HeaderLink href="/profile">{text.account}</HeaderLink>
-      <HeaderLink href="/user-profile">{text.profile}</HeaderLink>
+      <HeaderLink href="/hosting/venues">{text.venues}</HeaderLink>
+      <HeaderLink href="/hosting/account">{text.account}</HeaderLink>
+      <HeaderLink href="/hosting/profile">{text.profile}</HeaderLink>
     </React.Fragment>
   );
 }
