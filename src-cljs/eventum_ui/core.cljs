@@ -48,6 +48,24 @@
                   rtpl/convert-prop-value)]
     (apply r/create-element (gobj/get js/EventumUI "TextInput") props (map r/as-element children))))
 
+(defn NumberInput [props & children]
+      (let [props (-> props
+                      (assoc :inputComponent input-component)
+                      rtpl/convert-prop-value)]
+           (apply r/create-element (gobj/get js/EventumUI "NumberInput") props (map r/as-element children))))
+
+(defn TelInput [props & children]
+      (let [props (-> props
+                      (assoc :inputComponent input-component)
+                      rtpl/convert-prop-value)]
+           (apply r/create-element (gobj/get js/EventumUI "TelInput") props (map r/as-element children))))
+
+(defn EmailInput [props & children]
+      (let [props (-> props
+                      (assoc :inputComponent input-component)
+                      rtpl/convert-prop-value)]
+           (apply r/create-element (gobj/get js/EventumUI "EmailInput") props (map r/as-element children))))
+
 (defn Textarea [props & children]
   (let [props (-> props
                   (assoc :inputComponent textarea-component)

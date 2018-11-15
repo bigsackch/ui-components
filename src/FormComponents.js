@@ -226,6 +226,86 @@ export function TextInput({
   );
 }
 
+export function EmailInput({
+description,
+errorMessage,
+hasError,
+id,
+label,
+onChange,
+value,
+...otherProps
+}: TextInputProps) {
+  return (
+    <div>
+      {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
+      <FormInput
+        errorMessage={errorMessage}
+        hasError={hasError}
+        id={id}
+        onChange={onChange}
+        type="email"
+        value={value}
+        {...otherProps}
+      />
+    </div>
+  );
+}
+
+export function TelInput({
+description,
+errorMessage,
+hasError,
+id,
+label,
+onChange,
+value,
+...otherProps
+}: TextInputProps) {
+  return (
+    <div>
+      {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
+      <FormInput
+        errorMessage={errorMessage}
+        hasError={hasError}
+        id={id}
+        onChange={onChange}
+        type="tel"
+        value={value}
+        {...otherProps}
+      />
+    </div>
+  );
+}
+
+export function NumberInput({
+description,
+errorMessage,
+hasError,
+id,
+label,
+onChange,
+value,
+...otherProps
+}: { ...TextInputProps, min?: number, max?: number }) {
+  return (
+    <div>
+      {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
+      <FormInput
+        errorMessage={errorMessage}
+        hasError={hasError}
+        id={id}
+        max={max}
+        min={min}
+        onChange={onChange}
+        type="number"
+        value={value}
+        {...otherProps}
+      />
+    </div>
+  );
+}
+
 export function Textarea({
   description,
   errorMessage,
