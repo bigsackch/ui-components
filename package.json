@@ -2,7 +2,7 @@
   "name": "eventum-ui-components",
   "description": "Eventum React based UI components",
   "main": "./src/index.js",
-  "version": "2.10.0",
+  "version": "2.10.1",
   "scripts": {
     "build": "babel src/ -d dist/",
     "lint": "eslint src",
