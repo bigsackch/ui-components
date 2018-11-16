@@ -279,14 +279,16 @@ value,
 }
 
 export function NumberInput({
-description,
-errorMessage,
-hasError,
-id,
-label,
-onChange,
-value,
-...otherProps
+  description,
+  errorMessage,
+  hasError,
+  id,
+  label,
+  max,
+  min,
+  onChange,
+  value,
+  ...otherProps
 }: { ...TextInputProps, min?: number, max?: number }) {
   return (
     <div>
