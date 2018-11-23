@@ -46,19 +46,19 @@ const i18n = {
   },
 };
 
-export function HostAdminHeaderMenu({ locale }: { locale: 'nb'|'en' }) {
+export function HeaderHostingMenu({ locale, profileSlug }: { locale: 'nb'|'en', profileSlug?: string }) {
   const text = i18n[locale];
 
   return (
     <React.Fragment>
       <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
-      <HeaderLink href="/hosting/venues">{text.venues}</HeaderLink>
-      <HeaderLink href="/hosting/account">{text.account}</HeaderLink>
-      <HeaderLink href="/hosting/profile">{text.profile}</HeaderLink>
+      <HeaderLink href={"/hosting/venues"}>{text.venues}</HeaderLink>
+      <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : "/hosting/accounts"}>{text.account}</HeaderLink>
+      <HeaderLink href="/your-profile">{text.profile}</HeaderLink>
     </React.Fragment>
   );
 }
-HostAdminHeaderMenu.defaultValue = {
+HeaderHostingMenu.defaultValue = {
   locale: 'nb',
 };
 

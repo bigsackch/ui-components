@@ -19,7 +19,7 @@
 
 (def Header (r/adapt-react-class (gobj/get js/EventumUI "Header")))
 (def HeaderLink (r/adapt-react-class (gobj/get js/EventumUI "HeaderLink")))
-(def HostAdminHeaderMenu (r/adapt-react-class (gobj/get js/EventumUI "HostAdminHeaderMenu")))
+(def HeaderHostingMenu (r/adapt-react-class (gobj/get js/EventumUI "HeaderHostingMenu")))
 
 (def Button (r/adapt-react-class (gobj/get js/EventumUI "Button")))
 
