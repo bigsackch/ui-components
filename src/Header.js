@@ -54,7 +54,7 @@ export function HeaderHostingMenu({ locale, profileSlug }: { locale: 'nb'|'en', 
       <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
       <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : "/hosting/venues"}>{text.venues}</HeaderLink>
       <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : "/hosting/accounts"}>{text.account}</HeaderLink>
-      {/*<HeaderLink href="/your-profile">{text.profile}</HeaderLink>*/}
+      <HeaderLink href="/your-profile">{text.profile}</HeaderLink>
     </React.Fragment>
   );
 }
