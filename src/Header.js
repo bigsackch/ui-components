@@ -7,8 +7,27 @@ import { COLORS, SPACING } from './constants';
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
 import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
 
-export function HeaderLink({ children, href, position }: {
-  children: React.Node, href: string, position?: 'left'|'right',
+const i18n = {
+  nb: {
+    inbox: 'Innboks',
+    venues: 'Utleiesteder',
+    account: 'Konto',
+    profile: 'Din profil',
+    selectAccount: 'Velg konto',
+    selectedAccount: 'Valgt konto:',
+  },
+  en: {
+    inbox: 'Inbox',
+    venues: 'Venues',
+    account: 'Account',
+    profile: 'Your profile',
+    selectAccount: 'Choose account',
+    selectedAccount: 'Selected account:',
+  },
+};
+
+export function HeaderLink({ children, href }: {
+  children: React.Node, href: string,
 }) {
   return (
     <div>
@@ -27,35 +46,48 @@ export function HeaderLink({ children, href, position }: {
     </div>
   );
 }
-HeaderLink.defaulProps = {
-  position: 'right',
-};
 
-const i18n = {
-  nb: {
-    inbox: 'Innboks',
-    venues: 'Utleiesteder',
-    account: 'Konto',
-    profile: 'Din profil',
-  },
-  en: {
-    inbox: 'Inbox',
-    venues: 'Venues',
-    account: 'Account',
-    profile: 'Your profile',
-  },
-};
-
-export function HeaderHostingMenu({ locale, profileSlug }: { locale: 'nb'|'en', profileSlug?: string }) {
+export function HeaderHostingMenu({ locale, profileName, profileSlug }: {
+  locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
+}) {
   const text = i18n[locale];
 
   return (
-    <React.Fragment>
+    <div className="main">
       <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
-      <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : "/hosting/venues"}>{text.venues}</HeaderLink>
-      <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : "/hosting/accounts"}>{text.account}</HeaderLink>
+      <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}>
+        {text.venues}
+      </HeaderLink>
+      <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'}>
+        {text.account}
+      </HeaderLink>
       <HeaderLink href="/your-profile">{text.profile}</HeaderLink>
-    </React.Fragment>
+      {profileSlug ? (
+        <div className="account">
+          <div>{text.selectedAccount}</div>
+          <HeaderLink href="/hosting/accounts">{profileName || ''}</HeaderLink>
+        </div>
+      ) : (
+        <div className="account">
+          <HeaderLink href="/hosting/accounts">{text.selectAccount}</HeaderLink>
+        </div>
+      )}
+      {/* language=CSS */}
+      <style jsx>
+        {`
+          .main {
+            align-items: center;
+            display: flex;
+            flex: 1 auto;
+          }
+          .account {
+            margin-left: auto;
+            margin-right: 20px;
+            text-align: center;
+          }
+        `}
+      </style>
+    </div>
   );
 }
 HeaderHostingMenu.defaultValue = {
@@ -67,7 +99,7 @@ export function Header({ avatarSrc, avatarAlt, children }: {
 }) {
   return (
     <div className="main">
-      <div className="aligned">
+      <div>
         <a href="/">
           <img
             alt="Eventum symbol"
@@ -82,25 +114,24 @@ export function Header({ avatarSrc, avatarAlt, children }: {
             src={eventumLogo}
           />
         </a>
-        <div className="aligned items">
-          {children}
-          {avatarSrc ? <Avatar altPart={avatarAlt} className="mhm" src={avatarSrc} width={30} /> : null}
-        </div>
       </div>
+      <div className="children">
+        {children}
+      </div>
+      {avatarSrc ? <Avatar altPart={avatarAlt} className="mhm" src={avatarSrc} width={30} /> : null}
       {/* language=CSS */}
       <style jsx>
         {`
-          .aligned {
-            display: flex;
+          .children {
             align-items: center;
-            min-height: 100%;
-          }
-          .items {
+            display: flex;
+            flex: 1 auto;
             font-size: 1.7rem;
-            margin-left: auto;
             justify-content: flex-end;
           }
           .main {
+            display: flex;
+            align-items: center;
             height: 70px;
           }
           .symbol {
