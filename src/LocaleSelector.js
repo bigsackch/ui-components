@@ -206,7 +206,10 @@ export class LocaleSelectorWithState extends React.Component<
       <LocaleSelector
         locale={props.locale}
         onHideLocales={toggleShowOptions}
-        onLocaleSelect={props.onSelect}
+        onLocaleSelect={selectedLocale => {
+          props.onSelect(selectedLocale);
+          toggleShowOptions();
+        }}
         onShowLocales={toggleShowOptions}
         showLocaleOptions={state.showOptions}
       />
