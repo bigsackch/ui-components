@@ -160,7 +160,7 @@ type LocaleSelectorProps = {
   showLocaleOptions: boolean,
 }
 
-function LocaleSelector({
+export function LocaleSelector({
   locale,
   onLocaleSelect,
   onShowLocales,
@@ -189,7 +189,7 @@ function LocaleSelector({
 }
 
 export default class LocaleSelectorWithState extends React.Component<
-  {locale: string, onSelect: (string) => void}, { showOptions: boolean }
+  { locale: string, onSelect: (string) => void }, { showOptions: boolean }
 > {
   state = {
     showOptions: false,
