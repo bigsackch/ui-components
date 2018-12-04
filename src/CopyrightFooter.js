@@ -5,7 +5,7 @@ import { Col, Grid } from './Grid';
 
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
 
-export function CopyrightFooter({ children, company }: { children?: React.Node, company: string }) {
+export function CopyrightFooter({ children }: { children?: React.Node }) {
   return (
     <div>
       <hr />
@@ -19,7 +19,7 @@ export function CopyrightFooter({ children, company }: { children?: React.Node, 
                 src={eventumSymbol}
               />
               <span className="pls">
-                {`\u00A9 ${company}`}
+                {`\u00A9 Eventum Norge AS`}
               </span>
             </p>
           </div>
