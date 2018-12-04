@@ -12,6 +12,8 @@
 
 (def Label (r/adapt-react-class (gobj/get js/EventumUI "Label")))
 
+(def LocaleSelector (r/adapt-react-class (gobj/get js/EventumUI "LocaleSelector")))
+
 (def Grid (r/adapt-react-class (gobj/get js/EventumUI "Grid")))
 (def Col (r/adapt-react-class (gobj/get js/EventumUI "Col")))
 (def ColRight (r/adapt-react-class (gobj/get js/EventumUI "ColRight")))

@@ -19,3 +19,7 @@ export const SPACING = {
   L: '40px',
 };
 
+export const LOCALES = {
+  en: 'en',
+  nb: 'nb',
+};
