@@ -100,7 +100,12 @@ function AdminMenuOptions({ locale }: { locale: string }) {
       { /* language=CSS */ }
       <style jsx>{`
         li {
+          padding: 10px 0;
           border-bottom: ${COLORS.BORDER};
+        }
+        ul {
+          margin-left: 0;
+          margin-right: 0;
         }
       `}</style>
     </HeaderMenuModal>
@@ -126,11 +131,16 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
           btnStyle="link"
           onClick={toggleShowOptions}
         >{text.admin}</Button>
-        {state.showOptions ? <AdminMenuOptions locale={props.locale} /> : null}
+        <div className="options">
+          {state.showOptions ? <AdminMenuOptions locale={props.locale} /> : null}
+        </div>
         { /* language=CSS */ }
         <style jsx>{`
           div {
             border-bottom: ${COLORS.BORDER};
+          }
+          .options {
+            position: relative;
           }
         `}</style>
       </div>
