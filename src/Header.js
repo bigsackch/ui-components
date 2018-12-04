@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 import { Avatar } from './Avatar';
+import { Button } from './Buttons';
 import { COLORS, SPACING } from './constants';
 
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
@@ -10,6 +11,7 @@ import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
 const i18n = {
   nb: {
     account: 'Konto',
+    admin: 'Admin',
     inbox: 'Innboks',
     invoicing: 'Fakturering',
     logout: 'Logg ut',
@@ -22,6 +24,7 @@ const i18n = {
   },
   en: {
     account: 'Account',
+    admin: 'Admin',
     inbox: 'Inbox',
     invoicing: 'Invoicing',
     logout: 'Log out',
@@ -55,6 +58,86 @@ export function HeaderLink({ children, href }: {
   );
 }
 
+function HeaderMenuModal({ children }: { children: React.Node }) {
+  return (
+    <div>
+      {children}
+      { /* language=CSS */ }
+      <style jsx>
+        {`
+        div {
+          background-color: #fff;
+          border-radius: 3px;
+          border: 1px solid #ebe8e3;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          min-width: 280px;
+          position: absolute;
+          right: 0;
+          text-align: left;
+          top: 0;
+          z-index: 100000;
+        }
+        ul {
+          margin: 0;
+          padding: 10px 0;
+        }
+      `}
+      </style>
+    </div>
+  );
+}
+
+function AdminMenuOptions({ locale }: { locale: string }) {
+  const text = i18n[locale];
+
+  return (
+    <HeaderMenuModal>
+      <ul>
+        <li><HeaderLink href="/inbox/admin/users">{text.users}</HeaderLink></li>
+        <li><HeaderLink href="/inbox/admin/stats">{text.stats}</HeaderLink></li>
+        <li><HeaderLink href="/inbox/admin/invoice">{text.invoicing}</HeaderLink></li>
+      </ul>
+      { /* language=CSS */ }
+      <style jsx>{`
+        li {
+          border-bottom: ${COLORS.BORDER};
+        }
+      `}</style>
+    </HeaderMenuModal>
+  );
+}
+
+export class AdminMenuLink extends React.Component<{ locale: string }, { showOptions: boolean }> {
+  state = {
+    showOptions: false,
+  };
+
+  toggleShowOptions = () => {
+    this.setState(prevState => ({ showOptions: !prevState.showOptions }));
+  };
+
+  render() {
+    const { props, state, toggleShowOptions } = this;
+    const text = i18n[props.locale];
+
+    return (
+      <div>
+        <Button
+          btnStyle="link"
+          onClick={toggleShowOptions}
+        >{text.admin}</Button>
+        {state.showOptions ? <AdminMenuOptions locale={props.locale} /> : null}
+        { /* language=CSS */ }
+        <style jsx>{`
+          div {
+            border-bottom: ${COLORS.BORDER};
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
+
 export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }: {
   isAdmin?: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
 }) {
@@ -70,9 +153,7 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
         {text.account}
       </HeaderLink>
       <HeaderLink href="/your-profile">{text.profile}</HeaderLink>
-      {isAdmin ? <HeaderLink href="/inbox/admin/users">{text.users}</HeaderLink> : null}
-      {isAdmin ? <HeaderLink href="/inbox/admin/stats">{text.stats}</HeaderLink> : null}
-      {isAdmin ? <HeaderLink href="/inbox/admin/invoice">{text.invoicing}</HeaderLink> : null}
+      {isAdmin ? <AdminMenuLink locale={locale} /> : null}
       <HeaderLink href="/inbox/logout">{text.logout}</HeaderLink>
       {profileSlug ? (
         <div className="account">

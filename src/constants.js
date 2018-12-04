@@ -1,6 +1,7 @@
 // @flow
 
 export const COLORS = {
+  BORDER: '#ebe8e3',
   DEFAULT: '#4b4b4b',
   DISABLED: '#807979',
   LINK: '#019288',
