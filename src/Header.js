@@ -9,20 +9,28 @@ import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
 
 const i18n = {
   nb: {
-    inbox: 'Innboks',
-    venues: 'Utleiesteder',
     account: 'Konto',
+    inbox: 'Innboks',
+    invoicing: 'Fakturering',
+    logout: 'Logg ut',
     profile: 'Din profil',
     selectAccount: 'Velg konto',
     selectedAccount: 'Valgt konto:',
+    stats: 'Statistikkpanel',
+    users: 'Brukerkontoer',
+    venues: 'Utleiesteder',
   },
   en: {
-    inbox: 'Inbox',
-    venues: 'Venues',
     account: 'Account',
+    inbox: 'Inbox',
+    invoicing: 'Invoicing',
+    logout: 'Log out',
     profile: 'Your profile',
     selectAccount: 'Choose account',
     selectedAccount: 'Selected account:',
+    stats: 'Stats dashboard',
+    users: 'User accounts',
+    venues: 'Venues',
   },
 };
 
@@ -47,8 +55,8 @@ export function HeaderLink({ children, href }: {
   );
 }
 
-export function HeaderHostingMenu({ locale, profileName, profileSlug }: {
-  locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
+export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }: {
+  isAdmin?: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
 }) {
   const text = i18n[locale];
 
@@ -62,6 +70,10 @@ export function HeaderHostingMenu({ locale, profileName, profileSlug }: {
         {text.account}
       </HeaderLink>
       <HeaderLink href="/your-profile">{text.profile}</HeaderLink>
+      {isAdmin ? <HeaderLink href="/inbox/admin/users">{text.users}</HeaderLink> : null}
+      {isAdmin ? <HeaderLink href="/inbox/admin/stats">{text.stats}</HeaderLink> : null}
+      {isAdmin ? <HeaderLink href="/inbox/admin/invoice">{text.invoicing}</HeaderLink> : null}
+      <HeaderLink href="/inbox/logout">{text.logout}</HeaderLink>
       {profileSlug ? (
         <div className="account">
           <div>{text.selectedAccount}</div>
