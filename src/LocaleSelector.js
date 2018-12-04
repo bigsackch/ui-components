@@ -188,7 +188,7 @@ export function LocaleSelector({
   );
 }
 
-export default class LocaleSelectorWithState extends React.Component<
+export class LocaleSelectorWithState extends React.Component<
   { locale: string, onSelect: (string) => void }, { showOptions: boolean }
 > {
   state = {
