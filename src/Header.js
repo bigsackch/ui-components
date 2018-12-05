@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 import { Avatar } from './Avatar';
+import { Backdrop } from './Backdrop';
 import { Button } from './Buttons';
 import { COLORS, SPACING } from './constants';
 
@@ -37,6 +38,31 @@ const i18n = {
   },
 };
 
+export function HeaderButton({ children, onClick }: {
+  children: React.Node, onClick: () => void,
+}) {
+  const buttonStyle = {
+    color: COLORS.DEFAULT,
+    WebkitFontSmoothing: "auto",
+  };
+
+  return (
+    <div>
+      <Button
+        btnStyle="link"
+        onClick={onClick}
+        style={buttonStyle}
+      >{children}</Button>
+      { /* language=CSS */ }
+      <style jsx>{`
+        div {
+          padding: 0 ${SPACING.M}
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export function HeaderLink({ children, href }: {
   children: React.Node, href: string,
 }) {
@@ -58,9 +84,10 @@ export function HeaderLink({ children, href }: {
   );
 }
 
-function HeaderMenuModal({ children }: { children: React.Node }) {
+function HeaderMenuModal({ children, onClose }: { children: React.Node, onClose: () => void, }) {
   return (
     <div>
+      <Backdrop onClick={onClose} />
       {children}
       { /* language=CSS */ }
       <style jsx>
@@ -74,12 +101,8 @@ function HeaderMenuModal({ children }: { children: React.Node }) {
           position: absolute;
           right: 0;
           text-align: left;
-          top: 0;
+          top: 20px;
           z-index: 100000;
-        }
-        ul {
-          margin: 0;
-          padding: 10px 0;
         }
       `}
       </style>
@@ -87,25 +110,42 @@ function HeaderMenuModal({ children }: { children: React.Node }) {
   );
 }
 
-function AdminMenuOptions({ locale }: { locale: string }) {
+function MenuListLink({ children, href }: { children: React.Node, href: string }) {
+  return (
+    <li>
+      <a href={href}>{children}</a>
+      { /* language=CSS */ }
+      <style jsx>{`
+        a {
+          border-bottom: 1px solid ${COLORS.BORDER};
+          color: ${COLORS.DEFAULT};
+          display: block;
+          padding: 10px 0;
+          text-decoration: none;
+        }
+        a:hover {
+          border-bottom: 2px solid ${COLORS.BORDER};
+        }
+      `}</style>
+    </li>
+  );
+}
+
+function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => void }) {
   const text = i18n[locale];
 
   return (
-    <HeaderMenuModal>
+    <HeaderMenuModal onClose={onClose}>
       <ul>
-        <li><HeaderLink href="/inbox/admin/users">{text.users}</HeaderLink></li>
-        <li><HeaderLink href="/inbox/admin/stats">{text.stats}</HeaderLink></li>
-        <li><HeaderLink href="/inbox/admin/invoice">{text.invoicing}</HeaderLink></li>
+        <MenuListLink href="/inbox/admin/users">{text.users}</MenuListLink>
+        <MenuListLink href="/inbox/admin/stats">{text.stats}</MenuListLink>
+        <MenuListLink href="/inbox/admin/invoice">{text.invoicing}</MenuListLink>
       </ul>
       { /* language=CSS */ }
       <style jsx>{`
-        li {
-          padding: 10px 0;
-          border-bottom: ${COLORS.BORDER};
-        }
         ul {
-          margin-left: 0;
-          margin-right: 0;
+          margin-top: 0;
+          margin-bottom: 0;
         }
       `}</style>
     </HeaderMenuModal>
@@ -127,12 +167,9 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
 
     return (
       <div>
-        <Button
-          btnStyle="link"
-          onClick={toggleShowOptions}
-        >{text.admin}</Button>
+        <HeaderButton onClick={toggleShowOptions}>{text.admin}</HeaderButton>
         <div className="options">
-          {state.showOptions ? <AdminMenuOptions locale={props.locale} /> : null}
+          {state.showOptions ? <AdminMenuOptions locale={props.locale} onClose={toggleShowOptions} /> : null}
         </div>
         { /* language=CSS */ }
         <style jsx>{`
