@@ -18,7 +18,7 @@ const i18n = {
     logout: 'Logg ut',
     profile: 'Rediger profil',
     selectAccount: 'Velg konto',
-    selectedAccount: 'Valgt konto:',
+    selectedAccount: 'Du administrerer:',
     stats: 'Statistikkpanel',
     users: 'Brukerkontoer',
     venues: 'Utleiesteder',
@@ -31,7 +31,7 @@ const i18n = {
     logout: 'Log out',
     profile: 'Edit profile',
     selectAccount: 'Choose account',
-    selectedAccount: 'Selected account:',
+    selectedAccount: 'You manage:',
     stats: 'Stats dashboard',
     users: 'User accounts',
     venues: 'Venues',
@@ -282,9 +282,9 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
             flex: 1 auto;
           }
           .account {
+            display: flex;
             margin-left: auto;
             margin-right: ${SPACING.M};
-            text-align: center;
           }
         `}
       </style>
