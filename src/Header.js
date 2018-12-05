@@ -11,12 +11,12 @@ import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
 
 const i18n = {
   nb: {
-    account: 'Konto',
+    account: 'Kontoinstillinger',
     admin: 'Admin',
     inbox: 'Innboks',
     invoicing: 'Fakturering',
     logout: 'Logg ut',
-    profile: 'Din profil',
+    profile: 'Rediger profil',
     selectAccount: 'Velg konto',
     selectedAccount: 'Valgt konto:',
     stats: 'Statistikkpanel',
@@ -24,12 +24,12 @@ const i18n = {
     venues: 'Utleiesteder',
   },
   en: {
-    account: 'Account',
+    account: 'Account settings',
     admin: 'Admin',
     inbox: 'Inbox',
     invoicing: 'Invoicing',
     logout: 'Log out',
-    profile: 'Your profile',
+    profile: 'Edit profile',
     selectAccount: 'Choose account',
     selectedAccount: 'Selected account:',
     stats: 'Stats dashboard',
@@ -176,9 +176,6 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
         </div>
         { /* language=CSS */ }
         <style jsx>{`
-          div {
-            border-bottom: ${COLORS.BORDER};
-          }
           .options {
             position: relative;
           }
@@ -187,6 +184,68 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
     );
   }
 }
+
+function UserMenuOptions({ locale, onClose, profileSlug }: { locale: string, onClose: () => void, profileSlug?: string }) {
+  const text = i18n[locale];
+
+  return (
+    <HeaderMenuModal onClose={onClose}>
+      <ul>
+        <MenuListLink href="/your-profile">{text.profile}</MenuListLink>
+        <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'}>
+          {text.account}
+        </MenuListLink>
+        <MenuListLink href="/inbox/logout">{text.logout}</MenuListLink>
+      </ul>
+      { /* language=CSS */ }
+      <style jsx>{`
+        ul {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      `}</style>
+    </HeaderMenuModal>
+  );
+}
+
+export class AvatarMenuLink extends React.Component<
+  { avatarAlt: ?string, avatarSrc: string, locale: string, profileSlug?: string }, { showOptions: boolean }
+> {
+  state = {
+    showOptions: false,
+  };
+
+  toggleShowOptions = () => {
+    this.setState(prevState => ({ showOptions: !prevState.showOptions }));
+  };
+
+  render() {
+    const { props, state, toggleShowOptions } = this;
+
+    return (
+      <div>
+        <HeaderButton onClick={toggleShowOptions}>
+          <Avatar altPart={props.avatarAlt} src={props.avatarSrc} width={30} />
+        </HeaderButton>
+        <div className="options">
+          {state.showOptions ? (
+            <UserMenuOptions
+              locale={props.locale}
+              onClose={toggleShowOptions}
+              profileSlug={props.profileSlug}
+            />) : null}
+        </div>
+        { /* language=CSS */ }
+        <style jsx>{`
+          .options {
+            position: relative;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
+
 
 export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }: {
   isAdmin?: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
@@ -199,12 +258,7 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
       <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}>
         {text.venues}
       </HeaderLink>
-      <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'}>
-        {text.account}
-      </HeaderLink>
-      <HeaderLink href="/your-profile">{text.profile}</HeaderLink>
       {isAdmin ? <AdminMenuLink locale={locale} /> : null}
-      <HeaderLink href="/inbox/logout">{text.logout}</HeaderLink>
       {profileSlug ? (
         <div className="account">
           <div>{text.selectedAccount}</div>
@@ -237,8 +291,8 @@ HeaderHostingMenu.defaultValue = {
   locale: 'nb',
 };
 
-export function Header({ avatarSrc, avatarAlt, children }: {
-  avatarSrc?: string, avatarAlt?: string, children?: React.Node,
+export function Header({ avatarSrc, avatarAlt, children, locale, profileSlug }: {
+  avatarSrc?: string, avatarAlt?: string, children?: React.Node, locale: string, profileSlug?: string,
 }) {
   return (
     <div className="main">
@@ -261,7 +315,13 @@ export function Header({ avatarSrc, avatarAlt, children }: {
       <div className="children">
         {children}
       </div>
-      {avatarSrc ? <Avatar altPart={avatarAlt} className="mhm" src={avatarSrc} width={30} /> : null}
+      {avatarSrc ? (
+        <AvatarMenuLink
+          avatarAlt={avatarAlt}
+          avatarSrc={avatarSrc}
+          locale={locale}
+          profileSlug={profileSlug}
+        />) : null}
       {/* language=CSS */}
       <style jsx>
         {`
