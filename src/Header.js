@@ -49,6 +49,7 @@ export function HeaderButton({ children, onClick }: {
   return (
     <div>
       <Button
+        btnSize="s"
         btnStyle="link"
         onClick={onClick}
         style={buttonStyle}
@@ -185,7 +186,9 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
   }
 }
 
-function UserMenuOptions({ locale, onClose, profileSlug }: { locale: string, onClose: () => void, profileSlug?: string }) {
+function UserMenuOptions({
+  locale, onClose, profileSlug,
+}: { locale: string, onClose: () => void, profileSlug?: string }) {
   const text = i18n[locale];
 
   return (
@@ -233,7 +236,8 @@ export class AvatarMenuLink extends React.Component<
               locale={props.locale}
               onClose={toggleShowOptions}
               profileSlug={props.profileSlug}
-            />) : null}
+            />
+          ) : null}
         </div>
         { /* language=CSS */ }
         <style jsx>{`
