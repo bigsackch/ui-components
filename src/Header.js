@@ -284,7 +284,6 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
           .account {
             display: flex;
             margin-left: auto;
-            margin-right: ${SPACING.M};
           }
         `}
       </style>
