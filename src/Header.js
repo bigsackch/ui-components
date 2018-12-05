@@ -113,10 +113,10 @@ function HeaderMenuModal({ children, onClose }: { children: React.Node, onClose:
   );
 }
 
-function MenuListLink({ children, href }: { children: React.Node, href: string }) {
+function MenuListLink({ children, href, onClick }: { children: React.Node, href: string, onClick?: () => void }) {
   return (
     <li>
-      <a href={href}>{children}</a>
+      <a href={href} onClick={onClick}>{children}</a>
       { /* language=CSS */ }
       <style jsx>{`
         a {
@@ -194,11 +194,11 @@ function UserMenuOptions({
   return (
     <HeaderMenuModal onClose={onClose}>
       <ul>
-        <MenuListLink href="/your-profile">{text.profile}</MenuListLink>
-        <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'}>
+        <MenuListLink href="/your-profile" onClick={onClose}>{text.profile}</MenuListLink>
+        <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'} onClick={onClose}>
           {text.account}
         </MenuListLink>
-        <MenuListLink href="/inbox/logout">{text.logout}</MenuListLink>
+        <MenuListLink href="/inbox/logout" onClick={onClose}>{text.logout}</MenuListLink>
       </ul>
       { /* language=CSS */ }
       <style jsx>{`
