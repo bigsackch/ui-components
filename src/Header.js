@@ -103,7 +103,7 @@ function HeaderMenuModal({ children, onClose }: { children: React.Node, onClose:
           position: absolute;
           right: 0;
           text-align: left;
-          top: 20px;
+          top: ${SPACING.M};
           z-index: 100000;
         }
       `}
@@ -122,11 +122,12 @@ function MenuListLink({ children, href }: { children: React.Node, href: string }
           border-bottom: 1px solid ${COLORS.BORDER};
           color: ${COLORS.DEFAULT};
           display: block;
-          padding: 15px 0;
+          padding: ${SPACING.M} 0;
           text-decoration: none;
         }
         a:hover {
           border-bottom: 1px solid ${COLORS.DEFAULT};
+          text-decoration: none;
         }
       `}</style>
     </li>
@@ -224,7 +225,7 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
           }
           .account {
             margin-left: auto;
-            margin-right: 20px;
+            margin-right: ${SPACING.M};
             text-align: center;
           }
         `}
@@ -292,7 +293,7 @@ export function Header({ avatarSrc, avatarAlt, children }: {
           }
           @media only screen and (min-width: 1200px) {
             .main {
-              padding: 0 20px;
+              padding: 0 ${SPACING.M};
             }
           }
         `}
