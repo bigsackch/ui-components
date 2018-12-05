@@ -88,11 +88,13 @@ function HeaderMenuModal({ children, onClose }: { children: React.Node, onClose:
   return (
     <div>
       <Backdrop onClick={onClose} />
-      {children}
+      <div className="children">
+        {children}
+      </div>
       { /* language=CSS */ }
       <style jsx>
         {`
-        div {
+        .children {
           background-color: #fff;
           border-radius: 3px;
           border: 1px solid #ebe8e3;
@@ -120,11 +122,11 @@ function MenuListLink({ children, href }: { children: React.Node, href: string }
           border-bottom: 1px solid ${COLORS.BORDER};
           color: ${COLORS.DEFAULT};
           display: block;
-          padding: 10px 0;
+          padding: 15px 0;
           text-decoration: none;
         }
         a:hover {
-          border-bottom: 2px solid ${COLORS.BORDER};
+          border-bottom: 1px solid ${COLORS.DEFAULT};
         }
       `}</style>
     </li>
