@@ -69,28 +69,23 @@ export function ModalMenu({ children, onClose, topLock, bottomLock }: {
         }
         .modal {
           background-color: #fff;
-          bottom: ${bottomLock || 0};
+          bottom: ${bottomLock ? `${bottomLock}px` : 0};
           left: 0;
           position: fixed;
           right: 0;
-          top: ${topLock || 0};
+          top: ${topLock ? `${topLock}px` : 0};
           z-index: 100000;
-          transition-duration: 0.2s;
-          transition-timing-function: ease-out;
-          transform: translateY(0px);
         }
         @media only screen and (min-width: 768px) {
           .modal {
             border-radius: 3px;
             border: 1px solid ${COLORS.BORDER};
-            bottom: auto;
+            bottom: ${bottomLock ? `${bottomLock}px` : 'auto'};
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             left: auto;
             min-width: 280px;
             position: absolute;
-            transition-duration: initial;
-            transition-timing-function: initial;
-            transform: none;
+            top: ${topLock ? `${topLock}px` : 'auto'};
           }
         }
       `}</style>
