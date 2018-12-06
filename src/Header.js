@@ -153,7 +153,7 @@ function UserMenuOptions({ locale, onClose, profileSlug }: {
 }
 
 function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileSlug }: {
-  isAdmin?: boolean, locale: string, onClose: () => void, profileSlug?: string,
+  isAdmin: boolean, locale: string, onClose: () => void, profileSlug?: string,
 }) {
   const text = i18n[locale];
 
@@ -259,7 +259,7 @@ export class AvatarMenuLink extends React.Component<
   }
 }
 export class HeaderHostingMenuMobile extends React.Component<
-  { locale: string, profileSlug?: string }, { showOptions: boolean }
+  { isAdmin: boolean, locale: string, profileSlug?: string }, { showOptions: boolean }
   > {
   state = {
     showOptions: false,
@@ -288,6 +288,7 @@ export class HeaderHostingMenuMobile extends React.Component<
           {state.showOptions ? (
             <ModalMenu onClose={toggleShowOptions} topLock={70}>
               <MobileHostingMenuOptions
+                isAdmin={props.isAdmin}
                 locale={props.locale}
                 onClose={toggleShowOptions}
                 profileSlug={props.profileSlug}
@@ -313,14 +314,14 @@ export class HeaderHostingMenuMobile extends React.Component<
 
 
 export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }: {
-  isAdmin?: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
+  isAdmin: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
 }) {
   const text = i18n[locale];
 
   return (
     <div className="main">
       <div className="mobile">
-        <HeaderHostingMenuMobile locale={locale} profileSlug={profileSlug} />
+        <HeaderHostingMenuMobile isAdmin={isAdmin} locale={locale} profileSlug={profileSlug} />
       </div>
       <div className="desktop">
         <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
@@ -328,10 +329,10 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
           {text.venues}
         </HeaderLink>
         {isAdmin ? <AdminMenuLink locale={locale} /> : null}
-        {profileSlug ? (
+        {profileSlug && profileName ? (
           <div className="account">
             <div>{text.selectedAccount}</div>
-            <HeaderLink href="/hosting/accounts">{profileName || ''}</HeaderLink>
+            <HeaderLink href="/hosting/accounts">{profileName}</HeaderLink>
           </div>
         ) : (
           <div className="account">
@@ -368,6 +369,7 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
   );
 }
 HeaderHostingMenu.defaultValue = {
+  isAdmin: false,
   locale: 'nb',
 };
 
