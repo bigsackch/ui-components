@@ -8,6 +8,7 @@ import { COLORS, SPACING } from './constants';
 
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
 import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
+import iconArrowDown from '../static/images/icons/Arrow-Down-Line-Black-24.svg';
 
 const i18n = {
   nb: {
@@ -250,6 +251,79 @@ export class AvatarMenuLink extends React.Component<
   }
 }
 
+export function LocaleSelector({
+                                 locale,
+                                 onLocaleSelect,
+                                 onShowLocales,
+                                 onHideLocales,
+                                 showLocaleOptions,
+                               }: LocaleSelectorProps) {
+  return (
+    <div style={{ position: 'relative' }}>
+      <CurrentLocale
+        locale={locale}
+        isArrowUp={showLocaleOptions}
+        onClick={onShowLocales}
+      />
+      {showLocaleOptions ? (
+        <div>
+          <Backdrop onClick={onHideLocales} />
+          <Options
+            locale={locale}
+            onClick={(selectedLocale) => {
+              onLocaleSelect(selectedLocale);
+            }}
+          />
+        </div>) : null}
+    </div>
+  );
+}
+
+export class HeaderHostingMenuMobile extends React.Component<
+  { locale: string, profileSlug?: string }, { showOptions: boolean }
+  > {
+  state = {
+    showOptions: false,
+  };
+
+  toggleShowOptions = () => {
+    this.setState(prevState => ({ showOptions: !prevState.showOptions }));
+  };
+
+  render() {
+    const { props, state, toggleShowOptions } = this;
+
+    return (
+      <div>
+        <HeaderButton onClick={toggleShowOptions}>
+          <span>Meny </span>
+          <img
+            alt=""
+            src={iconArrowDown}
+            width="10"
+            style={{ transform: state.showOptions ? 'rotate(180deg)' : 'rotate(0deg)' }}
+          />
+        </HeaderButton>
+        <div className="options">
+          {state.showOptions ? (
+            <UserMenuOptions
+              locale={props.locale}
+              onClose={toggleShowOptions}
+              profileSlug={props.profileSlug}
+            />
+          ) : null}
+        </div>
+        { /* language=CSS */ }
+        <style jsx>{`
+          .options {
+            position: relative;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
+
 
 export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }: {
   isAdmin?: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
@@ -257,33 +331,46 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
   const text = i18n[locale];
 
   return (
-    <div className="main">
-      <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
-      <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}>
-        {text.venues}
-      </HeaderLink>
-      {isAdmin ? <AdminMenuLink locale={locale} /> : null}
-      {profileSlug ? (
-        <div className="account">
-          <div>{text.selectedAccount}</div>
-          <HeaderLink href="/hosting/accounts">{profileName || ''}</HeaderLink>
-        </div>
-      ) : (
-        <div className="account">
-          <HeaderLink href="/hosting/accounts">{text.selectAccount}</HeaderLink>
-        </div>
-      )}
+    <div>
+      <div className="mobile">
+        <HeaderHostingMenuMobile locale={locale} profileSlug={profileSlug} />
+      </div>
+      <div className="desktop">
+        <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
+        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}>
+          {text.venues}
+        </HeaderLink>
+        {isAdmin ? <AdminMenuLink locale={locale} /> : null}
+        {profileSlug ? (
+          <div className="account">
+            <div>{text.selectedAccount}</div>
+            <HeaderLink href="/hosting/accounts">{profileName || ''}</HeaderLink>
+          </div>
+        ) : (
+          <div className="account">
+            <HeaderLink href="/hosting/accounts">{text.selectAccount}</HeaderLink>
+          </div>
+        )}
+      </div>
       {/* language=CSS */}
       <style jsx>
         {`
-          .main {
-            align-items: center;
-            display: flex;
-            flex: 1 auto;
-          }
           .account {
             display: flex;
             margin-left: auto;
+          }
+          .desktop {
+            display: none;
+          }
+          @media only screen and (min-width: 768px) {
+            .desktop {
+              align-items: center;
+              display: flex;
+              flex: 1 auto;
+            }
+            .mobile {
+              display: none;
+            }
           }
         `}
       </style>
