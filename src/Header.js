@@ -268,7 +268,7 @@ export class AvatarMenuLink extends React.Component<
   }
 }
 export class HeaderHostingMenuMobile extends React.Component<
-  { isAdmin: boolean, locale: string, profileSlug?: string }, { showOptions: boolean }
+  { isAdmin: boolean, locale: string, profileName?: string, profileSlug?: string }, { showOptions: boolean }
   > {
   state = {
     showOptions: false,
@@ -301,6 +301,7 @@ export class HeaderHostingMenuMobile extends React.Component<
                 locale={props.locale}
                 onClose={toggleShowOptions}
                 profileSlug={props.profileSlug}
+                profileName={props.profileName}
               />
             </ModalMenu>
           ) : null}
@@ -330,7 +331,12 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
   return (
     <div className="main">
       <div className="mobile">
-        <HeaderHostingMenuMobile isAdmin={isAdmin} locale={locale} profileSlug={profileSlug} />
+        <HeaderHostingMenuMobile
+          isAdmin={isAdmin}
+          locale={locale}
+          profileName={profileName}
+          profileSlug={profileSlug}
+        />
       </div>
       <div className="desktop">
         <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
