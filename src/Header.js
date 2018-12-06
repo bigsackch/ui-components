@@ -152,6 +152,37 @@ function UserMenuOptions({ locale, onClose, profileSlug }: {
   );
 }
 
+function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileSlug }: {
+  isAdmin?: boolean, locale: string, onClose: () => void, profileSlug?: string,
+}) {
+  const text = i18n[locale];
+
+  return (
+    <div>
+      <ul>
+        <MenuListLink href="/inbox" onClick={onClose}>{text.inbox}</MenuListLink>
+        <MenuListLink
+          href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}
+          onClick={onClose}
+        >{text.venues}</MenuListLink>
+      </ul>
+      {isAdmin ? <AdminMenuOptions locale={locale} onClose={onClose} /> : null}
+      <UserMenuOptions
+        locale={locale}
+        onClose={onClose}
+        profileSlug={profileSlug}
+      />
+      { /* language=CSS */ }
+      <style jsx>{`
+        ul {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 
 export class AdminMenuLink extends React.Component<{ locale: string }, { showOptions: boolean }> {
   state = {
@@ -227,28 +258,6 @@ export class AvatarMenuLink extends React.Component<
     );
   }
 }
-
-function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileSlug }: {
-  isAdmin?: boolean, locale: string, onClose: () => void, profileSlug?: string,
-}) {
-  const text = i18n[locale];
-
-  return (
-    <div>
-      <MenuListLink href="/inbox" onClick={onClose}>{text.inbox}</MenuListLink>
-      <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'} onClick={onClose}>
-        {text.venues}
-      </MenuListLink>
-      {isAdmin ? <AdminMenuOptions locale={locale} onClose={onClose} /> : null}
-      <UserMenuOptions
-        locale={locale}
-        onClose={onClose}
-        profileSlug={profileSlug}
-      />
-    </div>
-  );
-}
-
 export class HeaderHostingMenuMobile extends React.Component<
   { locale: string, profileSlug?: string }, { showOptions: boolean }
   > {
