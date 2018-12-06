@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import { Backdrop } from './Backdrop';
-import { ModalCloseButton } from './ModalCloseButton';
+import { BodyScrollDisabled, ModalCloseButton } from './ModalCloseButton';
 
 import { COLORS, SPACING } from './constants';
 
@@ -15,6 +15,7 @@ type ModalProps = {
 export function Modal({ children, onCloseClick, zIndex }: ModalProps) {
   return (
     <Backdrop onClick={onCloseClick} bgColor="rgba(255, 255, 255, 0.8)" zIndex={zIndex}>
+      <BodyScrollDisabled />
       <div className="modal" onClick={event => event.stopPropagation()} role="presentation">
         <ModalCloseButton color="black" onClick={onCloseClick} height={40} />
         {children}
@@ -54,6 +55,7 @@ export function ModalMenu({ children, onClose, topLock, bottomLock }: {
 }) {
   return (
     <div>
+      <BodyScrollDisabled />
       <Backdrop onClick={onClose} />
       <div className="modal" onClick={event => event.stopPropagation()} role="presentation">
         <div className="children">

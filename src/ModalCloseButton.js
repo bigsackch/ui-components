@@ -4,7 +4,7 @@ import * as React from 'react';
 import iconCloseBlack from '../static/images/icons/Close-Line-Black-120-Custom.svg';
 import iconCloseWhite from '../static/images/icons/Close-Line-White-120.svg';
 
-type Props = {
+type ModalCloseButtonProps = {
   color?: 'black' | 'white',
   onClick: () => void,
   height: number,
@@ -43,18 +43,12 @@ function enableBodyScroll(scrollTop: number) {
   }
 }
 
-export class ModalCloseButton extends React.Component<Props, { bodyScrollTop: number }> {
-  static defaultProps = {
-    color: 'white',
-  };
-
+export class BodyScrollDisabled extends React.Component<{}, { bodyScrollTop: number }> {
   state = {
     bodyScrollTop: 0,
   };
 
   componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-
     const bodyScrollTop = disableBodyScroll();
     this.setState({ bodyScrollTop });
   }
@@ -62,8 +56,25 @@ export class ModalCloseButton extends React.Component<Props, { bodyScrollTop: nu
   componentWillUnmount() {
     const { bodyScrollTop } = this.state;
 
-    window.removeEventListener('keydown', this.handleKeyDown);
     enableBodyScroll(bodyScrollTop);
+  }
+
+  render() {
+    return null;
+  }
+}
+
+export class ModalCloseButton extends React.Component<ModalCloseButtonProps> {
+  static defaultProps = {
+    color: 'white',
+  };
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
   }
 
   handleKeyDown = (event: SyntheticKeyboardEvent<>) => {
