@@ -319,6 +319,11 @@ export class HeaderHostingMenuMobile extends React.Component<
           .options {
             position: relative;
           }
+          img {
+            margin-left: 6px;
+            transition-duration: 250ms;
+            transition-timing-function: ease-in-out;
+          }
         `}</style>
       </div>
     );
