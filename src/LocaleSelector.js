@@ -6,6 +6,7 @@ import { Backdrop } from './Backdrop';
 import { LOCALES } from './constants';
 
 import iconArrowDown from '../static/images/icons/Arrow-Down-Line-Black-24.svg';
+import { ModalMenu } from './Modal';
 
 const i18n = {
   nb: {
@@ -130,23 +131,11 @@ function Options({ locale, onClick }: { locale: string, onClick: (locale: string
       { /* language=CSS */ }
       <style jsx>
         {`
-        div {
-          bottom: 23px;
-          position: absolute;
-          right: 20px;
-          z-index: 100000;
-          background-color: #fff;
-          border: 1px solid #ebe8e3;
-          border-radius: 3px;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-          text-align: left;
-          min-width: 150px;
-        }
-        ul {
-          margin: 0;
-          padding: 10px 0;
-        }
-      `}
+          ul {
+            margin: 0;
+            padding: 10px 0;
+          }
+        `}
       </style>
     </div>
   );
@@ -177,12 +166,14 @@ export function LocaleSelector({
       {showLocaleOptions ? (
         <div>
           <Backdrop onClick={onHideLocales} />
-          <Options
-            locale={locale}
-            onClick={(selectedLocale) => {
-              onLocaleSelect(selectedLocale);
-            }}
-          />
+          <ModalMenu onClose={onHideLocales} bottomLock={23}>
+            <Options
+              locale={locale}
+              onClick={(selectedLocale) => {
+                onLocaleSelect(selectedLocale);
+              }}
+            />
+          </ModalMenu>
         </div>) : null}
     </div>
   );
