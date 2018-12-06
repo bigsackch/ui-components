@@ -82,12 +82,12 @@ export function ModalMenu({ children, onClose, topLock, bottomLock }: {
           .modal {
             border-radius: 3px;
             border: 1px solid ${COLORS.BORDER};
-            bottom: ${bottomLock ? `${SPACING.M}px` : 'auto'};
+            bottom: ${bottomLock ? SPACING.M : 'auto'};
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             left: auto;
             min-width: 280px;
             position: absolute;
-            top: ${topLock ? `${SPACING.M}px` : 'auto'};
+            top: ${topLock ? SPACING.M : 'auto'};
           }
         }
       `}</style>
