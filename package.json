@@ -11,7 +11,8 @@
   "dependencies": {
     "is-touch-device": "^1.0.1",
     "react": "^16.5.0",
-    "react-dom": "^16.5.0"
+    "react-dom": "^16.5.0",
+    "react-responsive": "^6.0.1"
   },
   "peerDependencies": {
     "react": "^16.5.0",

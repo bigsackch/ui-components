@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import Responsive from 'react-responsive';
 
 import { Backdrop } from './Backdrop';
 import { BodyScrollDisabled, ModalCloseButton } from './ModalCloseButton';
@@ -55,7 +56,9 @@ export function ModalMenu({ children, onClose, topLock, bottomLock }: {
 }) {
   return (
     <div>
-      <BodyScrollDisabled />
+      <Responsive maxWidth={767}>
+        <BodyScrollDisabled />
+      </Responsive>
       <Backdrop onClick={onClose} />
       <div className="modal" onClick={event => event.stopPropagation()} role="presentation">
         <div className="children">
