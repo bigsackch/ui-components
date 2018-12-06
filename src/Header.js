@@ -114,12 +114,10 @@ function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => 
   const text = i18n[locale];
 
   return (
-    <ModalMenu onClose={onClose} topLock={70}>
-      <ul>
-        <MenuListLink href="/inbox/admin/users">{text.users}</MenuListLink>
-        <MenuListLink href="/inbox/admin/stats">{text.stats}</MenuListLink>
-        <MenuListLink href="/inbox/admin/invoice">{text.invoicing}</MenuListLink>
-      </ul>
+    <ul>
+      <MenuListLink href="/inbox/admin/users">{text.users}</MenuListLink>
+      <MenuListLink href="/inbox/admin/stats">{text.stats}</MenuListLink>
+      <MenuListLink href="/inbox/admin/invoice">{text.invoicing}</MenuListLink>
       { /* language=CSS */ }
       <style jsx>{`
         ul {
@@ -127,9 +125,33 @@ function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => 
           margin-bottom: 0;
         }
       `}</style>
-    </ModalMenu>
+    </ul>
   );
 }
+
+function UserMenuOptions({ locale, onClose, profileSlug }: {
+  locale: string, onClose: () => void, profileSlug?: string,
+}) {
+  const text = i18n[locale];
+
+  return (
+    <ul>
+      <MenuListLink href="/your-profile" onClick={onClose}>{text.profile}</MenuListLink>
+      <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'} onClick={onClose}>
+        {text.account}
+      </MenuListLink>
+      <MenuListLink href="/inbox/logout" onClick={onClose}>{text.logout}</MenuListLink>
+      { /* language=CSS */ }
+      <style jsx>{`
+        ul {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      `}</style>
+    </ul>
+  );
+}
+
 
 export class AdminMenuLink extends React.Component<{ locale: string }, { showOptions: boolean }> {
   state = {
@@ -148,7 +170,11 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
       <div>
         <HeaderButton onClick={toggleShowOptions}>{text.admin}</HeaderButton>
         <div className="options">
-          {state.showOptions ? <AdminMenuOptions locale={props.locale} onClose={toggleShowOptions} /> : null}
+          {state.showOptions ? (
+            <ModalMenu onClose={onClose} topLock={70}>
+              <AdminMenuOptions locale={props.locale} onClose={toggleShowOptions} />
+            </ModalMenu>
+          ): null}
         </div>
         { /* language=CSS */ }
         <style jsx>{`
@@ -159,31 +185,6 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
       </div>
     );
   }
-}
-
-function UserMenuOptions({
-  locale, onClose, profileSlug,
-}: { locale: string, onClose: () => void, profileSlug?: string }) {
-  const text = i18n[locale];
-
-  return (
-    <ModalMenu onClose={onClose} topLock={70}>
-      <ul>
-        <MenuListLink href="/your-profile" onClick={onClose}>{text.profile}</MenuListLink>
-        <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'} onClick={onClose}>
-          {text.account}
-        </MenuListLink>
-        <MenuListLink href="/inbox/logout" onClick={onClose}>{text.logout}</MenuListLink>
-      </ul>
-      { /* language=CSS */ }
-      <style jsx>{`
-        ul {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-      `}</style>
-    </ModalMenu>
-  );
 }
 
 export class AvatarMenuLink extends React.Component<
@@ -207,11 +208,13 @@ export class AvatarMenuLink extends React.Component<
         </HeaderButton>
         <div className="options">
           {state.showOptions ? (
-            <UserMenuOptions
-              locale={props.locale}
-              onClose={toggleShowOptions}
-              profileSlug={props.profileSlug}
-            />
+            <ModalMenu onClose={onClose} topLock={70}>
+              <UserMenuOptions
+                locale={props.locale}
+                onClose={toggleShowOptions}
+                profileSlug={props.profileSlug}
+              />
+            </ModalMenu>
           ) : null}
         </div>
         { /* language=CSS */ }
@@ -225,12 +228,26 @@ export class AvatarMenuLink extends React.Component<
   }
 }
 
+function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileSlug }: {
+  isAdmin?: boolean, locale: string, onClose: () => void, profileSlug?: string,
+}) {
+  const text = i18n[locale];
 
-// function MobileHostingMenuOptions() {
-//   return (
-//
-//   );
-// }
+  return (
+    <div>
+      <MenuListLink href="/inbox" onClick={onClose}>{text.inbox}</MenuListLink>
+      <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'} onClick={onClose}>
+        {text.venues}
+      </MenuListLink>
+      {isAdmin ? <AdminMenuOptions locale={locale} onClose={onClose} /> : null}
+      <UserMenuOptions
+        locale={locale}
+        onClose={onClose}
+        profileSlug={profileSlug}
+      />
+    </div>
+  );
+}
 
 export class HeaderHostingMenuMobile extends React.Component<
   { locale: string, profileSlug?: string }, { showOptions: boolean }
@@ -260,11 +277,13 @@ export class HeaderHostingMenuMobile extends React.Component<
         </HeaderButton>
         <div className="options">
           {state.showOptions ? (
-            <UserMenuOptions
-              locale={props.locale}
-              onClose={toggleShowOptions}
-              profileSlug={props.profileSlug}
-            />
+            <ModalMenu onClose={toggleShowOptions} topLock={70}>
+              <MobileHostingMenuOptions
+                locale={props.locale}
+                onClose={toggleShowOptions}
+                profileSlug={props.profileSlug}
+              />
+            </ModalMenu>
           ) : null}
         </div>
         { /* language=CSS */ }
