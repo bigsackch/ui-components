@@ -309,7 +309,7 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
   const text = i18n[locale];
 
   return (
-    <div>
+    <div className="main">
       <div className="mobile">
         <HeaderHostingMenuMobile locale={locale} profileSlug={profileSlug} />
       </div>
@@ -333,6 +333,9 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
       {/* language=CSS */}
       <style jsx>
         {`
+          .main {
+            flex: 1 auto;
+          }
           .account {
             display: flex;
             margin-left: auto;
