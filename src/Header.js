@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Avatar } from './Avatar';
 import { Backdrop } from './Backdrop';
 import { Button } from './Buttons';
+import { ModalMenu } from './Modal';
 import { COLORS, SPACING } from './constants';
 
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
@@ -193,7 +194,7 @@ function UserMenuOptions({
   const text = i18n[locale];
 
   return (
-    <HeaderMenuModal onClose={onClose}>
+    <ModalMenu onClose={onClose} topLock={70}>
       <ul>
         <MenuListLink href="/your-profile" onClick={onClose}>{text.profile}</MenuListLink>
         <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'} onClick={onClose}>
@@ -208,7 +209,7 @@ function UserMenuOptions({
           margin-bottom: 0;
         }
       `}</style>
-    </HeaderMenuModal>
+    </ModalMenu>
   );
 }
 
