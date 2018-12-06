@@ -13,6 +13,7 @@ import iconArrowDown from '../static/images/icons/Arrow-Down-Line-Black-24.svg';
 const i18n = {
   nb: {
     account: 'Kontoinstillinger',
+    accounts: 'Kontoer',
     admin: 'Admin',
     inbox: 'Innboks',
     invoicing: 'Fakturering',
@@ -22,11 +23,12 @@ const i18n = {
     selectAccount: 'Velg konto',
     selectedAccount: 'Du administrerer:',
     stats: 'Statistikkpanel',
-    users: 'Brukerkontoer',
+    users: 'Brukerprofiler',
     venues: 'Utleiesteder',
   },
   en: {
     account: 'Account settings',
+    accounts: 'Accounts',
     admin: 'Admin',
     inbox: 'Inbox',
     invoicing: 'Invoicing',
@@ -36,7 +38,7 @@ const i18n = {
     selectAccount: 'Choose account',
     selectedAccount: 'You manage:',
     stats: 'Stats dashboard',
-    users: 'User accounts',
+    users: 'User profiles',
     venues: 'Venues',
   },
 };
@@ -115,9 +117,10 @@ function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => 
 
   return (
     <ul>
+      <MenuListLink href="/hosting/accounts" onClick={onClose}>{text.accounts}</MenuListLink>
       <MenuListLink href="/inbox/admin/users">{text.users}</MenuListLink>
-      <MenuListLink href="/inbox/admin/stats">{text.stats}</MenuListLink>
       <MenuListLink href="/inbox/admin/invoice">{text.invoicing}</MenuListLink>
+      <MenuListLink href="/inbox/admin/stats">{text.stats}</MenuListLink>
       { /* language=CSS */ }
       <style jsx>{`
         ul {
@@ -152,14 +155,20 @@ function UserMenuOptions({ locale, onClose, profileSlug }: {
   );
 }
 
-function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileSlug }: {
-  isAdmin: boolean, locale: string, onClose: () => void, profileSlug?: string,
+function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileName, profileSlug }: {
+  isAdmin: boolean, locale: string, onClose: () => void, profileName?: string, profileSlug?: string,
 }) {
   const text = i18n[locale];
 
   return (
     <div>
       <ul>
+        {profileName && profileSlug ? (
+          <MenuListLink
+            href="/hosting/accounts"
+            onClick={onClose}
+          >{`${text.selectedAccount} ${profileName}`}</MenuListLink>
+        ) : null}
         <MenuListLink href="/inbox" onClick={onClose}>{text.inbox}</MenuListLink>
         <MenuListLink
           href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}
@@ -411,12 +420,12 @@ export function Header({ avatarSrc, avatarAlt, children, locale, profileSlug }: 
             align-items: center;
             display: flex;
             flex: 1 auto;
-            font-size: 1.7rem;
             justify-content: flex-end;
           }
           .main {
-            display: flex;
             align-items: center;
+            display: flex;
+            font-size: 1.7rem;
             height: 70px;
           }
           .symbol {
