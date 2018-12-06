@@ -2,7 +2,6 @@
 import * as React from 'react';
 
 import { Avatar } from './Avatar';
-import { Backdrop } from './Backdrop';
 import { Button } from './Buttons';
 import { ModalMenu } from './Modal';
 import { COLORS, SPACING } from './constants';
@@ -18,6 +17,7 @@ const i18n = {
     inbox: 'Innboks',
     invoicing: 'Fakturering',
     logout: 'Logg ut',
+    menu: 'Meny',
     profile: 'Rediger profil',
     selectAccount: 'Velg konto',
     selectedAccount: 'Du administrerer:',
@@ -31,6 +31,7 @@ const i18n = {
     inbox: 'Inbox',
     invoicing: 'Invoicing',
     logout: 'Log out',
+    menu: 'Menu',
     profile: 'Edit profile',
     selectAccount: 'Choose account',
     selectedAccount: 'You manage:',
@@ -87,34 +88,6 @@ export function HeaderLink({ children, href }: {
   );
 }
 
-function HeaderMenuModal({ children, onClose }: { children: React.Node, onClose: () => void, }) {
-  return (
-    <div>
-      <Backdrop onClick={onClose} />
-      <div className="children">
-        {children}
-      </div>
-      { /* language=CSS */ }
-      <style jsx>
-        {`
-        .children {
-          background-color: #fff;
-          border-radius: 3px;
-          border: 1px solid #ebe8e3;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-          min-width: 280px;
-          position: absolute;
-          right: 0;
-          text-align: left;
-          top: ${SPACING.M};
-          z-index: 100000;
-        }
-      `}
-      </style>
-    </div>
-  );
-}
-
 function MenuListLink({ children, href, onClick }: { children: React.Node, href: string, onClick?: () => void }) {
   return (
     <li>
@@ -141,7 +114,7 @@ function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => 
   const text = i18n[locale];
 
   return (
-    <HeaderMenuModal onClose={onClose}>
+    <ModalMenu onClose={onClose} topLock={70}>
       <ul>
         <MenuListLink href="/inbox/admin/users">{text.users}</MenuListLink>
         <MenuListLink href="/inbox/admin/stats">{text.stats}</MenuListLink>
@@ -154,7 +127,7 @@ function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => 
           margin-bottom: 0;
         }
       `}</style>
-    </HeaderMenuModal>
+    </ModalMenu>
   );
 }
 
@@ -272,11 +245,12 @@ export class HeaderHostingMenuMobile extends React.Component<
 
   render() {
     const { props, state, toggleShowOptions } = this;
+    const text = i18n[props.locale];
 
     return (
       <div>
         <HeaderButton onClick={toggleShowOptions}>
-          <span>Meny </span>
+          <span>{text.menu}</span>
           <img
             alt=""
             src={iconArrowDown}

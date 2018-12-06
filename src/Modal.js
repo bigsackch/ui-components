@@ -74,7 +74,7 @@ export function ModalMenu({ children, onClose, topLock, bottomLock }: {
           position: fixed;
           right: 0;
           top: ${topLock ? `${topLock}px` : 0};
-          z-index: 100000;
+          z-index: 1010;
         }
         @media only screen and (min-width: 768px) {
           .modal {
