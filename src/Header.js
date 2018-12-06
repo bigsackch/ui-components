@@ -252,33 +252,12 @@ export class AvatarMenuLink extends React.Component<
   }
 }
 
-export function LocaleSelector({
-                                 locale,
-                                 onLocaleSelect,
-                                 onShowLocales,
-                                 onHideLocales,
-                                 showLocaleOptions,
-                               }: LocaleSelectorProps) {
-  return (
-    <div style={{ position: 'relative' }}>
-      <CurrentLocale
-        locale={locale}
-        isArrowUp={showLocaleOptions}
-        onClick={onShowLocales}
-      />
-      {showLocaleOptions ? (
-        <div>
-          <Backdrop onClick={onHideLocales} />
-          <Options
-            locale={locale}
-            onClick={(selectedLocale) => {
-              onLocaleSelect(selectedLocale);
-            }}
-          />
-        </div>) : null}
-    </div>
-  );
-}
+
+// function MobileHostingMenuOptions() {
+//   return (
+//
+//   );
+// }
 
 export class HeaderHostingMenuMobile extends React.Component<
   { locale: string, profileSlug?: string }, { showOptions: boolean }
