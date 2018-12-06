@@ -4,6 +4,8 @@ import * as React from 'react';
 import { Backdrop } from './Backdrop';
 import { ModalCloseButton } from './ModalCloseButton';
 
+import { COLORS } from './constants';
+
 type ModalProps = {
   children: React.Node,
   onCloseClick: () => void,
@@ -45,3 +47,53 @@ export function Modal({ children, onCloseClick, zIndex }: ModalProps) {
 Modal.defaultProps = {
   zIndex: 1001,
 };
+
+
+export function ModalMenu({ children, onClose, topLock, bottomLock }: {
+  children: React.Node, onClose: () => void, topLock?: number, bottomLock?: number,
+}) {
+  return (
+    <div>
+      <Backdrop onClick={onClose} />
+      <div className="modal" onClick={event => event.stopPropagation()} role="presentation">
+        <div className="children">
+          {children}
+        </div>
+      </div>
+      { /* language=CSS */ }
+      <style jsx>{`
+        .children {
+          height: 100%;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+        .modal {
+          background-color: #fff;
+          bottom: ${bottomLock || 0};
+          left: 0;
+          position: fixed;
+          right: 0;
+          top: ${topLock || 0};
+          z-index: 100000;
+          transition-duration: 0.2s;
+          transition-timing-function: ease-out;
+          transform: translateY(0px);
+        }
+        @media only screen and (min-width: 768px) {
+          .modal {
+            border-radius: 3px;
+            border: 1px solid ${COLORS.BORDER};
+            bottom: auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            left: auto;
+            min-width: 280px;
+            position: absolute;
+            transition-duration: initial;
+            transition-timing-function: initial;
+            transform: none;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
