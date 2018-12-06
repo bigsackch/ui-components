@@ -171,7 +171,7 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
         <HeaderButton onClick={toggleShowOptions}>{text.admin}</HeaderButton>
         <div className="options">
           {state.showOptions ? (
-            <ModalMenu onClose={onClose} topLock={70}>
+            <ModalMenu onClose={toggleShowOptions} topLock={70}>
               <AdminMenuOptions locale={props.locale} onClose={toggleShowOptions} />
             </ModalMenu>
           ): null}
@@ -208,7 +208,7 @@ export class AvatarMenuLink extends React.Component<
         </HeaderButton>
         <div className="options">
           {state.showOptions ? (
-            <ModalMenu onClose={onClose} topLock={70}>
+            <ModalMenu onClose={toggleShowOptions} topLock={70}>
               <UserMenuOptions
                 locale={props.locale}
                 onClose={toggleShowOptions}
