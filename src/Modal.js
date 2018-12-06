@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Backdrop } from './Backdrop';
 import { ModalCloseButton } from './ModalCloseButton';
 
-import { COLORS } from './constants';
+import { COLORS, SPACING } from './constants';
 
 type ModalProps = {
   children: React.Node,
@@ -80,12 +80,12 @@ export function ModalMenu({ children, onClose, topLock, bottomLock }: {
           .modal {
             border-radius: 3px;
             border: 1px solid ${COLORS.BORDER};
-            bottom: ${bottomLock ? `${bottomLock}px` : 'auto'};
+            bottom: ${bottomLock ? `${SPACING.M}px` : 'auto'};
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             left: auto;
             min-width: 280px;
             position: absolute;
-            top: ${topLock ? `${topLock}px` : 'auto'};
+            top: ${topLock ? `${SPACING.M}px` : 'auto'};
           }
         }
       `}</style>
