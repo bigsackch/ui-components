@@ -5,6 +5,7 @@ export * from './Buttons';
 export * from './RadioCheckbox';
 export * from './CopyrightFooter';
 export * from './DatePicker';
+export * from './DateSelectButton';
 export * from './FormComponents';
 export * from './Grid';
 export * from './Header';

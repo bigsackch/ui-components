@@ -12,6 +12,8 @@
 
 (def DatePicker (r/adapt-react-class (gobj/get js/EventumUI "DatePicker")))
 
+(def DateSelectButton (r/adapt-react-class (gobj/get js/EventumUI "DateSelectButton")))
+
 (def Label (r/adapt-react-class (gobj/get js/EventumUI "Label")))
 
 (def LocaleSelectorWithState (r/adapt-react-class (gobj/get js/EventumUI "LocaleSelectorWithState")))
