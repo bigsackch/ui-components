@@ -10,6 +10,8 @@
 
 (def CopyrightFooter (r/adapt-react-class (gobj/get js/EventumUI "CopyrightFooter")))
 
+(def DatePicker (r/adapt-react-class (gobj/get js/EventumUI "DatePicker")))
+
 (def Label (r/adapt-react-class (gobj/get js/EventumUI "Label")))
 
 (def LocaleSelectorWithState (r/adapt-react-class (gobj/get js/EventumUI "LocaleSelectorWithState")))
@@ -75,3 +77,5 @@
     (apply r/create-element (gobj/get js/EventumUI "Textarea") props (map r/as-element children))))
 
 (def Select (r/adapt-react-class (gobj/get js/EventumUI "Select")))
+
+(def Updating (r/adapt-react-class (gobj/get js/EventumUI "Updating")))
