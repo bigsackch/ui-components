@@ -157,8 +157,8 @@ function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => 
   );
 }
 
-function UserMenuOptions({ locale, onClose, profileSlug }: {
-  locale: string, onClose: () => void, profileSlug?: string,
+function UserMenuOptions({ locale, onClose }: {
+  locale: string, onClose: () => void,
 }) {
   const text = i18n[locale];
 
@@ -250,7 +250,7 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
 }
 
 export class AvatarMenuLink extends React.Component<
-  { avatarAlt: ?string, avatarSrc: string, locale: string, profileSlug?: string }, { showOptions: boolean }
+  { avatarAlt: ?string, avatarSrc: string, locale: string }, { showOptions: boolean }
 > {
   state = {
     showOptions: false,
@@ -274,7 +274,6 @@ export class AvatarMenuLink extends React.Component<
               <UserMenuOptions
                 locale={props.locale}
                 onClose={toggleShowOptions}
-                profileSlug={props.profileSlug}
               />
             </ModalMenu>
           ) : null}
@@ -528,7 +527,7 @@ HeaderHostingMenu.defaultValue = {
   locale: 'nb',
 };
 
-export function Header({ avatarSrc, avatarAlt, children, locale, profileSlug }: {
+export function Header({ avatarSrc, avatarAlt, children, locale }: {
   avatarSrc?: string, avatarAlt?: string, children?: React.Node, locale: string, profileSlug?: string,
 }) {
   return (
@@ -557,7 +556,6 @@ export function Header({ avatarSrc, avatarAlt, children, locale, profileSlug }: 
           avatarAlt={avatarAlt}
           avatarSrc={avatarSrc}
           locale={locale}
-          profileSlug={profileSlug}
         />) : null}
       {/* language=CSS */}
       <style jsx>
