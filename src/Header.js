@@ -140,9 +140,6 @@ function UserMenuOptions({ locale, onClose, profileSlug }: {
   return (
     <ul>
       <MenuListLink href="/your-profile" onClick={onClose}>{text.profile}</MenuListLink>
-      <MenuListLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'} onClick={onClose}>
-        {text.account}
-      </MenuListLink>
       <MenuListLink href="/inbox/logout" onClick={onClose}>{text.logout}</MenuListLink>
       { /* language=CSS */ }
       <style jsx>{`
@@ -342,6 +339,9 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
         <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
         <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}>
           {text.venues}
+        </HeaderLink>
+        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'}>
+          {text.account}
         </HeaderLink>
         {isAdmin ? <AdminMenuLink locale={locale} /> : null}
         {profileSlug && profileName ? (
