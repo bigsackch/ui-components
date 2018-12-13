@@ -59,8 +59,8 @@ const URI = {
   adminStats: '/inbox/admin/stats',
   adminUsers: '/inbox/admin/users',
   becomeHost: {
-    en: '/become-a-host',
-    nb: '/bli-en-utleier',
+    en: '/list-your-space',
+    nb: '/leie-ut-lokale',
   },
   favorites: {
     en: '/favorites',
