@@ -431,7 +431,7 @@ export function HeaderWebMenu({
           <HostMenuLink locale={locale} />
           : <HeaderLink href={URI.becomeHost[locale]}>{text.becomeHost}</HeaderLink>}
         <HeaderLink href={URI.favorites[locale]}>{text.favorites}</HeaderLink>
-        <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink>
+        {isLoggedIn ? <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink> : null}
         <HeaderLink href={URI.help}>{text.help}</HeaderLink>
         {isAdmin ? <AdminMenuLink locale={locale} /> : null}
         {!isLoggedIn ? <HeaderLink href={URI.login} onClick={onLoginClick}>{text.login}</HeaderLink> : null}
