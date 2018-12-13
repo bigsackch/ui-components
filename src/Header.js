@@ -58,8 +58,14 @@ const URI = {
   adminInvoice: '/inbox/admin/invoice',
   adminStats: '/inbox/admin/stats',
   adminUsers: '/inbox/admin/users',
-  becomeHost: '/become-a-host',
-  favorites: '/favorites',
+  becomeHost: {
+    en: '/become-a-host',
+    nb: '/bli-en-utleier',
+  },
+  favorites: {
+    en: '/favorites',
+    nb: '/favoritter',
+  },
   help: 'https://eventum.zendesk.com',
   hostVenues: '/hosting/venues',
   inbox: '/inbox',
@@ -423,8 +429,8 @@ export function HeaderWebMenu({
       <div className="desktop">
         {isHost ?
           <HostMenuLink locale={locale} />
-          : <HeaderLink href={URI.becomeHost}>{text.becomeHost}</HeaderLink>}
-        <HeaderLink href={URI.favorites}>{text.favorites}</HeaderLink>
+          : <HeaderLink href={URI.becomeHost[locale]}>{text.becomeHost}</HeaderLink>}
+        <HeaderLink href={URI.favorites[locale]}>{text.favorites}</HeaderLink>
         <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink>
         <HeaderLink href={URI.help}>{text.help}</HeaderLink>
         {isAdmin ? <AdminMenuLink locale={locale} /> : null}
