@@ -220,7 +220,6 @@ function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileName, profi
   );
 }
 
-
 export class AdminMenuLink extends React.Component<{ locale: string }, { showOptions: boolean }> {
   state = {
     showOptions: false,
@@ -294,8 +293,11 @@ export class AvatarMenuLink extends React.Component<
     );
   }
 }
-export class HeaderHostingMenuMobile extends React.Component<
-  { isAdmin: boolean, locale: string, profileName?: string, profileSlug?: string }, { showOptions: boolean }
+
+export class HeaderMenuMobile extends React.Component<{
+  locale: string,
+  children: React.Node,
+}, { showOptions: boolean }
   > {
   state = {
     showOptions: false,
@@ -323,13 +325,7 @@ export class HeaderHostingMenuMobile extends React.Component<
         <div className="options">
           {state.showOptions ? (
             <ModalMenu onClose={toggleShowOptions} topLock={70}>
-              <MobileHostingMenuOptions
-                isAdmin={props.isAdmin}
-                locale={props.locale}
-                onClose={toggleShowOptions}
-                profileSlug={props.profileSlug}
-                profileName={props.profileName}
-              />
+              {React.cloneElement(props.children, { onClose: toggleShowOptions })}
             </ModalMenu>
           ) : null}
         </div>
@@ -411,6 +407,41 @@ export function onLoginClick(event: SyntheticEvent<>): void {
   window.location.href = `${URI.login}?returnUrl=${returnUrl()}`;
 }
 
+function MobileWebMenuOptions({ isAdmin, isHost, isLoggedIn, locale, onClose }: {
+  isAdmin: boolean, isHost: boolean, isLoggedIn: boolean, locale: string, onClose: () => void,
+}) {
+  const text = i18n[locale];
+
+  return (
+    <div>
+      <ul>
+        {isHost ?
+          null
+          : <MenuListLink href={URI.becomeHost[locale]}>{text.becomeHost}</MenuListLink>}
+        <MenuListLink href={URI.favorites[locale]}>{text.favorites}</MenuListLink>
+        {isLoggedIn ? <MenuListLink href={URI.inbox}>{text.inbox}</MenuListLink> : null}
+        <MenuListLink href={URI.help}>{text.help}</MenuListLink>
+        {!isLoggedIn ? <MenuListLink href={URI.login} onClick={onLoginClick}>{text.login}</MenuListLink> : null}
+      </ul>
+      {isAdmin ? <AdminMenuOptions locale={locale} onClose={onClose} /> : null}
+      {isLoggedIn ? (
+        <UserMenuOptions
+          locale={locale}
+          onClose={onClose}
+          profileSlug={profileSlug}
+        />
+      ) : null}
+      { /* language=CSS */ }
+      <style jsx>{`
+        ul {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export function HeaderWebMenu({
   isAdmin, isHost, locale, isLoggedIn,
 }: { isAdmin: boolean, isHost: boolean, isLoggedIn: boolean, locale: string }) {
@@ -418,14 +449,16 @@ export function HeaderWebMenu({
 
   return (
     <div>
-      {/*<div className="mobile">*/}
-        {/*<HeaderWebMenuMobile*/}
-          {/*isAdmin={isAdmin}*/}
-          {/*locale={locale}*/}
-          {/*profileName={profileName}*/}
-          {/*profileSlug={profileSlug}*/}
-        {/*/>*/}
-      {/*</div>*/}
+      <div className="mobile">
+        <HeaderMenuMobile locale={locale}>
+          <MobileWebMenuOptions
+            isAdmin={isAdmin}
+            isHost={isHost}
+            isLoggedIn={isLoggedIn}
+            locale={locale}
+          />
+        </HeaderMenuMobile>
+      </div>
       <div className="desktop">
         {isHost ?
           <HostMenuLink locale={locale} />
@@ -466,12 +499,14 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
   return (
     <div className="main">
       <div className="mobile">
-        <HeaderHostingMenuMobile
-          isAdmin={isAdmin}
-          locale={locale}
-          profileName={profileName}
-          profileSlug={profileSlug}
-        />
+        <HeaderMenuMobile locale={locale}>
+          <MobileHostingMenuOptions
+            isAdmin={isAdmin}
+            locale={locale}
+            profileSlug={profileSlug}
+            profileName={profileName}
+          />
+        </HeaderMenuMobile>
       </div>
       <div className="desktop">
         <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink>
