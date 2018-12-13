@@ -15,8 +15,13 @@ const i18n = {
     account: 'Kontoinstillinger',
     accounts: 'Kontoer',
     admin: 'Admin',
+    becomeHost: 'Bli en utleier',
+    favorites: 'Favorites',
+    help: 'Hjelp',
+    host: 'Utleier',
     inbox: 'Innboks',
     invoicing: 'Fakturering',
+    login: 'Logg inn',
     logout: 'Logg ut',
     menu: 'Meny',
     profile: 'Rediger profil',
@@ -30,8 +35,13 @@ const i18n = {
     account: 'Account settings',
     accounts: 'Accounts',
     admin: 'Admin',
+    becomeHost: 'Become a host',
+    favorites: 'Favorites',
+    help: 'Help',
+    host: 'Host',
     inbox: 'Inbox',
     invoicing: 'Invoicing',
+    login: 'Login',
     logout: 'Log out',
     menu: 'Menu',
     profile: 'Edit profile',
@@ -41,6 +51,21 @@ const i18n = {
     users: 'User profiles',
     venues: 'Venues',
   },
+};
+
+const URI = {
+  accounts: '/hosting/accounts',
+  adminInvoice: '/inbox/admin/invoice',
+  adminStats: '/inbox/admin/stats',
+  adminUsers: '/inbox/admin/users',
+  becomeHost: '/become-a-host',
+  favorites: '/favorites',
+  help: 'https://eventum.zendesk.com',
+  hostVenues: '/hosting/venues',
+  inbox: '/inbox',
+  login: '/inbox/login',
+  logout: '/inbox/logout',
+  yourProfile: '/your-profile',
 };
 
 export function HeaderButton({ children, onClick }: {
@@ -69,12 +94,12 @@ export function HeaderButton({ children, onClick }: {
   );
 }
 
-export function HeaderLink({ children, href }: {
-  children: React.Node, href: string,
+export function HeaderLink({ children, href, onClick }: {
+  children: React.Node, href: string, onClick?: (event: SyntheticEvent<HTMLAnchorElement>) => void,
 }) {
   return (
     <div>
-      <a href={href}>{children}</a>
+      <a href={href} onClick={onClick}>{children}</a>
       { /* language=CSS */ }
       <style jsx>{`
         a {
@@ -117,10 +142,10 @@ function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => 
 
   return (
     <ul>
-      <MenuListLink href="/hosting/accounts" onClick={onClose}>{text.accounts}</MenuListLink>
-      <MenuListLink href="/inbox/admin/users">{text.users}</MenuListLink>
-      <MenuListLink href="/inbox/admin/invoice">{text.invoicing}</MenuListLink>
-      <MenuListLink href="/inbox/admin/stats">{text.stats}</MenuListLink>
+      <MenuListLink href={URI.accounts} onClick={onClose}>{text.accounts}</MenuListLink>
+      <MenuListLink href={URI.adminUsers}>{text.users}</MenuListLink>
+      <MenuListLink href={URI.adminInvoice}>{text.invoicing}</MenuListLink>
+      <MenuListLink href={URI.adminStats}>{text.stats}</MenuListLink>
       { /* language=CSS */ }
       <style jsx>{`
         ul {
@@ -139,8 +164,8 @@ function UserMenuOptions({ locale, onClose, profileSlug }: {
 
   return (
     <ul>
-      <MenuListLink href="/your-profile" onClick={onClose}>{text.profile}</MenuListLink>
-      <MenuListLink href="/inbox/logout" onClick={onClose}>{text.logout}</MenuListLink>
+      <MenuListLink href={URI.yourProfile} onClick={onClose}>{text.profile}</MenuListLink>
+      <MenuListLink href={URI.logout} onClick={onClose}>{text.logout}</MenuListLink>
       { /* language=CSS */ }
       <style jsx>{`
         ul {
@@ -162,13 +187,13 @@ function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileName, profi
       <ul>
         {profileName && profileSlug ? (
           <MenuListLink
-            href="/hosting/accounts"
+            href={URI.accounts}
             onClick={onClose}
           >{`${text.selectedAccount} ${profileName}`}</MenuListLink>
         ) : null}
-        <MenuListLink href="/inbox" onClick={onClose}>{text.inbox}</MenuListLink>
+        <MenuListLink href={URI.inbox} onClick={onClose}>{text.inbox}</MenuListLink>
         <MenuListLink
-          href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}
+          href={profileSlug ? `/manage-account/${profileSlug}/venues` : URI.hostVenues}
           onClick={onClose}
         >{text.venues}</MenuListLink>
       </ul>
@@ -319,6 +344,121 @@ export class HeaderHostingMenuMobile extends React.Component<
   }
 }
 
+function HostMenuOptions({ locale, onClose }: { locale: string, onClose: () => void }) {
+  const text = i18n[locale];
+
+  return (
+    <ul>
+      <MenuListLink href={URI.accounts} onClick={onClose}>{text.account}</MenuListLink>
+      <MenuListLink href={URI.hostVenues} onClick={onClose}>{text.venues}</MenuListLink>
+      { /* language=CSS */ }
+      <style jsx>{`
+        ul {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      `}</style>
+    </ul>
+  );
+}
+
+export class HostMenuLink extends React.Component<{ locale: string }, { showOptions: boolean }> {
+  state = {
+    showOptions: false,
+  };
+
+  toggleShowOptions = () => {
+    this.setState(prevState => ({ showOptions: !prevState.showOptions }));
+  };
+
+  render() {
+    const { props, state, toggleShowOptions } = this;
+    const text = i18n[props.locale];
+
+    return (
+      <div>
+        <HeaderButton onClick={toggleShowOptions}>{text.host}</HeaderButton>
+        <div className="options">
+          {state.showOptions ? (
+            <ModalMenu onClose={toggleShowOptions} topLock={70}>
+              <HostMenuOptions locale={props.locale} onClose={toggleShowOptions} />
+            </ModalMenu>
+          ): null}
+        </div>
+        { /* language=CSS */ }
+        <style jsx>{`
+          .options {
+            position: relative;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
+
+function returnUrl(): string {
+  const currentHref = window.location.href;
+  return encodeURIComponent(currentHref.replace(window.location.origin, ''));
+}
+
+export function onLoginClick(event: SyntheticEvent<>): void {
+  event.preventDefault();
+  window.location.href = `${URI.login}?returnUrl=${returnUrl()}`;
+}
+
+export function HeaderWebMenu({
+  isAdmin, isHost, locale, isLoggedIn,
+}: { isAdmin: boolean, isHost: boolean, isLoggedIn: boolean, locale: string }) {
+  const text = i18n[locale];
+
+  return (
+    <div className="main">
+      {/*<div className="mobile">*/}
+        {/*<HeaderWebMenuMobile*/}
+          {/*isAdmin={isAdmin}*/}
+          {/*locale={locale}*/}
+          {/*profileName={profileName}*/}
+          {/*profileSlug={profileSlug}*/}
+        {/*/>*/}
+      {/*</div>*/}
+      <div className="desktop">
+        {isHost ?
+          <HostMenuLink locale={locale} />
+          : <HeaderLink href={URI.becomeHost}>{text.becomeHost}</HeaderLink>}
+        <HeaderLink href={URI.favorites}>{text.favorites}</HeaderLink>
+        <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink>
+        <HeaderLink href={URI.help}>{text.help}</HeaderLink>
+        {isAdmin ? <AdminMenuLink locale={locale} /> : null}
+        {!isLoggedIn ? <HeaderLink href={URI.login} onClick={onLoginClick}>{text.login}</HeaderLink> : null}
+      </div>
+      {/* language=CSS */}
+      <style jsx>
+        {`
+          .main {
+            flex: 1 auto;
+          }
+          .account {
+            display: flex;
+            margin-left: auto;
+          }
+          .desktop {
+            display: none;
+          }
+          @media only screen and (min-width: 768px) {
+            .desktop {
+              align-items: center;
+              display: flex;
+              flex: 1 auto;
+            }
+            .mobile {
+              display: none;
+            }
+          }
+        `}
+      </style>
+    </div>
+  );
+}
 
 export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }: {
   isAdmin: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
@@ -336,22 +476,22 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
         />
       </div>
       <div className="desktop">
-        <HeaderLink href="/inbox">{text.inbox}</HeaderLink>
-        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : '/hosting/venues'}>
+        <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink>
+        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : URI.hostVenues}>
           {text.venues}
         </HeaderLink>
-        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : '/hosting/accounts'}>
+        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : URI.accounts}>
           {text.account}
         </HeaderLink>
         {isAdmin ? <AdminMenuLink locale={locale} /> : null}
         {profileSlug && profileName ? (
           <div className="account">
             <div>{text.selectedAccount}</div>
-            <HeaderLink href="/hosting/accounts">{profileName}</HeaderLink>
+            <HeaderLink href={URI.accounts}>{profileName}</HeaderLink>
           </div>
         ) : (
           <div className="account">
-            <HeaderLink href="/hosting/accounts">{text.selectAccount}</HeaderLink>
+            <HeaderLink href={URI.accounts}>{text.selectAccount}</HeaderLink>
           </div>
         )}
       </div>
