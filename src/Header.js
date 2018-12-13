@@ -411,7 +411,7 @@ export function HeaderWebMenu({
   const text = i18n[locale];
 
   return (
-    <div className="main">
+    <div>
       {/*<div className="mobile">*/}
         {/*<HeaderWebMenuMobile*/}
           {/*isAdmin={isAdmin}*/}
@@ -433,13 +433,6 @@ export function HeaderWebMenu({
       {/* language=CSS */}
       <style jsx>
         {`
-          .main {
-            flex: 1 auto;
-          }
-          .account {
-            display: flex;
-            margin-left: auto;
-          }
           .desktop {
             display: none;
           }
