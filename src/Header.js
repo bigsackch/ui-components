@@ -16,7 +16,7 @@ const i18n = {
     accounts: 'Kontoer',
     admin: 'Admin',
     becomeHost: 'Bli en utleier',
-    favorites: 'Favorites',
+    favorites: 'Favoritter',
     help: 'Hjelp',
     host: 'Utleier',
     inbox: 'Innboks',
