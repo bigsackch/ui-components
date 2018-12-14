@@ -2,7 +2,9 @@
 import * as React from 'react';
 import dateformat from 'dateformat';
 
-import { COLORS, FONT_SIZES } from './constants';
+import { COLORS, FONT_SIZES, SPACING } from './constants';
+
+import calendar from '../static/images/icons/Calendar-4-Line-Black-30.svg';
 
 type EventDateButtonProps = {
   date: ?string,
@@ -32,6 +34,7 @@ export function DateSelectButton({ date, label, locale, onClick }: EventDateButt
       <label className="strong">
         {label}
         <button onClick={onClick} type="button">
+          <img alt="" height="27" src={calendar} />
           {date ? (
             <span>
               {dateformat(new Date(date), 'shortDate')}
@@ -50,17 +53,22 @@ export function DateSelectButton({ date, label, locale, onClick }: EventDateButt
             color: ${COLORS.SUBTLE};
           }
           button {
+            align-items: center;
             background-color: #fff;
             border: 1px solid #aaa;
             border-radius: 2px;
+            display: flex;
             height: 50px;
-            padding: 10px;
+            padding: ${SPACING.S};
             cursor: pointer;
             width: 100%;
             text-align: left;
           }
+          img {
+            margin-right: ${SPACING.S};
+          }
           label {
-            font-size: ${FONT_SIZES.S}
+            font-size: ${FONT_SIZES.S};
           }
         `}
       </style>
