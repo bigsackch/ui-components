@@ -34,7 +34,7 @@ export function DateSelectButton({ date, label, locale, onClick }: EventDateButt
       <label className="strong">
         {label}
         <button onClick={onClick} type="button">
-          <img alt="" height="27" src={calendar} />
+          <img alt="" height="24" src={calendar} />
           {date ? (
             <span>
               {dateformat(new Date(date), 'shortDate')}
