@@ -25,7 +25,9 @@
 
 (def Header (r/adapt-react-class (gobj/get js/EventumUI "Header")))
 (def HeaderLink (r/adapt-react-class (gobj/get js/EventumUI "HeaderLink")))
+(def HeaderButtonMenu (r/adapt-react-class (gobj/get js/EventumUI "HeaderButtonMenu")))
 (def HeaderHostingMenu (r/adapt-react-class (gobj/get js/EventumUI "HeaderHostingMenu")))
+(def ModalMenuLink (r/adapt-react-class (gobj/get js/EventumUI "ModalMenuLink")))
 
 (def Button (r/adapt-react-class (gobj/get js/EventumUI "Button")))
 

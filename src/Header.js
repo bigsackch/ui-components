@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-import { Avatar } from './Avatar';
+import { AvatarMenu } from './HeaderOptionsEventum';
 import { Button } from './Buttons';
 import { ModalMenu } from './Modal';
 import { COLORS, SPACING } from './constants';
@@ -9,70 +9,6 @@ import { COLORS, SPACING } from './constants';
 import eventumSymbol from '../static/images/eventum-icon_usy2oo.svg';
 import eventumLogo from '../static/images/eventum_logo_doja3b.svg';
 import iconArrowDown from '../static/images/icons/Arrow-Down-Line-Black-24.svg';
-
-const i18n = {
-  nb: {
-    account: 'Kontoinstillinger',
-    accounts: 'Kontoer',
-    admin: 'Admin',
-    becomeHost: 'Bli en utleier',
-    favorites: 'Favoritter',
-    help: 'Hjelp',
-    host: 'Utleier',
-    inbox: 'Meldinger',
-    invoicing: 'Fakturering',
-    login: 'Logg inn',
-    logout: 'Logg ut',
-    menu: 'Meny',
-    profile: 'Rediger profil',
-    selectAccount: 'Velg konto',
-    selectedAccount: 'Du administrerer:',
-    stats: 'Statistikkpanel',
-    users: 'Brukerprofiler',
-    venues: 'Utleiesteder',
-  },
-  en: {
-    account: 'Account settings',
-    accounts: 'Accounts',
-    admin: 'Admin',
-    becomeHost: 'Become a host',
-    favorites: 'Favorites',
-    help: 'Help',
-    host: 'Host',
-    inbox: 'Messages',
-    invoicing: 'Invoicing',
-    login: 'Login',
-    logout: 'Log out',
-    menu: 'Menu',
-    profile: 'Edit profile',
-    selectAccount: 'Choose account',
-    selectedAccount: 'You manage:',
-    stats: 'Stats dashboard',
-    users: 'User profiles',
-    venues: 'Venues',
-  },
-};
-
-const URI = {
-  accounts: '/hosting/accounts',
-  adminInvoice: '/inbox/admin/invoice',
-  adminStats: '/inbox/admin/stats',
-  adminUsers: '/inbox/admin/users',
-  becomeHost: {
-    en: '/list-your-space',
-    nb: '/leie-ut-lokale',
-  },
-  favorites: {
-    en: '/favorites',
-    nb: '/favoritter',
-  },
-  help: 'https://eventum.zendesk.com',
-  hostVenues: '/hosting/venues',
-  inbox: '/inbox',
-  login: '/inbox/login',
-  logout: '/inbox/logout',
-  yourProfile: '/your-profile',
-};
 
 export function HeaderButton({ children, onClick }: {
   children: React.Node, onClick: () => void,
@@ -121,106 +57,9 @@ export function HeaderLink({ children, href, onClick }: {
   );
 }
 
-function MenuListLink({ children, href, onClick }: { children: React.Node, href: string, onClick?: () => void }) {
-  return (
-    <li>
-      <a href={href} onClick={onClick}>{children}</a>
-      { /* language=CSS */ }
-      <style jsx>{`
-        a {
-          border-bottom: 1px solid ${COLORS.BORDER};
-          color: ${COLORS.DEFAULT};
-          display: block;
-          padding: ${SPACING.M} 0;
-          text-decoration: none;
-        }
-        a:hover {
-          border-bottom: 1px solid ${COLORS.DEFAULT};
-          text-decoration: none;
-        }
-      `}</style>
-    </li>
-  );
-}
-
-function AdminMenuOptions({ locale, onClose }: { locale: string, onClose: () => void }) {
-  const text = i18n[locale];
-
-  return (
-    <ul>
-      <MenuListLink href={URI.accounts} onClick={onClose}>{text.accounts}</MenuListLink>
-      <MenuListLink href={URI.adminUsers}>{text.users}</MenuListLink>
-      <MenuListLink href={URI.adminInvoice}>{text.invoicing}</MenuListLink>
-      <MenuListLink href={URI.adminStats}>{text.stats}</MenuListLink>
-      { /* language=CSS */ }
-      <style jsx>{`
-        ul {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-      `}</style>
-    </ul>
-  );
-}
-
-function UserMenuOptions({ locale, onClose }: {
-  locale: string, onClose: () => void,
-}) {
-  const text = i18n[locale];
-
-  return (
-    <ul>
-      <MenuListLink href={URI.yourProfile} onClick={onClose}>{text.profile}</MenuListLink>
-      <MenuListLink href={URI.logout} onClick={onClose}>{text.logout}</MenuListLink>
-      { /* language=CSS */ }
-      <style jsx>{`
-        ul {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-      `}</style>
-    </ul>
-  );
-}
-
-function MobileHostingMenuOptions({ isAdmin, locale, onClose, profileName, profileSlug }: {
-  isAdmin: boolean, locale: string, onClose: () => void, profileName?: string, profileSlug?: string,
-}) {
-  const text = i18n[locale];
-
-  return (
-    <div>
-      <ul>
-        {profileName && profileSlug ? (
-          <MenuListLink
-            href={URI.accounts}
-            onClick={onClose}
-          >{`${text.selectedAccount} ${profileName}`}</MenuListLink>
-        ) : null}
-        <MenuListLink href={URI.inbox} onClick={onClose}>{text.inbox}</MenuListLink>
-        <MenuListLink
-          href={profileSlug ? `/manage-account/${profileSlug}/venues` : URI.hostVenues}
-          onClick={onClose}
-        >{text.venues}</MenuListLink>
-      </ul>
-      {isAdmin ? <AdminMenuOptions locale={locale} onClose={onClose} /> : null}
-      <UserMenuOptions
-        locale={locale}
-        onClose={onClose}
-        profileSlug={profileSlug}
-      />
-      { /* language=CSS */ }
-      <style jsx>{`
-        ul {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-      `}</style>
-    </div>
-  );
-}
-
-export class AdminMenuLink extends React.Component<{ locale: string }, { showOptions: boolean }> {
+export class HeaderButtonMenu extends React.Component<{
+  buttonChild: React.Node, children: React.Node, hasArrow?: boolean,
+}, { showOptions: boolean }> {
   state = {
     showOptions: false,
   };
@@ -231,103 +70,30 @@ export class AdminMenuLink extends React.Component<{ locale: string }, { showOpt
 
   render() {
     const { props, state, toggleShowOptions } = this;
-    const text = i18n[props.locale];
+
+    const childrenWithProps = React.Children.map(props.children, child =>
+      React.cloneElement(child, { onClick: toggleShowOptions })
+    );
 
     return (
       <div>
-        <HeaderButton onClick={toggleShowOptions}>{text.admin}</HeaderButton>
+        <HeaderButton onClick={toggleShowOptions}>
+          {props.buttonChild}
+          {props.hasArrow ? (
+            <img
+              alt=""
+              src={iconArrowDown}
+              width="10"
+              style={{ transform: state.showOptions ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            />
+          ) : null}
+        </HeaderButton>
         <div className="options">
           {state.showOptions ? (
             <ModalMenu onClose={toggleShowOptions} topLock={70}>
-              <AdminMenuOptions locale={props.locale} onClose={toggleShowOptions} />
+              {childrenWithProps}
             </ModalMenu>
           ): null}
-        </div>
-        { /* language=CSS */ }
-        <style jsx>{`
-          .options {
-            position: relative;
-          }
-        `}</style>
-      </div>
-    );
-  }
-}
-
-export class AvatarMenuLink extends React.Component<
-  { avatarAlt: ?string, avatarSrc: string, locale: string }, { showOptions: boolean }
-> {
-  state = {
-    showOptions: false,
-  };
-
-  toggleShowOptions = () => {
-    this.setState(prevState => ({ showOptions: !prevState.showOptions }));
-  };
-
-  render() {
-    const { props, state, toggleShowOptions } = this;
-
-    return (
-      <div>
-        <HeaderButton onClick={toggleShowOptions}>
-          <Avatar altPart={props.avatarAlt} src={props.avatarSrc} width={30} />
-        </HeaderButton>
-        <div className="options">
-          {state.showOptions ? (
-            <ModalMenu onClose={toggleShowOptions} topLock={70}>
-              <UserMenuOptions
-                locale={props.locale}
-                onClose={toggleShowOptions}
-              />
-            </ModalMenu>
-          ) : null}
-        </div>
-        { /* language=CSS */ }
-        <style jsx>{`
-          .options {
-            position: relative;
-          }
-        `}</style>
-      </div>
-    );
-  }
-}
-
-export class HeaderMenuMobile extends React.Component<{
-  locale: string,
-  children: React.Node,
-}, { showOptions: boolean }
-  > {
-  state = {
-    showOptions: false,
-  };
-
-  toggleShowOptions = () => {
-    this.setState(prevState => ({ showOptions: !prevState.showOptions }));
-  };
-
-  render() {
-    const { props, state, toggleShowOptions } = this;
-    const text = i18n[props.locale];
-
-    return (
-      <div>
-        <HeaderButton onClick={toggleShowOptions}>
-          <span>{text.menu}</span>
-          <img
-            alt=""
-            src={iconArrowDown}
-            width="10"
-            style={{ transform: state.showOptions ? 'rotate(180deg)' : 'rotate(0deg)' }}
-          />
-        </HeaderButton>
-        <div className="options">
-          {state.showOptions ? (
-            <ModalMenu onClose={toggleShowOptions} topLock={70}>
-              {React.cloneElement(props.children, { onClose: toggleShowOptions })}
-            </ModalMenu>
-          ) : null}
         </div>
         { /* language=CSS */ }
         <style jsx>{`
@@ -345,221 +111,28 @@ export class HeaderMenuMobile extends React.Component<{
   }
 }
 
-function HostMenuOptions({ locale, onClose }: { locale: string, onClose: () => void }) {
-  const text = i18n[locale];
-
+export function ModalMenuLink({ children, href, onClick }: {
+  children: React.Node, href: string, onClick?: () => void,
+}) {
   return (
-    <ul>
-      <MenuListLink href={URI.accounts} onClick={onClose}>{text.account}</MenuListLink>
-      <MenuListLink href={URI.hostVenues} onClick={onClose}>{text.venues}</MenuListLink>
+    <a href={href} onClick={onClick}>{children}
       { /* language=CSS */ }
       <style jsx>{`
-        ul {
-          margin-top: 0;
-          margin-bottom: 0;
+        a {
+          border-bottom: 1px solid ${COLORS.BORDER};
+          color: ${COLORS.DEFAULT};
+          display: block;
+          padding: ${SPACING.M};
+          text-decoration: none;
+        }
+        a:hover {
+          border-bottom: 1px solid ${COLORS.DEFAULT};
+          text-decoration: none;
         }
       `}</style>
-    </ul>
+    </a>
   );
 }
-
-export class HostMenuLink extends React.Component<{ locale: string }, { showOptions: boolean }> {
-  state = {
-    showOptions: false,
-  };
-
-  toggleShowOptions = () => {
-    this.setState(prevState => ({ showOptions: !prevState.showOptions }));
-  };
-
-  render() {
-    const { props, state, toggleShowOptions } = this;
-    const text = i18n[props.locale];
-
-    return (
-      <div>
-        <HeaderButton onClick={toggleShowOptions}>{text.host}</HeaderButton>
-        <div className="options">
-          {state.showOptions ? (
-            <ModalMenu onClose={toggleShowOptions} topLock={70}>
-              <HostMenuOptions locale={props.locale} onClose={toggleShowOptions} />
-            </ModalMenu>
-          ): null}
-        </div>
-        { /* language=CSS */ }
-        <style jsx>{`
-          .options {
-            position: relative;
-          }
-        `}</style>
-      </div>
-    );
-  }
-}
-
-function returnUrl(): string {
-  const currentHref = window.location.href;
-  return encodeURIComponent(currentHref.replace(window.location.origin, ''));
-}
-
-export function onLoginClick(event: SyntheticEvent<>): void {
-  event.preventDefault();
-  window.location.href = `${URI.login}?returnUrl=${returnUrl()}`;
-}
-
-function MobileWebMenuOptions({ isAdmin, isHost, isLoggedIn, locale, onClose }: {
-  isAdmin: boolean, isHost: boolean, isLoggedIn: boolean, locale: string, onClose: () => void,
-}) {
-  const text = i18n[locale];
-
-  return (
-    <div>
-      <ul>
-        {isHost ?
-          null
-          : <MenuListLink href={URI.becomeHost[locale]}>{text.becomeHost}</MenuListLink>}
-        <MenuListLink href={URI.favorites[locale]}>{text.favorites}</MenuListLink>
-        {isLoggedIn ? <MenuListLink href={URI.inbox}>{text.inbox}</MenuListLink> : null}
-        <MenuListLink href={URI.help}>{text.help}</MenuListLink>
-        {!isLoggedIn ? <MenuListLink href={URI.login} onClick={onLoginClick}>{text.login}</MenuListLink> : null}
-      </ul>
-      {isAdmin ? <AdminMenuOptions locale={locale} onClose={onClose} /> : null}
-      {isLoggedIn ? (
-        <UserMenuOptions
-          locale={locale}
-          onClose={onClose}
-          profileSlug={profileSlug}
-        />
-      ) : null}
-      { /* language=CSS */ }
-      <style jsx>{`
-        ul {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-      `}</style>
-    </div>
-  );
-}
-
-export function HeaderWebMenu({
-  isAdmin, isHost, locale, isLoggedIn,
-}: { isAdmin: boolean, isHost: boolean, isLoggedIn: boolean, locale: string }) {
-  const text = i18n[locale];
-
-  return (
-    <div>
-      <div className="mobile">
-        <HeaderMenuMobile locale={locale}>
-          <MobileWebMenuOptions
-            isAdmin={isAdmin}
-            isHost={isHost}
-            isLoggedIn={isLoggedIn}
-            locale={locale}
-          />
-        </HeaderMenuMobile>
-      </div>
-      <div className="desktop">
-        {isHost ?
-          <HostMenuLink locale={locale} />
-          : <HeaderLink href={URI.becomeHost[locale]}>{text.becomeHost}</HeaderLink>}
-        <HeaderLink href={URI.favorites[locale]}>{text.favorites}</HeaderLink>
-        {isLoggedIn ? <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink> : null}
-        <HeaderLink href={URI.help}>{text.help}</HeaderLink>
-        {isAdmin ? <AdminMenuLink locale={locale} /> : null}
-        {!isLoggedIn ? <HeaderLink href={URI.login} onClick={onLoginClick}>{text.login}</HeaderLink> : null}
-      </div>
-      {/* language=CSS */}
-      <style jsx>
-        {`
-          .desktop {
-            display: none;
-          }
-          @media only screen and (min-width: 768px) {
-            .desktop {
-              align-items: center;
-              display: flex;
-              flex: 1 auto;
-            }
-            .mobile {
-              display: none;
-            }
-          }
-        `}
-      </style>
-    </div>
-  );
-}
-
-export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }: {
-  isAdmin: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
-}) {
-  const text = i18n[locale];
-
-  return (
-    <div className="main">
-      <div className="mobile">
-        <HeaderMenuMobile locale={locale}>
-          <MobileHostingMenuOptions
-            isAdmin={isAdmin}
-            locale={locale}
-            profileSlug={profileSlug}
-            profileName={profileName}
-          />
-        </HeaderMenuMobile>
-      </div>
-      <div className="desktop">
-        <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink>
-        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : URI.hostVenues}>
-          {text.venues}
-        </HeaderLink>
-        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : URI.accounts}>
-          {text.account}
-        </HeaderLink>
-        {isAdmin ? <AdminMenuLink locale={locale} /> : null}
-        {profileSlug && profileName ? (
-          <div className="account">
-            <div>{text.selectedAccount}</div>
-            <HeaderLink href={URI.accounts}>{profileName}</HeaderLink>
-          </div>
-        ) : (
-          <div className="account">
-            <HeaderLink href={URI.accounts}>{text.selectAccount}</HeaderLink>
-          </div>
-        )}
-      </div>
-      {/* language=CSS */}
-      <style jsx>
-        {`
-          .main {
-            flex: 1 auto;
-          }
-          .account {
-            display: flex;
-            margin-left: auto;
-          }
-          .desktop {
-            display: none;
-          }
-          @media only screen and (min-width: 768px) {
-            .desktop {
-              align-items: center;
-              display: flex;
-              flex: 1 auto;
-            }
-            .mobile {
-              display: none;
-            }
-          }
-        `}
-      </style>
-    </div>
-  );
-}
-HeaderHostingMenu.defaultValue = {
-  isAdmin: false,
-  locale: 'nb',
-};
 
 export function Header({ avatarSrc, avatarAlt, children, locale }: {
   avatarSrc?: string, avatarAlt?: string, children?: React.Node, locale: string, profileSlug?: string,
@@ -586,7 +159,7 @@ export function Header({ avatarSrc, avatarAlt, children, locale }: {
         {children}
       </div>
       {avatarSrc ? (
-        <AvatarMenuLink
+        <AvatarMenu
           avatarAlt={avatarAlt}
           avatarSrc={avatarSrc}
           locale={locale}
