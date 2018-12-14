@@ -37,7 +37,9 @@ function Input({ checked, label, name, onChange, type, ...otherProps }: InputPro
           margin: 0 10px 5px;
         }
         label {
+          align-items: baseline;
           cursor: pointer;
+          display: flex;
         }
         input:disabled,
         label:disabled {
