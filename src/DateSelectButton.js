@@ -4,7 +4,7 @@ import dateformat from 'dateformat';
 
 import { COLORS, FONT_SIZES, SPACING } from './constants';
 
-import calendar from '../static/images/icons/Calendar-4-Line-Black-30.svg';
+import calendar from '../static/images/icons/Calendar-4-Line-Black-24-Custom.svg';
 
 type EventDateButtonProps = {
   date: ?string,
