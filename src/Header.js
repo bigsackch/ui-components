@@ -129,9 +129,11 @@ export function ModalMenuLink({ children, href, onClick }: {
           border-bottom: 1px solid ${COLORS.BORDER};
           padding: ${SPACING.M} 0;
         }
+        a:hover {
+          text-decoration: none;
+        }
         a:hover div {
           border-bottom: 1px solid ${COLORS.DEFAULT};
-          text-decoration: none;
         }
       `}</style>
     </a>
