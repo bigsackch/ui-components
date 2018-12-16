@@ -71,7 +71,7 @@ export class HeaderButtonMenu extends React.Component<{
   render() {
     const { props, state, toggleShowOptions } = this;
 
-    const childrenWithProps = React.Children.map(props.children, child =>
+    const childrenWithToggler = React.Children.map(props.children, child =>
       React.cloneElement(child, { onClick: toggleShowOptions })
     );
 
@@ -91,7 +91,7 @@ export class HeaderButtonMenu extends React.Component<{
         <div className="options">
           {state.showOptions ? (
             <ModalMenu onClose={toggleShowOptions} topLock={70}>
-              {childrenWithProps}
+              {childrenWithToggler}
             </ModalMenu>
           ): null}
         </div>
@@ -115,17 +115,21 @@ export function ModalMenuLink({ children, href, onClick }: {
   children: React.Node, href: string, onClick?: () => void,
 }) {
   return (
-    <a href={href} onClick={onClick}>{children}
+    <a href={href} onClick={onClick}>
+      <div>{children}</div>
       { /* language=CSS */ }
       <style jsx>{`
         a {
-          border-bottom: 1px solid ${COLORS.BORDER};
           color: ${COLORS.DEFAULT};
           display: block;
-          padding: ${SPACING.M};
+          padding: 0 ${SPACING.M};
           text-decoration: none;
         }
-        a:hover {
+        div {
+          border-bottom: 1px solid ${COLORS.BORDER};
+          padding: ${SPACING.M} 0;
+        }
+        a:hover div {
           border-bottom: 1px solid ${COLORS.DEFAULT};
           text-decoration: none;
         }
