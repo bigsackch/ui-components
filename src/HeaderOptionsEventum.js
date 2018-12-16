@@ -82,15 +82,15 @@ export function onLoginClick(event: SyntheticEvent<>): void {
   window.location.href = `${URI.login}?returnUrl=${returnUrl()}`;
 }
 
-function AdminMenuLinks({ locale }: { locale: string }) {
+function AdminMenuLinks({ locale, onClick }: { locale: string, onClick?: () => void }) {
   const text = i18n[locale];
 
   return (
     <React.Fragment>
-      <ModalMenuLink href={URI.accounts}>{text.accounts}</ModalMenuLink>
-      <ModalMenuLink href={URI.adminUsers}>{text.users}</ModalMenuLink>
-      <ModalMenuLink href={URI.adminInvoice}>{text.invoicing}</ModalMenuLink>
-      <ModalMenuLink href={URI.adminStats}>{text.stats}</ModalMenuLink>
+      <ModalMenuLink href={URI.accounts} onClick={onClick}>{text.accounts}</ModalMenuLink>
+      <ModalMenuLink href={URI.adminUsers} onClick={onClick}>{text.users}</ModalMenuLink>
+      <ModalMenuLink href={URI.adminInvoice} onClick={onClick}>{text.invoicing}</ModalMenuLink>
+      <ModalMenuLink href={URI.adminStats} onClick={onClick}>{text.stats}</ModalMenuLink>
     </React.Fragment>
   )
 }
@@ -116,13 +116,13 @@ function HostMenu({ locale }: { locale: string }) {
   );
 }
 
-function UserMenuLinks({ locale }: { locale: string }) {
+function UserMenuLinks({ locale, onClick }: { locale: string, onClick?: () => void }) {
   const text = i18n[locale];
 
   return (
     <React.Fragment>
-      <ModalMenuLink href={URI.yourProfile}>{text.profile}</ModalMenuLink>
-      <ModalMenuLink href={URI.logout}>{text.logout}</ModalMenuLink>
+      <ModalMenuLink href={URI.yourProfile} onClick={onClick}>{text.profile}</ModalMenuLink>
+      <ModalMenuLink href={URI.logout} onClick={onClick}>{text.logout}</ModalMenuLink>
     </React.Fragment>
   )
 }
@@ -138,21 +138,21 @@ export function AvatarMenu({ avatarAlt, avatarSrc, locale }: { avatarAlt?: strin
 }
 
 function HostingMenuMobile({ isAdmin, locale, onClick, profileName, profileSlug }: {
-  isAdmin: boolean, locale: string, onClick: () => void, profileName?: string, profileSlug?: string,
+  isAdmin: boolean, locale: string, onClick?: () => void, profileName?: string, profileSlug?: string,
 }) {
   const text = i18n[locale];
 
   return (
     <React.Fragment>
       {profileName && profileSlug ? (
-        <ModalMenuLink href={URI.accounts}>{`${text.selectedAccount} ${profileName}`}</ModalMenuLink>
+        <ModalMenuLink href={URI.accounts} onClick={onClick}>{`${text.selectedAccount} ${profileName}`}</ModalMenuLink>
       ) : null}
-      <ModalMenuLink href={URI.inbox}>{text.inbox}</ModalMenuLink>
-      <ModalMenuLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : URI.hostVenues}>
+      <ModalMenuLink href={URI.inbox} onClick={onClick}>{text.inbox}</ModalMenuLink>
+      <ModalMenuLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : URI.hostVenues} onClick={onClick}>
         {text.venues}
       </ModalMenuLink>
-      {isAdmin ? <AdminMenuLinks locale={locale} /> : null}
-      <UserMenuLinks locale={locale} />
+      {isAdmin ? <AdminMenuLinks locale={locale} onClick={onClick} /> : null}
+      <UserMenuLinks locale={locale} onClick={onClick} />
     </React.Fragment>
   );
 }
@@ -227,7 +227,7 @@ HeaderHostingMenu.defaultValue = {
 };
 
 function WebMenuMobile({ isAdmin, isHost, isLoggedIn, locale, onClick }: {
-  isAdmin: boolean, isHost: boolean, isLoggedIn: boolean, locale: string, onClick: () => void,
+  isAdmin: boolean, isHost: boolean, isLoggedIn: boolean, locale: string, onClick?: () => void,
 }) {
   const text = i18n[locale];
 
@@ -235,13 +235,13 @@ function WebMenuMobile({ isAdmin, isHost, isLoggedIn, locale, onClick }: {
     <React.Fragment>
       {isHost ?
         null
-        : <ModalMenuLink href={URI.becomeHost[locale]}>{text.becomeHost}</ModalMenuLink>}
-      <ModalMenuLink href={URI.favorites[locale]}>{text.favorites}</ModalMenuLink>
-      {isLoggedIn ? <ModalMenuLink href={URI.inbox}>{text.inbox}</ModalMenuLink> : null}
-      <ModalMenuLink href={URI.help}>{text.help}</ModalMenuLink>
+        : <ModalMenuLink href={URI.becomeHost[locale]} onClick={onClick}>{text.becomeHost}</ModalMenuLink>}
+      <ModalMenuLink href={URI.favorites[locale]} onClick={onClick}>{text.favorites}</ModalMenuLink>
+      {isLoggedIn ? <ModalMenuLink href={URI.inbox} onClick={onClick}>{text.inbox}</ModalMenuLink> : null}
+      <ModalMenuLink href={URI.help} onClick={onClick}>{text.help}</ModalMenuLink>
       {!isLoggedIn ? <ModalMenuLink href={URI.login} onClick={onLoginClick}>{text.login}</ModalMenuLink> : null}
-      {isAdmin ? <AdminMenu locale={locale} /> : null}
-      {isLoggedIn ? <UserMenuLinks locale={locale} /> : null}
+      {isAdmin ? <AdminMenuLinks locale={locale} onClick={onClick} /> : null}
+      {isLoggedIn ? <UserMenuLinks locale={locale} onClick={onClick} /> : null}
     </React.Fragment>
   );
 }

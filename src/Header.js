@@ -112,7 +112,7 @@ export class HeaderButtonMenu extends React.Component<{
 }
 
 export function ModalMenuLink({ children, href, onClick }: {
-  children: React.Node, href: string, onClick?: () => void,
+  children: React.Node, href: string, onClick?: (event: SyntheticEvent<>) => void,
 }) {
   return (
     <a href={href} onClick={onClick}>
