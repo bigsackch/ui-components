@@ -207,7 +207,7 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
           .desktop {
             display: none;
           }
-          @media only screen and (min-width: 768px) {
+          @media only screen and (min-width: 1024px) {
             .desktop {
               align-items: center;
               display: flex;
