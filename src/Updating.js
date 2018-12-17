@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-export default function Updating() {
+export function Updating() {
   return (
     <div>
       { /* language=CSS */ }
