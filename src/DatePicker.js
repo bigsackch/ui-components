@@ -3,9 +3,9 @@
 import * as React from 'react';
 import times from 'lodash/times';
 
-import Updating from './Updating';
 import { Backdrop } from './Backdrop';
 import { Grid } from './Grid';
+import { Updating } from './Updating';
 
 import iconLeft from '../static/images/icons/Left-Line-Black-24.svg';
 import iconRight from '../static/images/icons/Right-Line-Black-24.svg';
