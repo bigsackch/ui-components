@@ -137,18 +137,18 @@ export function AvatarMenu({ avatarAlt, avatarSrc, locale }: { avatarAlt?: strin
   );
 }
 
-function HostingMenuMobile({ isAdmin, locale, onClick, profileName, profileSlug }: {
-  isAdmin: boolean, locale: string, onClick?: () => void, profileName?: string, profileSlug?: string,
+function HostingMenuMobile({ isAdmin, locale, onClick, accountName, accountSlug }: {
+  isAdmin: boolean, locale: string, onClick?: () => void, accountName?: string, accountSlug?: string,
 }) {
   const text = i18n[locale];
 
   return (
     <React.Fragment>
-      {profileName && profileSlug ? (
-        <ModalMenuLink href={URI.accounts} onClick={onClick}>{`${text.selectedAccount} ${profileName}`}</ModalMenuLink>
+      {accountName && accountSlug ? (
+        <ModalMenuLink href={URI.accounts} onClick={onClick}>{`${text.selectedAccount} ${accountName}`}</ModalMenuLink>
       ) : null}
       <ModalMenuLink href={URI.inbox} onClick={onClick}>{text.inbox}</ModalMenuLink>
-      <ModalMenuLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : URI.hostVenues} onClick={onClick}>
+      <ModalMenuLink href={accountSlug ? `/manage-account/${accountSlug}/venues` : URI.hostVenues} onClick={onClick}>
         {text.venues}
       </ModalMenuLink>
       {isAdmin ? <AdminMenuLinks locale={locale} onClick={onClick} /> : null}
@@ -157,8 +157,8 @@ function HostingMenuMobile({ isAdmin, locale, onClick, profileName, profileSlug 
   );
 }
 
-export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }: {
-  isAdmin: boolean, locale: 'nb' | 'en', profileName?: string, profileSlug?: string,
+export function HeaderHostingMenu({ isAdmin, locale, accountName, accountSlug }: {
+  isAdmin: boolean, locale: 'nb' | 'en', accountName?: string, accountSlug?: string,
 }) {
   const text = i18n[locale];
 
@@ -169,24 +169,24 @@ export function HeaderHostingMenu({ isAdmin, locale, profileName, profileSlug }:
           <HostingMenuMobile
             isAdmin={isAdmin}
             locale={locale}
-            profileSlug={profileSlug}
-            profileName={profileName}
+            accountSlug={accountSlug}
+            accountName={accountName}
           />
         </HeaderButtonMenu>
       </div>
       <div className="desktop">
         <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink>
-        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}/venues` : URI.hostVenues}>
+        <HeaderLink href={accountSlug ? `/manage-account/${accountSlug}/venues` : URI.hostVenues}>
           {text.venues}
         </HeaderLink>
-        <HeaderLink href={profileSlug ? `/manage-account/${profileSlug}` : URI.accounts}>
+        <HeaderLink href={accountSlug ? `/manage-account/${accountSlug}` : URI.accounts}>
           {text.account}
         </HeaderLink>
         {isAdmin ? <AdminMenu locale={locale} /> : null}
-        {profileSlug && profileName ? (
+        {accountSlug && accountName ? (
           <div className="account">
             <div>{text.selectedAccount}</div>
-            <HeaderLink href={URI.accounts}>{profileName}</HeaderLink>
+            <HeaderLink href={URI.accounts}>{accountName}</HeaderLink>
           </div>
         ) : (
           <div className="account">

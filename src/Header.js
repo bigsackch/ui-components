@@ -141,7 +141,7 @@ export function ModalMenuLink({ children, href, onClick }: {
 }
 
 export function Header({ avatarSrc, avatarAlt, children, locale }: {
-  avatarSrc?: string, avatarAlt?: string, children?: React.Node, locale: string, profileSlug?: string,
+  avatarSrc?: string, avatarAlt?: string, children?: React.Node, locale: string, accountSlug?: string,
 }) {
   return (
     <div className="main">
