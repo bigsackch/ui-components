@@ -26,7 +26,7 @@ const i18n = {
     selectAccount: 'Velg konto',
     selectedAccount: 'Du administrerer:',
     stats: 'Statistikkpanel',
-    users: 'Brukerprofiler',
+    users: 'Brukere',
     venues: 'Utleiesteder',
   },
   en: {
