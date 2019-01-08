@@ -138,7 +138,11 @@ export function AvatarMenu({ avatarAlt, avatarSrc, locale }: { avatarAlt?: strin
 }
 
 function HostingMenuMobile({ isAdmin, locale, onClick, accountName, accountSlug }: {
-  isAdmin: boolean, locale: string, onClick?: () => void, accountName?: string, accountSlug?: string,
+  isAdmin: boolean,
+  locale: string,
+  onClick?: () => void,
+  accountName?: string,
+  accountSlug?: string,
 }) {
   const text = i18n[locale];
 
@@ -157,8 +161,8 @@ function HostingMenuMobile({ isAdmin, locale, onClick, accountName, accountSlug 
   );
 }
 
-export function HeaderHostingMenu({ isAdmin, locale, accountName, accountSlug }: {
-  isAdmin: boolean, locale: 'nb' | 'en', accountName?: string, accountSlug?: string,
+export function HeaderHostingMenu({ isAdmin, locale, accountName, accountSlug, hideAccountSelect }: {
+  isAdmin: boolean, locale: 'nb' | 'en', accountName?: string, accountSlug?: string, hideAccountSelect?: boolean,
 }) {
   const text = i18n[locale];
 
@@ -190,7 +194,7 @@ export function HeaderHostingMenu({ isAdmin, locale, accountName, accountSlug }:
           </div>
         ) : (
           <div className="account">
-            <HeaderLink href={URI.accounts}>{text.selectAccount}</HeaderLink>
+            {!hideAccountSelect ? <HeaderLink href={URI.accounts}>{text.selectAccount}</HeaderLink> : null}
           </div>
         )}
       </div>
