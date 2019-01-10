@@ -66,7 +66,7 @@ const URI = {
   },
   help: 'https://eventum.zendesk.com',
   hostVenues: '/hosting/venues',
-  inbox: '/inbox',
+  inbox: '/inbox/',
   login: '/inbox/login',
   logout: '/inbox/logout',
   yourProfile: '/your-profile',
