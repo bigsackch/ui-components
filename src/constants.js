@@ -4,6 +4,7 @@ export const COLORS = {
   BORDER: '#ebe8e3',
   DEFAULT: '#4b4b4b',
   DISABLED: '#807979',
+  ERROR: '#d0043c',
   LINK: '#019288',
   SUBTLE: '#929292',
 };

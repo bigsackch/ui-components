@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 import { Avatar } from './Avatar';
+import { COLORS } from './constants';
 import {
   HeaderButtonMenu,
   HeaderLink,
@@ -137,21 +138,47 @@ export function AvatarMenu({ avatarAlt, avatarSrc, locale }: { avatarAlt?: strin
   );
 }
 
-function HostingMenuMobile({ isAdmin, locale, onClick, accountName, accountSlug }: {
-  isAdmin: boolean,
-  locale: string,
-  onClick?: () => void,
+type HeaderHostingMenuProps = {
   accountName?: string,
   accountSlug?: string,
-}) {
+  hideAccountSelect?: boolean,
+  inboxUntreatedCount?: number,
+  inboxUri?: string,
+  isAdmin: boolean,
+  locale: 'nb' | 'en',
+}
+
+type HostingMenuMobileProps = {
+  accountName?: string,
+  accountSlug?: string,
+  inboxUntreatedCount?: number,
+  inboxUri?: string,
+  isAdmin: boolean,
+  locale: 'nb' | 'en',
+  onClick?: () => void,
+}
+
+function HostingMenuMobile({
+  accountName,
+  accountSlug,
+  inboxUntreatedCount,
+  inboxUri,
+  isAdmin,
+  locale,
+  onClick,
+}: HostingMenuMobileProps) {
   const text = i18n[locale];
+  const untreatedClass = inboxUntreatedCount && inboxUntreatedCount > 0 ? "red" : "green";
 
   return (
     <React.Fragment>
       {accountName && accountSlug ? (
         <ModalMenuLink href={URI.accounts} onClick={onClick}>{`${text.selectedAccount} ${accountName}`}</ModalMenuLink>
       ) : null}
-      <ModalMenuLink href={URI.inbox} onClick={onClick}>{text.inbox}</ModalMenuLink>
+      <ModalMenuLink href={inboxUri || URI.inbox} onClick={onClick}>
+        <span>{text.inbox}</span>
+        {inboxUntreatedCount ? <span className={untreatedClass}> ({inboxUntreatedCount})</span> : null}
+      </ModalMenuLink>
       <ModalMenuLink href={accountSlug ? `/manage-account/${accountSlug}/venues` : URI.hostVenues} onClick={onClick}>
         {text.venues}
       </ModalMenuLink>
@@ -161,25 +188,37 @@ function HostingMenuMobile({ isAdmin, locale, onClick, accountName, accountSlug 
   );
 }
 
-export function HeaderHostingMenu({ isAdmin, locale, accountName, accountSlug, hideAccountSelect }: {
-  isAdmin: boolean, locale: 'nb' | 'en', accountName?: string, accountSlug?: string, hideAccountSelect?: boolean,
-}) {
+export function HeaderHostingMenu({
+  accountName,
+  accountSlug,
+  hideAccountSelect,
+  inboxUntreatedCount,
+  inboxUri,
+  isAdmin,
+  locale,
+}: HeaderHostingMenuProps) {
   const text = i18n[locale];
+  const untreatedClass = inboxUntreatedCount && inboxUntreatedCount > 0 ? "red" : "green";
 
   return (
     <div className="main">
       <div className="mobile">
         <HeaderButtonMenu buttonChild={text.menu} hasArrow>
           <HostingMenuMobile
+            accountName={accountName}
+            accountSlug={accountSlug}
+            inboxUntreatedCount={inboxUntreatedCount}
+            inboxUri={inboxUri}
             isAdmin={isAdmin}
             locale={locale}
-            accountSlug={accountSlug}
-            accountName={accountName}
           />
         </HeaderButtonMenu>
       </div>
       <div className="desktop">
-        <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink>
+        <HeaderLink href={inboxUri || URI.inbox}>
+          <span>{text.inbox}</span>
+          {inboxUntreatedCount ? <span className={untreatedClass}> ({inboxUntreatedCount})</span> : null}
+        </HeaderLink>
         <HeaderLink href={accountSlug ? `/manage-account/${accountSlug}/venues` : URI.hostVenues}>
           {text.venues}
         </HeaderLink>
@@ -201,6 +240,12 @@ export function HeaderHostingMenu({ isAdmin, locale, accountName, accountSlug, h
       {/* language=CSS */}
       <style jsx>
         {`
+          .red {
+            color: ${COLORS.ERROR}
+          }
+          .green {
+            color: green;
+          }
           .main {
             flex: 1 auto;
           }
