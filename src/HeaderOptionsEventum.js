@@ -168,7 +168,7 @@ function HostingMenuMobile({
   onClick,
 }: HostingMenuMobileProps) {
   const text = i18n[locale];
-  const untreatedClass = inboxUntreatedCount && inboxUntreatedCount > 0 ? "red" : "green";
+  const untreatedColor = inboxUntreatedCount && inboxUntreatedCount > 0 ? COLORS.ERROR : 'green';
 
   return (
     <React.Fragment>
@@ -177,7 +177,7 @@ function HostingMenuMobile({
       ) : null}
       <ModalMenuLink href={inboxUri || URI.inbox} onClick={onClick}>
         <span>{text.inbox}</span>
-        {inboxUntreatedCount ? <span className={untreatedClass}> ({inboxUntreatedCount})</span> : null}
+        {inboxUntreatedCount ? <span style={{ color: untreatedColor }}> ({inboxUntreatedCount})</span> : null}
       </ModalMenuLink>
       <ModalMenuLink href={accountSlug ? `/manage-account/${accountSlug}/venues` : URI.hostVenues} onClick={onClick}>
         {text.venues}
@@ -198,7 +198,7 @@ export function HeaderHostingMenu({
   locale,
 }: HeaderHostingMenuProps) {
   const text = i18n[locale];
-  const untreatedClass = inboxUntreatedCount && inboxUntreatedCount > 0 ? "red" : "green";
+  const untreatedColor = inboxUntreatedCount && inboxUntreatedCount > 0 ? COLORS.ERROR : 'green';
 
   return (
     <div className="main">
@@ -217,7 +217,7 @@ export function HeaderHostingMenu({
       <div className="desktop">
         <HeaderLink href={inboxUri || URI.inbox}>
           <span>{text.inbox}</span>
-          {inboxUntreatedCount ? <span className={untreatedClass}> ({inboxUntreatedCount})</span> : null}
+          {inboxUntreatedCount ? <span style={{ color: untreatedColor }}> ({inboxUntreatedCount})</span> : null}
         </HeaderLink>
         <HeaderLink href={accountSlug ? `/manage-account/${accountSlug}/venues` : URI.hostVenues}>
           {text.venues}
@@ -240,12 +240,6 @@ export function HeaderHostingMenu({
       {/* language=CSS */}
       <style jsx>
         {`
-          .red {
-            color: ${COLORS.ERROR}
-          }
-          .green {
-            color: green;
-          }
           .main {
             flex: 1 auto;
           }
