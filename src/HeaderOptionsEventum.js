@@ -182,6 +182,9 @@ function HostingMenuMobile({
       <ModalMenuLink href={accountSlug ? `/manage-account/${accountSlug}/venues` : URI.hostVenues} onClick={onClick}>
         {text.venues}
       </ModalMenuLink>
+      <ModalMenuLink href={accountSlug ? `/manage-account/${accountSlug}` : URI.accounts} onClick={onClick}>
+        {text.account}
+      </ModalMenuLink>
       {isAdmin ? <AdminMenuLinks locale={locale} onClick={onClick} /> : null}
       <UserMenuLinks locale={locale} onClick={onClick} />
     </React.Fragment>
