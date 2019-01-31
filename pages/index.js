@@ -7,11 +7,13 @@ import { LocaleSelectorWithState } from '../src/LocaleSelector';
 import { MainContent } from '../src/MainContent';
 import { SPACING } from '../src/constants';
 
+const XL = 60;
+
 function ButtonsDemo() {
   const { L, S } = SPACING;
 
   return (
-    <div>
+    <div style={{ marginTop: XL }}>
       <h1>Buttons</h1>
       <div style={{ margin: `0 ${S} ${L}`}}>
         <Grid type="m">
@@ -94,7 +96,7 @@ function HeaderDemo() {
 
 function GridDemo() {
   return (
-    <div style={{ marginBottom: SPACING.L }}>
+    <div style={{ marginTop: XL }}>
       <h1>Grid</h1>
       <div className="mod">
         <div>Type: s</div>
@@ -130,7 +132,7 @@ function GridDemo() {
 
 function LocaleSelectorDemo() {
   return (
-    <div style={{ marginBottom: SPACING.L }}>
+    <div style={{ marginTop: XL }}>
       <h1>LocaleSelector</h1>
       <div style={{ position: 'relative', margin: SPACING.M, textAlign: 'right' }}>
       <LocaleSelectorWithState locale='nb' onSelect={locale => console.log(locale)} />
