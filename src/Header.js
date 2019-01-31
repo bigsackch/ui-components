@@ -149,13 +149,13 @@ export function Header({ avatarSrc, avatarAlt, children, locale }: {
         <a href="/">
           <img
             alt="Eventum symbol"
-            className="symbol mhm"
+            className="symbol"
             height="34"
             src={eventumSymbol}
           />
           <img
             alt="Eventum logo"
-            className="logo mhm"
+            className="logo"
             height="23"
             src={eventumLogo}
           />
@@ -186,10 +186,11 @@ export function Header({ avatarSrc, avatarAlt, children, locale }: {
             height: 70px;
           }
           .symbol {
-            margin-top: 8px;
+            margin: 8px ${SPACING.M} 0;
           }
           .logo {
             display: none;
+            margin: 0 ${SPACING.M};
           }
           @media only screen and (min-width: 768px) {
             .symbol {
