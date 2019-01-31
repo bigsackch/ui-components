@@ -1,7 +1,10 @@
+*.log
+.next
 dist
 lib
 node_modules
-target
-src-cljs/eventum-ui-components
 pom.xml
 pom.xml.asc
+src-cljs/eventum-ui-components
+target
+test/node_modules
