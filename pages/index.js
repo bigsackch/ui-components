@@ -5,7 +5,6 @@ import { MainContent } from '../src/MainContent';
 import { Header, HeaderButtonMenu, HeaderLink, ModalMenuLink } from '../src/Header';
 import { Col, Grid } from '../src/Grid';
 import { SPACING } from '../src/constants';
-import { DatePicker } from '../src';
 
 function ButtonsDemo() {
   const { L, S } = SPACING;
@@ -129,10 +128,12 @@ function GridDemo() {
 }
 
 export default () => (
-  <MainContent>
+  <div>
     <HeaderDemo />
-    <ButtonsDemo />
-    <GridDemo />
+    <MainContent>
+      <ButtonsDemo />
+      <GridDemo />
+    </MainContent>
     { /* language=CSS */ }
     <style jsx global>
       {`
@@ -245,5 +246,5 @@ export default () => (
         }
       `}
     </style>
-  </MainContent>
+  </div>
 )
