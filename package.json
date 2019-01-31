@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel src/ -d dist/",
     "lint": "eslint src",
-    "flow": "flow"
+    "flow": "flow",
+    "dev": "next"
   },
   "dependencies": {
     "dateformat": "^3.0.3",
@@ -36,6 +37,7 @@
     "externs-generator": "^0.3.3",
     "flow-bin": "^0.81.0",
     "next": "^7.0.0",
+    "next-images": "^1.0.4",
     "url-loader": "^1.1.1",
     "webpack": "3.0.0"
   },
