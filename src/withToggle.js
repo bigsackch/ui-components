@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-class WithToggle extends React.Component {
+export class withToggle extends React.Component<> {
   state = {
     toggleStatus: this.props.initialToggleStatus,
   };
