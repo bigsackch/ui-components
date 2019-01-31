@@ -163,8 +163,8 @@ function WeekDayLabels({ envLocale, langLocale }: { envLocale: string, langLocal
 
 type NavigationProps = {
   children: React.Node,
-  onPrevMonthClick: Function,
-  onNextMonthClick: Function,
+  onPrevMonthClick: () => void,
+  onNextMonthClick: () => void,
 }
 
 function Navigation({ children, onPrevMonthClick, onNextMonthClick }: NavigationProps) {
@@ -255,10 +255,10 @@ type DatePickerProps = {
   isLoading: boolean,
   label: string,
   langLocale: string,
-  onClose: Function,
+  onClose: () => void,
   onDateClick: (string) => void,
-  onNextMonthClick: Function,
-  onPrevMonthClick: Function,
+  onNextMonthClick: () => void,
+  onPrevMonthClick: () => void,
   selectedDate: ?string,
   weeks: ?WeekType[],
 }
