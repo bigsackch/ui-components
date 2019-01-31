@@ -134,8 +134,8 @@ function LocaleSelectorDemo() {
   return (
     <div style={{ marginTop: XL }}>
       <h1>LocaleSelector</h1>
-      <div style={{ position: 'relative', margin: SPACING.M, textAlign: 'right' }}>
-      <LocaleSelectorWithState locale='nb' onSelect={locale => console.log(locale)} />
+      <div style={{ position: 'relative', margin: SPACING.M, textAlign: 'right', width: 200 }}>
+        <LocaleSelectorWithState locale='nb' onSelect={locale => console.log(locale)} />
       </div>
     </div>
   )
