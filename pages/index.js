@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import { Button } from '../src/Buttons';
-import { MainContent } from '../src/MainContent';
-import { Header, HeaderButtonMenu, HeaderLink, ModalMenuLink } from '../src/Header';
 import { Col, Grid } from '../src/Grid';
+import { Header, HeaderButtonMenu, HeaderLink, ModalMenuLink } from '../src/Header';
+import { LocaleSelectorWithState } from '../src/LocaleSelector';
+import { MainContent } from '../src/MainContent';
 import { SPACING } from '../src/constants';
 
 function ButtonsDemo() {
@@ -127,12 +128,24 @@ function GridDemo() {
   );
 }
 
+function LocaleSelectorDemo() {
+  return (
+    <div style={{ marginBottom: SPACING.L }}>
+      <h1>LocaleSelector</h1>
+      <div style={{ position: 'relative', margin: SPACING.M, textAlign: 'right' }}>
+      <LocaleSelectorWithState locale='nb' onSelect={locale => console.log(locale)} />
+      </div>
+    </div>
+  )
+}
+
 export default () => (
   <div>
     <HeaderDemo />
     <MainContent>
       <ButtonsDemo />
       <GridDemo />
+      <LocaleSelectorDemo />
     </MainContent>
     { /* language=CSS */ }
     <style jsx global>
@@ -221,6 +234,11 @@ export default () => (
           font-weight: 400;
           letter-spacing: 0.02rem;
           line-height: 1.2;
+        }
+        ul,
+        ol {
+          list-style-type: none;
+          padding: 0;
         }
         a,
         a:link,
