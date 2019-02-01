@@ -298,7 +298,7 @@ export function DatePicker({
                 {weeks.map(week => (
                   <Week
                     days={week.days}
-                    key={week.week}
+                    key={week.days[0].date}
                     onDateClick={onDateClick}
                     selectedDate={selectedDate}
                   />

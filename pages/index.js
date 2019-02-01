@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Button } from '../src/Buttons';
 import { Col, Grid } from '../src/Grid';
+import { DatePickerWithData } from '../src/DatePickerWithData';
+import { DateSelectButton } from '../src/DateSelectButton';
 import { Header, HeaderButtonMenu, HeaderLink, ModalMenuLink } from '../src/Header';
 import { LocaleSelectorWithState } from '../src/LocaleSelector';
 import { MainContent } from '../src/MainContent';
@@ -77,7 +79,7 @@ function ButtonsDemo() {
         </Grid>
       </div>
     </div>
-  )
+  );
 }
 
 function HeaderDemo() {
@@ -138,7 +140,40 @@ function LocaleSelectorDemo() {
         <LocaleSelectorWithState locale='nb' onSelect={locale => console.log(locale)} />
       </div>
     </div>
+  );
+}
+
+class DatePickerDemo extends React.Component {
+  state = {
+    showDatePicker: false,
+    selectedDate: null,
+  };
+
+  toggleShowDatePicker = () => {
+    this.setState(prevState => ({ showDatePicker: !prevState.showDatePicker }));
+  };
+
+  render() {
+    const { selectedDate, showDatePicker } = this.state;
+
+    return (
+      <div style={{ marginTop: XL }}>
+        <h1>DatePicker</h1>
+        <div style={{ width: 200, margin: SPACING.M }}>
+          <DateSelectButton date={selectedDate} locale='en' onClick={this.toggleShowDatePicker}/>
+        </div>
+        {showDatePicker ? (
+          <DatePickerWithData
+            onClose={this.toggleShowDatePicker}
+            onDateClick={date => {
+              this.setState({ selectedDate: date, showDatePicker: false });
+            }}
+          />
+          ) : null}
+      </div>
   )
+  }
+
 }
 
 export default () => (
@@ -146,6 +181,7 @@ export default () => (
     <HeaderDemo />
     <MainContent>
       <ButtonsDemo />
+      <DatePickerDemo />
       <GridDemo />
       <LocaleSelectorDemo />
     </MainContent>
