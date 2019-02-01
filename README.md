@@ -21,8 +21,11 @@ To ensure this package is built correctly in your project you need to transpile 
 to ensure icons are inlined and base64 encoded, and lastly you need 'styled-jsx' (in-built in Next.js).
 
 
-## Use as npm package
+## Publish
 
+Update version in package.json.
 ```sh
-yarn add eventum-ui-components
+scripts/deploy.sh
+npm publish
 ```
+Package is now published for cljs and js usage.
