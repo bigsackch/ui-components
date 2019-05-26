@@ -11,12 +11,13 @@ type ModalProps = {
   children: React.Node,
   onCloseClick: () => void,
   zIndex?: number,
+  disableBodyScroll: boolean,
 }
 
-export function Modal({ children, onCloseClick, zIndex }: ModalProps) {
+export function Modal({ children, onCloseClick, zIndex, disableBodyScroll }: ModalProps) {
   return (
     <Backdrop onClick={onCloseClick} bgColor="rgba(255, 255, 255, 0.8)" zIndex={zIndex}>
-      <BodyScrollDisabled />
+      {!disableBodyScroll && <BodyScrollDisabled />}
       <div className="modal" onClick={event => event.stopPropagation()} role="presentation">
         <ModalCloseButton color="black" onClick={onCloseClick} height={40} />
         {children}
@@ -48,6 +49,7 @@ export function Modal({ children, onCloseClick, zIndex }: ModalProps) {
 
 Modal.defaultProps = {
   zIndex: 1001,
+  disableBodyScroll: true,
 };
 
 
