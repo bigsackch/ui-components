@@ -119,14 +119,27 @@ function Day({ day, onDateClick, selectedDate }: DayProps) {
 
 type WeekProps = {
   days: Availability[],
+  minDate: ?string,
   onDateClick: (string) => void,
   selectedDate: ?string,
 }
 
-function Week({ days, onDateClick, selectedDate }: WeekProps) {
+function Week({ days, minDate, onDateClick, selectedDate }: WeekProps) {
   return (
     <Grid type="xs">
-      {days.map(day => <Day day={day} key={day.date} onDateClick={onDateClick} selectedDate={selectedDate} />)}
+      {days.map(day => {
+        const isWithinMinDate = minDate && day.date < minDate;
+        const status = isWithinMinDate ? 'unavailable' : day.status;
+
+        return (
+          <Day
+            day={Object.assign({}, day, { status })}
+            key={day.date}
+            onDateClick={onDateClick}
+            selectedDate={selectedDate}
+          />
+        )
+      })}
     </Grid>
   );
 }
@@ -255,6 +268,7 @@ type DatePickerProps = {
   isLoading: boolean,
   label: string,
   langLocale: string,
+  minDate: ?string,
   onClose: () => void,
   onDateClick: (string) => void,
   onNextMonthClick: () => void,
@@ -268,6 +282,7 @@ export function DatePicker({
   isLoading,
   label,
   langLocale,
+  minDate,
   onClose,
   onDateClick,
   onNextMonthClick,
@@ -299,6 +314,7 @@ export function DatePicker({
                   <Week
                     days={week.days}
                     key={week.days[0].date}
+                    minDate={minDate}
                     onDateClick={onDateClick}
                     selectedDate={selectedDate}
                   />
