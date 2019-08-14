@@ -91,13 +91,14 @@ type GridProps = {
   id?: string,
   type?: 'xs' | 's' | 'm' | 'l',
   wrap?: 'nowrap' | 'wrap' | 'wrap-reverse',
+  style?: Object,
 }
 
 export function Grid({
-  children, id, type, wrap,
+  children, id, type, wrap, style
 }: GridProps) {
   return (
-    <div className={type} id={id}>
+    <div className={type} id={id} style={style}>
       {children}
       { /* language=CSS */ }
       <style jsx>
@@ -138,4 +139,5 @@ Grid.defaultProps = {
   id: undefined,
   type: 'm',
   wrap: 'nowrap',
+  style: {},
 };
