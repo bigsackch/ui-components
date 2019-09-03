@@ -51,6 +51,7 @@ function monthLabel(date: Date): string {
 
 type Props = {
   initialDate: ?string,
+  selectedDate: ?string,
   minDate?: string,
   onDateClick: () => void,
   onClose: () => void,
@@ -70,7 +71,7 @@ export class DatePickerWithData extends React.Component<Props, State> {
   onPrevMonthClick = () => this.setState(prevState => ({ calendarMonthDate: prevMonth(prevState.calendarMonthDate) }));
 
   render() {
-    const { eventStartDate, minDate, onClose, onDateClick } = this.props;
+    const { selectedDate, minDate, onClose, onDateClick } = this.props;
     const { calendarMonthDate } = this.state;
     const year = calendarMonthDate.getFullYear();
     const month = calendarMonthDate.getMonth();
@@ -89,7 +90,7 @@ export class DatePickerWithData extends React.Component<Props, State> {
         onDateClick={(date) => {
           onDateClick(date)
         }}
-        selectedDate={eventStartDate}
+        selectedDate={selectedDate}
         minDate={minDate}
       />
     );
