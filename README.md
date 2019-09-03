@@ -24,7 +24,7 @@ to ensure icons are inlined and base64 encoded, and lastly you need 'styled-jsx'
 
 ## Publish
 
-Update version in package.json.
+Update version in project.clj and package.json.
 ```sh
 scripts/deploy.sh
 npm publish
