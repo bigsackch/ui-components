@@ -322,7 +322,7 @@ export function DatePicker({
               </div>
             ) : (
               <div>
-                {text('loading')}
+                {text['loading']}
               </div>
             )
           }
