@@ -63,7 +63,7 @@ type State = {
 
 export class DatePickerWithData extends React.Component<Props, State> {
   state = {
-    calendarMonthDate: this.props.initialDate ? new Date(this.props.initialDate) : new Date(),
+    calendarMonthDate: new Date(this.props.initialDate || this.props.selectedDate || new Date()),
   };
 
   onNextMonthClick = () => this.setState(prevState => ({ calendarMonthDate: nextMonth(prevState.calendarMonthDate) }));
