@@ -6,13 +6,17 @@ type LabelProps = {
   htmlFor: string,
   description?: string,
   label?: string,
+  wrapperClass?: string,
+  wrapperStyle?: Object,
+  style?: Object,
+  className?: string,
 }
 
-export function Label({ description, htmlFor, label }: LabelProps) {
+export function Label({ description, htmlFor, label, wrapperClass, wrapperStyle, style, className }: LabelProps) {
   return (
-    <div className="mod">
+    <div className={'mod ' + (wrapperClass || '')} style={wrapperStyle}>
       {label ? (
-        <label htmlFor={htmlFor}>
+        <label htmlFor={htmlFor} style={style} className={className}>
           {label}
         </label>
       ) : null}
@@ -30,9 +34,15 @@ export function Label({ description, htmlFor, label }: LabelProps) {
   );
 }
 
-function ErrorMessage({ children }: { children: React.Node }) {
+type ErrorMessageProps = {
+  children: React.Node,
+  style?: Object,
+  className?: string,
+}
+
+export function ErrorMessage({ children, style, className }: ErrorMessageProps) {
   return (
-    <div className="mts">
+    <div className={"mts " + (className || '')} style={style}>
       {children}
       { /* language=CSS */ }
       <style jsx>{`
@@ -75,6 +85,8 @@ type SelectProps = {
   label?: string,
   onChange: string => void,
   otherProps?: Object,
+  wrapperStyle?: Object,
+  wrapperClass?: string,
   value: string,
 }
 
@@ -87,10 +99,12 @@ export function Select({
   label,
   onChange,
   value,
+  wrapperStyle,
+  wrapperClass,
   ...otherProps
 }: SelectProps) {
   return (
-    <div>
+    <div style={wrapperStyle} className={wrapperClass}>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
       <div className="mod">
         <div className="select">
@@ -197,29 +211,25 @@ type TextInputProps = {
   label?: string,
   onChange: string => void,
   otherProps?: Object,
+  wrapperStyle?: Object,
+  wrapperClass?: string,
   value: string,
 }
 
 export function TextInput({
   description,
-  errorMessage,
-  hasError,
   id,
   label,
-  onChange,
-  value,
+  wrapperStyle,
+  wrapperClass,
   ...otherProps
 }: TextInputProps) {
   return (
-    <div>
+    <div style={wrapperStyle} className={wrapperClass}>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
       <FormInput
-        errorMessage={errorMessage}
-        hasError={hasError}
         id={id}
-        onChange={onChange}
         type="text"
-        value={value}
         {...otherProps}
       />
     </div>
@@ -227,25 +237,19 @@ export function TextInput({
 }
 
 export function EmailInput({
-description,
-errorMessage,
-hasError,
-id,
-label,
-onChange,
-value,
-...otherProps
+  description,
+  id,
+  label,
+  wrapperStyle,
+  wrapperClass,
+  ...otherProps
 }: TextInputProps) {
   return (
-    <div>
+    <div style={wrapperStyle} className={wrapperClass}>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
       <FormInput
-        errorMessage={errorMessage}
-        hasError={hasError}
         id={id}
-        onChange={onChange}
         type="email"
-        value={value}
         {...otherProps}
       />
     </div>
@@ -253,25 +257,19 @@ value,
 }
 
 export function TelInput({
-description,
-errorMessage,
-hasError,
-id,
-label,
-onChange,
-value,
-...otherProps
+  description,
+  id,
+  label,
+  wrapperStyle,
+  wrapperClass,
+  ...otherProps
 }: TextInputProps) {
   return (
-    <div>
+    <div style={wrapperStyle} className={wrapperClass}>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
       <FormInput
-        errorMessage={errorMessage}
-        hasError={hasError}
         id={id}
-        onChange={onChange}
         type="tel"
-        value={value}
         {...otherProps}
       />
     </div>
@@ -280,28 +278,22 @@ value,
 
 export function NumberInput({
   description,
-  errorMessage,
-  hasError,
   id,
   label,
   max,
   min,
-  onChange,
-  value,
+  wrapperStyle,
+  wrapperClass,
   ...otherProps
 }: { ...TextInputProps, min?: number, max?: number }) {
   return (
-    <div>
+    <div style={wrapperStyle} className={wrapperClass}>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
       <FormInput
-        errorMessage={errorMessage}
-        hasError={hasError}
         id={id}
         max={max}
         min={min}
-        onChange={onChange}
         type="number"
-        value={value}
         {...otherProps}
       />
     </div>
@@ -318,12 +310,14 @@ export function Textarea({
   rows,
   value,
   inputComponent,
+  wrapperStyle,
+  wrapperClass,
   ...otherProps
 }: { ...TextInputProps, rows?: number, inputComponent?: string }) {
   let InputComponent = inputComponent;
 
   return (
-    <div>
+    <div style={wrapperStyle} className={wrapperClass}>
       {label || description ? <Label htmlFor={id} description={description} label={label} /> : null}
       <div className="mod">
         <InputComponent

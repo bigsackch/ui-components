@@ -11,6 +11,9 @@ type EventDateButtonProps = {
   label?: string,
   locale: string,
   onClick: Function,
+  wrapperClass?: string,
+  wrapperStyle?: Object,
+  placeholder?: string,
 }
 
 const i18n = {
@@ -24,13 +27,13 @@ const i18n = {
   }
 };
 
-export function DateSelectButton({ date, label, locale, onClick }: EventDateButtonProps) {
+export function DateSelectButton({ date, label, locale, onClick, wrapperClass, wrapperStyle, placeholder }: EventDateButtonProps) {
   const text = i18n[locale];
 
   dateformat.masks.shortDate = text.shortDateFormatMask;
 
   return (
-    <div>
+    <div classname={wrapperClass} style={wrapperStyle}>
       <label className="strong">
         {label}
         <button onClick={onClick} type="button">
@@ -41,7 +44,7 @@ export function DateSelectButton({ date, label, locale, onClick }: EventDateButt
             </span>
           ) : (
             <span className="choose-date">
-              {text.chooseDate}
+              {placeholder || text.chooseDate}
             </span>
           )}
         </button>

@@ -5,11 +5,12 @@ type ColProps = {
   children?: React.Node,
   flex?: number | string,
   style?: Object,
+  className?: string,
 }
 
-export function Col({ children, flex, style }: ColProps) {
+export function Col({ children, flex, style, className }: ColProps) {
   return (
-    <div style={style}>
+    <div style={style} className={className}>
       {children}
       { /* language=CSS */ }
       <style jsx>
@@ -26,7 +27,6 @@ export function Col({ children, flex, style }: ColProps) {
 Col.defaultProps = {
   children: null,
   flex: 1,
-  style: {},
 };
 
 export function ColRight({ children }: { children: React.Node }) {
@@ -88,17 +88,16 @@ ColWidths.defaultProps = {
 
 type GridProps = {
   children?: React.Node,
-  id?: string,
   type?: 'xs' | 's' | 'm' | 'l',
   wrap?: 'nowrap' | 'wrap' | 'wrap-reverse',
-  style?: Object,
+  className?: string,
+  otherProps?: Object,
 }
 
-export function Grid({
-  children, id, type, wrap, style
-}: GridProps) {
+export function Grid({children, type, wrap, className, ...otherProps}: GridProps) {
+  const classes = type + " " + (className || "")
   return (
-    <div className={type} id={id} style={style}>
+    <div className={classes} {...otherProps}>
       {children}
       { /* language=CSS */ }
       <style jsx>

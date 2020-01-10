@@ -8,8 +8,46 @@ import { Header, HeaderButtonMenu, HeaderLink, ModalMenuLink } from '../src/Head
 import { LocaleSelectorWithState } from '../src/LocaleSelector';
 import { MainContent } from '../src/MainContent';
 import { SPACING } from '../src/constants';
+import { Select, TextInput, Label } from '../src/FormComponents';
 
 const XL = 60;
+
+function FormsDemo() {
+  return(
+      <div>
+        <h1>Inputs</h1>
+        <Grid>
+          <Col>
+            <Select onChange={(v) => {console.log("Selected: ", v)}}
+                    label="3/4 width of wrapper element"
+                    wrapperStyle={{width: "75%"}}>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+            </Select>
+          </Col>
+          <Col>
+            <TextInput onChange={(v) => {console.log("Printed: ", v)}}
+                       label="Just input..." />
+          </Col>
+        </Grid>
+        <Label label="Label with custom wrapper props" wrapperClass="mrgl" wrapperStyle={{width: "20%"}}/>
+        <TextInput onChange={(v) => {console.log("Printed: ", v)}}
+                   errorMessage="Some Error" hasError />
+        <Grid>
+          <Col>
+            <Label label="Simple label" description="With some desc" />
+          </Col>
+          <Col>
+            <Label label="With otherProps"
+                   style={{color: "green"}}
+                   wrapperStyle={{color: "blue"}}
+                   className="mrgl"
+                   description="And with wrapperStyle"/>
+          </Col>
+        </Grid>
+      </div>
+  );
+}
 
 function ButtonsDemo() {
   const { L, S } = SPACING;
@@ -68,13 +106,31 @@ function ButtonsDemo() {
             </div>
           </Col>
           <Col>
-            <div style={{ margin: S }}>
-              <Button
-                btnStyle="link"
-                btnSize="m"
-                onClick={() => { console.log("Click!") }}
-              >Link</Button>
-            </div>
+            <Button
+              btnStyle="link"
+              btnSize="m"
+              style={{ margin: S }}
+              onClick={() => { console.log("Click!") }}
+            >Link</Button>
+          </Col>
+        </Grid>
+        <Grid>
+          <Col>
+            <Button
+               btnStyle="primary"
+               btnSize="m"
+               className="mrgl"
+               style={{margin: S}}
+               onClick={() => { console.log("Click!") }}>With otherProps</Button>
+          </Col>
+          <Col>
+            <Button
+               disabled
+               btnStyle="primary"
+               btnSize="l"
+               className="mrgl"
+               onClick={() => { console.log("Click!") }}
+            >Disabled with custom class</Button>
           </Col>
         </Grid>
       </div>
@@ -157,19 +213,31 @@ class DatePickerDemo extends React.Component {
     const { selectedDate, showDatePicker } = this.state;
 
     return (
-      <div style={{ marginTop: XL }}>
-        <h1>DatePicker</h1>
-        <div style={{ width: 200, margin: SPACING.M }}>
-          <DateSelectButton date={selectedDate} locale='en' onClick={this.toggleShowDatePicker}/>
+      <div style={{ marginTop: XL, display: "flex" }}>
+        <div>
+          <h1>DatePicker</h1>
+          <DateSelectButton date={selectedDate}
+                            locale='en'
+                            wrapperStyle={{ width: 200, margin: SPACING.M }}
+                            onClick={this.toggleShowDatePicker}/>
+          {showDatePicker ? (
+            <DatePickerWithData
+              onClose={this.toggleShowDatePicker}
+              onDateClick={date => {
+                console.log("Selected Date: ", date);
+                this.setState({ selectedDate: date, showDatePicker: false });
+              }}
+            />
+            ) : null}
         </div>
-        {showDatePicker ? (
-          <DatePickerWithData
-            onClose={this.toggleShowDatePicker}
-            onDateClick={date => {
-              this.setState({ selectedDate: date, showDatePicker: false });
-            }}
-          />
-          ) : null}
+        <div>
+          <h1>Just DateSelect button</h1>
+          <DateSelectButton date={selectedDate}
+                            locale='en'
+                            placeholder="With placeholder"
+                            wrapperStyle={{ width: 200, margin: SPACING.M }}
+                            onClick={() => { console.log("DateSelect button clicked") }}/>
+        </div>
       </div>
   )
   }
@@ -180,6 +248,7 @@ export default () => (
   <div>
     <HeaderDemo />
     <MainContent>
+      <FormsDemo />
       <ButtonsDemo />
       <DatePickerDemo />
       <GridDemo />
@@ -188,6 +257,7 @@ export default () => (
     { /* language=CSS */ }
     <style jsx global>
       {`
+        .mrgl {background-color: #e0b4b4 !important}
         @font-face {
           font-display: swap;
           font-family: 'Brandon Grotesque';
