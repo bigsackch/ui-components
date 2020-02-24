@@ -141,7 +141,7 @@ function ButtonsDemo() {
 function HeaderDemo() {
   return (
     <Header>
-      <HeaderButtonMenu buttonChild="Menu">
+      <HeaderButtonMenu buttonChild="Menu" topLock={100}>
         <ModalMenuLink href="/">Link 1</ModalMenuLink>
         <ModalMenuLink href="/">Link 2</ModalMenuLink>
         <ModalMenuLink href="/">Link 3</ModalMenuLink>
