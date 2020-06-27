@@ -225,7 +225,6 @@ class DatePickerDemo extends React.Component {
             <DatePickerWithData
               onClose={this.toggleShowDatePicker}
               onDateClick={date => {
-                console.log("Selected Date: ", date);
                 this.setState({ selectedDate: date, showDatePicker: false });
               }}
             />
@@ -242,7 +241,6 @@ class DatePickerDemo extends React.Component {
               onClose={this.toggleShowDatePicker}
               minDate={today}
               onDateClick={date => {
-                console.log("Selected Date: ", date);
                 this.setState({ selectedDate: date, showDatePicker: false });
               }}
             />
