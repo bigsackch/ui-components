@@ -55,6 +55,7 @@ type Props = {
   minDate?: string,
   onDateClick: () => void,
   onClose: () => void,
+  isDateAvailable: ?(string) => boolean,
 }
 
 type State = {
@@ -71,7 +72,7 @@ export class DatePickerWithData extends React.Component<Props, State> {
   onPrevMonthClick = () => this.setState(prevState => ({ calendarMonthDate: prevMonth(prevState.calendarMonthDate) }));
 
   render() {
-    const { selectedDate, minDate, onClose, onDateClick } = this.props;
+    const { selectedDate, minDate, onClose, onDateClick, isDateAvailable } = this.props;
     const { calendarMonthDate } = this.state;
     const year = calendarMonthDate.getFullYear();
     const month = calendarMonthDate.getMonth();
@@ -92,6 +93,7 @@ export class DatePickerWithData extends React.Component<Props, State> {
         }}
         selectedDate={selectedDate}
         minDate={minDate}
+        isDateAvailable={isDateAvailable}
       />
     );
   }

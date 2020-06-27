@@ -122,14 +122,16 @@ type WeekProps = {
   minDate: ?string,
   onDateClick: (string) => void,
   selectedDate: ?string,
+  isDateAvailable: ?(string) => boolean,
 }
 
-function Week({ days, minDate, onDateClick, selectedDate }: WeekProps) {
+function Week({ days, minDate, onDateClick, selectedDate, isDateAvailable }: WeekProps) {
   return (
     <Grid type="xs">
       {days.map(day => {
-        const isWithinMinDate = minDate && day.date < minDate;
-        const status = isWithinMinDate ? 'unavailable' : day.status;
+        const notWithinMinDate = !minDate || day.date < minDate;
+        const isAvailable = !isDateAvailable || isDateAvailable(day.date);
+        const status = isAvailable && notWithinMinDate ? day.status : 'unavailable';
 
         return (
           <Day
@@ -275,6 +277,7 @@ type DatePickerProps = {
   onPrevMonthClick: () => void,
   selectedDate: ?string,
   weeks: ?WeekType[],
+  isDateAvailable: ?(string) => boolean,
 }
 
 export function DatePicker({
@@ -289,6 +292,7 @@ export function DatePicker({
   onPrevMonthClick,
   selectedDate,
   weeks,
+  isDateAvailable
 }: DatePickerProps) {
   const text = i18n[langLocale];
 
@@ -317,6 +321,7 @@ export function DatePicker({
                     minDate={minDate}
                     onDateClick={onDateClick}
                     selectedDate={selectedDate}
+                    isDateAvailable={isDateAvailable}
                   />
                 ))}
               </div>

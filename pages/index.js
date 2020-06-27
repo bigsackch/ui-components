@@ -211,11 +211,12 @@ class DatePickerDemo extends React.Component {
 
   render() {
     const { selectedDate, showDatePicker } = this.state;
+    const today = (new Date).toISOString()
 
     return (
-      <div style={{ marginTop: XL, display: "flex" }}>
+      <div style={{ marginTop: XL, display: "flex", flexWrap: "wrap" }}>
         <div>
-          <h1>DatePicker</h1>
+          <h2>DatePicker</h2>
           <DateSelectButton date={selectedDate}
                             locale='en'
                             wrapperStyle={{ width: 200, margin: SPACING.M }}
@@ -231,7 +232,40 @@ class DatePickerDemo extends React.Component {
             ) : null}
         </div>
         <div>
-          <h1>Just DateSelect button</h1>
+          <h2>Limited by min</h2>
+          <DateSelectButton date={selectedDate}
+                            locale='en'
+                            wrapperStyle={{ width: 200, margin: SPACING.M }}
+                            onClick={this.toggleShowDatePicker}/>
+          {showDatePicker ? (
+            <DatePickerWithData
+              onClose={this.toggleShowDatePicker}
+              minDate={today}
+              onDateClick={date => {
+                console.log("Selected Date: ", date);
+                this.setState({ selectedDate: date, showDatePicker: false });
+              }}
+            />
+            ) : null}
+        </div>
+        <div>
+          <h2>Limited by `isDateAvailable`</h2>
+          <DateSelectButton date={selectedDate}
+                            locale='en'
+                            wrapperStyle={{ width: 200, margin: SPACING.M }}
+                            onClick={this.toggleShowDatePicker}/>
+          {showDatePicker ? (
+            <DatePickerWithData
+              onClose={this.toggleShowDatePicker}
+              isDateAvailable={date => { var day = (new Date(date)).getDay(); return day !== 0 && day !== 6;}}
+              onDateClick={date => {
+                this.setState({ selectedDate: date, showDatePicker: false });
+              }}
+            />
+            ) : null}
+        </div>
+        <div>
+          <h2>Just button</h2>
           <DateSelectButton date={selectedDate}
                             locale='en'
                             placeholder="With placeholder"
