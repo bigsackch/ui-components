@@ -129,9 +129,9 @@ function Week({ days, minDate, onDateClick, selectedDate, isDateAvailable }: Wee
   return (
     <Grid type="xs">
       {days.map(day => {
-        const notWithinMinDate = !minDate || day.date < minDate;
+        const isWithinMinDate = minDate && day.date < minDate;
         const isAvailable = !isDateAvailable || isDateAvailable(day.date);
-        const status = isAvailable && notWithinMinDate ? day.status : 'unavailable';
+        const status = isAvailable && !isWithinMinDate ? day.status : 'unavailable';
 
         return (
           <Day

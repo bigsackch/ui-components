@@ -9,6 +9,7 @@ import { LocaleSelectorWithState } from '../src/LocaleSelector';
 import { MainContent } from '../src/MainContent';
 import { SPACING } from '../src/constants';
 import { Select, TextInput, Label } from '../src/FormComponents';
+import dateformat from 'dateformat';
 
 const XL = 60;
 
@@ -211,7 +212,7 @@ class DatePickerDemo extends React.Component {
 
   render() {
     const { selectedDate, showDatePicker } = this.state;
-    const today = (new Date).toISOString()
+    const today = dateformat(new Date, 'yyyy-mm-dd')
 
     return (
       <div style={{ marginTop: XL, display: "flex", flexWrap: "wrap" }}>
@@ -230,7 +231,7 @@ class DatePickerDemo extends React.Component {
             />
             ) : null}
         </div>
-        <div>
+        <div style={{flex: 1}}>
           <h2>Limited by min</h2>
           <DateSelectButton date={selectedDate}
                             locale='en'
