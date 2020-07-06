@@ -33,7 +33,7 @@ export function DateSelectButton({ date, label, locale, onClick, wrapperClass, w
   dateformat.masks.shortDate = text.shortDateFormatMask;
 
   return (
-    <div classname={wrapperClass} style={wrapperStyle}>
+    <div className={wrapperClass} style={wrapperStyle}>
       <label className="strong">
         {label}
         <button onClick={onClick} type="button">
