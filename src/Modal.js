@@ -53,8 +53,8 @@ Modal.defaultProps = {
 };
 
 
-export function ModalMenu({ children, onClose, topLock, bottomLock }: {
-  children: React.Node, onClose: () => void, topLock?: number, bottomLock?: number,
+export function ModalMenu({ children, onClose, topLock, bottomLock, overlayPosition, }: {
+  children: React.Node, onClose: () => void, topLock?: number, bottomLock?: number, overlayPosition: 'left' | 'right'
 }) {
   return (
     <div>
@@ -62,7 +62,10 @@ export function ModalMenu({ children, onClose, topLock, bottomLock }: {
         <BodyScrollDisabled />
       </Responsive>
       <Backdrop onClick={onClose} />
-      <div className="modal" onClick={event => event.stopPropagation()} role="presentation">
+      <div className="modal" onClick={event => {
+        event.stopPropagation();
+        onClose();
+      }} role="presentation">
         <div className="children">
           {children}
         </div>
@@ -89,13 +92,17 @@ export function ModalMenu({ children, onClose, topLock, bottomLock }: {
             border: 1px solid ${COLORS.BORDER};
             bottom: ${bottomLock ? SPACING.M : 'auto'};
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-            left: auto;
+            left: ${overlayPosition === 'left' ? 'auto' : 0};
+            right: ${overlayPosition === 'left' ? 0 : 'auto'};
             min-width: 280px;
             position: absolute;
-            top: ${topLock ? SPACING.M : 'auto'};
+            top: ${topLock ? SPACING.S : 'auto'};
           }
         }
       `}</style>
     </div>
   );
+}
+ModalMenu.defaultProps = {
+  overlayPosition: 'left',
 }

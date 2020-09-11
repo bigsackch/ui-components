@@ -274,7 +274,21 @@ class DatePickerDemo extends React.Component {
       </div>
   )
   }
+}
 
+function HeaderButtonMenuDemo() {
+  return (
+    <div style={{ marginTop: XL }}>
+      <h1>HeaderButtonMenu</h1>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <HeaderButtonMenu buttonChild="Menu" hasArrow={true}>
+          <ModalMenuLink onClick={() => { console.log('you clicked me 1') }}>Click me 1</ModalMenuLink>
+          <ModalMenuLink href="/" onClick={() => { console.log('you clicked me 2') }}>Click me 2</ModalMenuLink>
+          <ModalMenuLink href="#" onClick={() => { console.log('you clicked me 3') }}>Click me 3</ModalMenuLink>
+        </HeaderButtonMenu>
+      </div>
+    </div>
+  );
 }
 
 export default () => (
@@ -285,6 +299,7 @@ export default () => (
       <ButtonsDemo />
       <DatePickerDemo />
       <GridDemo />
+      <HeaderButtonMenuDemo />
       <LocaleSelectorDemo />
     </MainContent>
     { /* language=CSS */ }

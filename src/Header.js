@@ -16,6 +16,7 @@ export function HeaderButton({ children, onClick }: {
   const buttonStyle = {
     color: COLORS.DEFAULT,
     WebkitFontSmoothing: "auto",
+    whiteSpace: "nowrap",
   };
 
   return (
@@ -73,10 +74,6 @@ export class HeaderButtonMenu extends React.Component<{ buttonChild: React.Node,
   render() {
     const { props, state, toggleShowOptions } = this;
 
-    const childrenWithToggler = React.Children.map(props.children, child =>
-      React.cloneElement(child, { onClick: toggleShowOptions })
-    );
-
     return (
       <div>
         <HeaderButton onClick={toggleShowOptions}>
@@ -93,7 +90,7 @@ export class HeaderButtonMenu extends React.Component<{ buttonChild: React.Node,
         <div className="options">
           {state.showOptions ? (
             <ModalMenu onClose={toggleShowOptions} topLock={props.topLock || 70}>
-              {childrenWithToggler}
+              {props.children}
             </ModalMenu>
           ): null}
         </div>
@@ -101,6 +98,7 @@ export class HeaderButtonMenu extends React.Component<{ buttonChild: React.Node,
         <style jsx>{`
           .options {
             position: relative;
+            margin: 0 ${SPACING.M};
           }
           img {
             margin-left: 6px;
@@ -114,8 +112,38 @@ export class HeaderButtonMenu extends React.Component<{ buttonChild: React.Node,
 }
 
 export function ModalMenuLink({ children, href, onClick }: {
-  children: React.Node, href: string, onClick?: (event: SyntheticEvent<>) => void,
+  children: React.Node, href?: string, onClick?: (event: SyntheticEvent<>) => void,
 }) {
+  if (!href && onClick) {
+    return (
+        <button onClick={onClick}>
+          <div>{children}</div>
+          { /* language=CSS */ }
+          <style jsx>{`
+        button {
+          color: ${COLORS.DEFAULT};
+          display: block;
+          padding: 0 ${SPACING.M};
+          border: 0;
+          background-color: transparent;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+          font-weight: 400;
+          outline: 0;
+        }
+        div {
+          border-bottom: 1px solid ${COLORS.BORDER};
+          padding: ${SPACING.M} 0;
+        }
+        button:hover div {
+          border-bottom: 1px solid ${COLORS.DEFAULT};
+        }
+      `}</style>
+        </button>
+    )
+  }
+
   return (
     <a href={href} onClick={onClick}>
       <div>{children}</div>
