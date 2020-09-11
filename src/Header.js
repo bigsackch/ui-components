@@ -17,6 +17,8 @@ export function HeaderButton({ children, onClick }: {
     color: COLORS.DEFAULT,
     WebkitFontSmoothing: "auto",
     whiteSpace: "nowrap",
+    display: "flex",
+    alignItems: "center",
   };
 
   return (
