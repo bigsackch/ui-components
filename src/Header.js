@@ -113,12 +113,12 @@ export class HeaderButtonMenu extends React.Component<{ buttonChild: React.Node,
   }
 }
 
-export function ModalMenuLink({ children, href, onClick }: {
-  children: React.Node, href?: string, onClick?: (event: SyntheticEvent<>) => void,
+export function ModalMenuLink({ children, href, onClick, style }: {
+  children: React.Node, href?: string, onClick?: (event: SyntheticEvent<>) => void, style?: Object,
 }) {
   if (!href && onClick) {
     return (
-        <button onClick={onClick}>
+        <button onClick={onClick} style={style}>
           <div>{children}</div>
           { /* language=CSS */ }
           <style jsx>{`
@@ -147,7 +147,7 @@ export function ModalMenuLink({ children, href, onClick }: {
   }
 
   return (
-    <a href={href} onClick={onClick}>
+    <a href={href} onClick={onClick} style={style}>
       <div>{children}</div>
       { /* language=CSS */ }
       <style jsx>{`
