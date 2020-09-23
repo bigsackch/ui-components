@@ -377,7 +377,6 @@ export default () => (
           font-weight: 700;
           letter-spacing: -0.05rem;
           line-height: 1.2;
-          -webkit-font-smoothing: antialiased;
         }
         @media only screen and (min-width: 768px) {
           h1 {

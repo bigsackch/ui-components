@@ -63,7 +63,7 @@ export function HeaderLink({ children, href, onClick }: {
 export class HeaderButtonMenu extends React.Component<{ buttonChild: React.Node,
                                                         children: React.Node,
                                                         topLock?: number,
-                                                        hasArrow?: boolean,},
+                                                        hasArrow?: boolean, overlayPosition?: 'left' | 'right'},
                                                       { showOptions: boolean }> {
   state = {
     showOptions: false,
@@ -91,7 +91,7 @@ export class HeaderButtonMenu extends React.Component<{ buttonChild: React.Node,
         </HeaderButton>
         <div className="options">
           {state.showOptions ? (
-            <ModalMenu onClose={toggleShowOptions} topLock={props.topLock || 70}>
+            <ModalMenu onClose={toggleShowOptions} topLock={props.topLock || 70} overlayPosition={props.overlayPosition}>
               {props.children}
             </ModalMenu>
           ): null}
