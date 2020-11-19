@@ -94,10 +94,7 @@ export class DatePickerWithData extends React.Component<Props, State> {
         isLoading={false}
         label={monthLabel(calendarMonthDate)}
         onClose={onClose}
-        onDateClick={(date) => {
-          console.log(date);
-          onDateClick(date)
-        }}
+        onDateClick={(date) => onDateClick(date)}
         selectedDate={selectedDate}
         minDate={minDate}
         isDateAvailable={isDateAvailable}
