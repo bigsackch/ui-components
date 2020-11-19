@@ -8,22 +8,25 @@ import { DatePicker } from './DatePicker';
 
 const map = _map.convert({ cap: false });
 
-function monday(date) {
+export function firstWeekDayDate(date, locale) {
   const day = date.getDay();
-  const diff = date.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+  const diff =
+    locale === "en"
+      ? date.getDate() - day + (day === 0 ? -7 : 0)
+      : date.getDate() - day + (day === 0 ? -6 : 1);
   return new Date(date.setDate(diff));
 }
 
-function sunday(date) {
+export function lastWeekDayDate(date, locale) {
   const day = date.getDay();
-  const diff = date.getDate() + (7 - day);
+  const diff = locale === "en" ? date.getDate() + (6 - day) : date.getDate() + (7 - day);
   return new Date(date.setDate(diff));
 }
 
 const lastDate = (year, month) => new Date(year, month + 1, 0);
 
 function dateRange(start, end) {
-  let arr = [];
+  const arr = [];
   for(const dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
     arr.push({ date: dateformat(dt, 'yyyy-mm-dd'), status: 'unknown' });
   }
@@ -38,11 +41,11 @@ function toWeeks(availability) {
 }
 
 function nextMonth(date: Date): Date {
-  return new Date(date.setMonth(date.getMonth() + 1));
+  return new Date(date.getFullYear(), date.getMonth() + 1);
 }
 
 function prevMonth(date: Date): Date {
-  return new Date(date.setMonth(date.getMonth() - 1));
+  return new Date(date.getFullYear(), date.getMonth() - 1);
 }
 
 function monthLabel(date: Date): string {
@@ -50,6 +53,8 @@ function monthLabel(date: Date): string {
 }
 
 type Props = {
+  envLocale: 'nb' | 'en',
+  langLocale: 'nb' | 'en',
   initialDate: ?string,
   selectedDate: ?string,
   minDate?: string,
@@ -72,16 +77,17 @@ export class DatePickerWithData extends React.Component<Props, State> {
   onPrevMonthClick = () => this.setState(prevState => ({ calendarMonthDate: prevMonth(prevState.calendarMonthDate) }));
 
   render() {
-    const { selectedDate, minDate, onClose, onDateClick, isDateAvailable } = this.props;
+    const { selectedDate, minDate, onClose, onDateClick, isDateAvailable, envLocale, langLocale } = this.props;
     const { calendarMonthDate } = this.state;
     const year = calendarMonthDate.getFullYear();
     const month = calendarMonthDate.getMonth();
-    const weeks = toWeeks(dateRange(monday(new Date(year, month)), sunday(lastDate(year, month))));
+
+    const weeks = toWeeks(dateRange(firstWeekDayDate(new Date(year, month), envLocale), lastWeekDayDate(lastDate(year, month), envLocale)));
 
     return (
       <DatePicker
-        envLocale="nb"
-        langLocale="en"
+        envLocale={envLocale}
+        langLocale={langLocale}
         weeks={weeks}
         onNextMonthClick={this.onNextMonthClick}
         onPrevMonthClick={this.onPrevMonthClick}
@@ -89,6 +95,7 @@ export class DatePickerWithData extends React.Component<Props, State> {
         label={monthLabel(calendarMonthDate)}
         onClose={onClose}
         onDateClick={(date) => {
+          console.log(date);
           onDateClick(date)
         }}
         selectedDate={selectedDate}
@@ -97,4 +104,9 @@ export class DatePickerWithData extends React.Component<Props, State> {
       />
     );
   }
+}
+
+DatePickerWithData.defaultProps = {
+  envLocale: 'nb',
+  langLocale: 'en',
 }
