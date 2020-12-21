@@ -23,7 +23,6 @@ const i18n = {
     login: 'Logg inn',
     logout: 'Logg ut',
     menu: 'Meny',
-    profile: 'Rediger profil',
     selectAccount: 'Velg konto',
     selectedAccount: 'Du administrerer:',
     stats: 'Statistikkpanel',
@@ -43,7 +42,6 @@ const i18n = {
     login: 'Login',
     logout: 'Log out',
     menu: 'Menu',
-    profile: 'Edit profile',
     selectAccount: 'Choose account',
     selectedAccount: 'You manage:',
     stats: 'Stats dashboard',
@@ -122,7 +120,6 @@ function UserMenuLinks({ locale, onClick }: { locale: string, onClick?: () => vo
 
   return (
     <React.Fragment>
-      <ModalMenuLink href={URI.yourProfile} onClick={onClick}>{text.profile}</ModalMenuLink>
       <ModalMenuLink href={URI.logout} onClick={onClick}>{text.logout}</ModalMenuLink>
     </React.Fragment>
   )
