@@ -16,7 +16,6 @@ const i18n = {
     admin: 'Admin',
     becomeHost: 'Bli en utleier',
     favorites: 'Favoritter',
-    help: 'Hjelp',
     host: 'Utleier',
     inbox: 'Meldinger',
     invoicing: 'Fakturering',
@@ -281,7 +280,6 @@ function WebMenuMobile({ isAdmin, isHost, isLoggedIn, locale, onClick }: {
         : <ModalMenuLink href={URI.becomeHost[locale]} onClick={onClick}>{text.becomeHost}</ModalMenuLink>}
       <ModalMenuLink href={URI.favorites[locale]} onClick={onClick}>{text.favorites}</ModalMenuLink>
       {isLoggedIn ? <ModalMenuLink href={URI.inbox} onClick={onClick}>{text.inbox}</ModalMenuLink> : null}
-      <ModalMenuLink href={URI.help} onClick={onClick}>{text.help}</ModalMenuLink>
       {!isLoggedIn ? <ModalMenuLink href={URI.login} onClick={onLoginClick}>{text.login}</ModalMenuLink> : null}
       {isAdmin ? <AdminMenuLinks locale={locale} onClick={onClick} /> : null}
       {isLoggedIn ? <UserMenuLinks locale={locale} onClick={onClick} /> : null}
@@ -313,7 +311,6 @@ export function HeaderWebMenu({
           : <HeaderLink href={URI.becomeHost[locale]}>{text.becomeHost}</HeaderLink>}
         <HeaderLink href={URI.favorites[locale]}>{text.favorites}</HeaderLink>
         {isLoggedIn ? <HeaderLink href={URI.inbox}>{text.inbox}</HeaderLink> : null}
-        <HeaderLink href={URI.help}>{text.help}</HeaderLink>
         {isAdmin ? <AdminMenu locale={locale} /> : null}
         {!isLoggedIn ? <HeaderLink href={URI.login} onClick={onLoginClick}>{text.login}</HeaderLink> : null}
       </div>
