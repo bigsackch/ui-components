@@ -295,7 +295,6 @@ export function DatePicker({
   isDateAvailable
 }: DatePickerProps) {
   const text = i18n[langLocale];
-
   return (
     <div>
       <Backdrop onClick={onClose} />
@@ -327,7 +326,7 @@ export function DatePicker({
               </div>
             ) : (
               <div>
-                {text['loading']}
+                {text.loading}
               </div>
             )
           }
@@ -360,4 +359,9 @@ export function DatePicker({
       </style>
     </div>
   );
+}
+
+DatePicker.defaultProps = {
+  envLocale: 'nb',
+  langLocale: 'en',
 }
