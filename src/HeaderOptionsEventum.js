@@ -19,6 +19,7 @@ const i18n = {
     host: 'Utleier',
     inbox: 'Meldinger',
     invoicing: 'Fakturering',
+    performInvoicing: 'Perform Invoicing',
     login: 'Logg inn',
     logout: 'Logg ut',
     menu: 'Meny',
@@ -38,6 +39,7 @@ const i18n = {
     host: 'Host',
     inbox: 'Messages',
     invoicing: 'Invoicing',
+    performInvoicing: 'Perform Invoicing',
     login: 'Login',
     logout: 'Log out',
     menu: 'Menu',
@@ -52,6 +54,7 @@ const i18n = {
 const URI = {
   accounts: '/hosting/accounts',
   adminInvoice: '/inbox/admin/invoice',
+  adminPerformInvoicing: '/hosting/perform-invoicing',
   adminStats: '/inbox/admin/stats',
   adminUsers: '/inbox/admin/users',
   becomeHost: {
@@ -88,6 +91,7 @@ function AdminMenuLinks({ locale, onClick }: { locale: string, onClick?: () => v
       <ModalMenuLink href={URI.accounts} onClick={onClick}>{text.accounts}</ModalMenuLink>
       <ModalMenuLink href={URI.adminUsers} onClick={onClick}>{text.users}</ModalMenuLink>
       <ModalMenuLink href={URI.adminInvoice} onClick={onClick}>{text.invoicing}</ModalMenuLink>
+      <ModalMenuLink href={URI.adminPerformInvoicing} onClick={onClick}>{text.performInvoicing}</ModalMenuLink>
       <ModalMenuLink href={URI.adminStats} onClick={onClick}>{text.stats}</ModalMenuLink>
     </React.Fragment>
   )
