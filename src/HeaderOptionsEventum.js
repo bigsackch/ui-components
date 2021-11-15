@@ -51,7 +51,7 @@ const i18n = {
 
 const URI = {
   accounts: '/hosting/accounts',
-  adminPerformInvoicing: '/hosting/perform-invoicing',
+  adminPerformInvoicing: '/hosting/accounting/invoicing',
   adminStats: '/inbox/admin/stats',
   adminUsers: '/inbox/admin/users',
   becomeHost: {
