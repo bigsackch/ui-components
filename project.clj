@@ -1,6 +1,7 @@
-(defproject eventum-ui-components "4.6.7"
+(defproject eventum/ui-components "4.6.7"
   :source-paths ["src-cljs"]
   :dependencies [[reagent "0.8.1" :scope "provided"]]
-  :plugins [[s3-wagon-private "1.3.2"]]
-  :repositories [["releases" {:url "s3p://eventum-mvn-repo/releases/" :no-auth true}
-                  "snapshots" {:url "s3p://eventum-mvn-repo/snapshots/" :no-auth true}]])
+  :repositories {"github" {:url "https://maven.pkg.github.com/EventumAS/eventum-ui-components"
+                           :username "private-token"
+                           :password :env/GITHUB_TOKEN
+                           :sign-releases false}})
